@@ -7,7 +7,7 @@ sub get_url_diesel_sweeties {
   fetch_url($dspage)
     or return (undef, $dsbase, $title);
   while (get_line()) {
-    if (/<img src="(\/strips\/sw\d+.(png|gif))" border="0" alt="newest cartoon">/i) {
+    if (/<img src="(\/hstrips\/.*\/\d+.(png|gif))" border="0" alt="newest cartoon">/i) {
         return("$dsbase$1", $dsbase, $title);
     }
   }

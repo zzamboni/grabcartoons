@@ -1,3 +1,11 @@
+2005-01-08  Benjamin Kuperman  <kuperman@users.sourceforge.net>
+
+	* modules/diesel_sweeties.pl (get_url_diesel_sweeties): Updated to
+	  new image URL format.
+
+	* modules/dilbert.pl (get_url_dilbert): Updated to
+	  new image URL format.
+
 2004-11-12  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* modules/jenny_jetpack.pl (get_url_jenny_jetpack): Added module
