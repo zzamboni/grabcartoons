@@ -1,3 +1,8 @@
+2003-05-07  Benjamin Kuperman <kuperman@users.sourceforge.net>
+	* modules/achewood.pl (get_url_achewood): Updated this module to
+	reflect the change from index.html to index.php as well as a new
+	search for the comic within the page.
+
 2003-05-02  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/phd.pl (get_url_phd):  Updated this module to reflect
