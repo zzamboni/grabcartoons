@@ -5,6 +5,9 @@
 	make it OK to link to the grabcartoons binary from somewhere
 	else. Also added code to eliminate duplicates from the list of
 	directories.
+	* Added --version option, rearranged option-handling code, and
+	modified the help text a little bit. Renamed --html option to
+	--htmllist, to have a more descriptive name.
 
 2002-08-19  Diego Zamboni  <zamboni@users.sourceforge.net>
 
