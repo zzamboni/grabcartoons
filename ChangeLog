@@ -1,3 +1,12 @@
+2005-03-09  Benjamin Kuperman  <kuperman@users.sourceforge.net>
+
+	* modules/legostar_galactica.pl (get_url_legostar_galactica): Added
+	  module for Legostar Galactica
+	  (http://legostargalactica.keenspace.com/).
+
+	* modules/little_gamers.pl (get_url_little_gamers): Allowed for a mix
+	  of the new and old image format.
+
 2005-03-06  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* Version 1.10
