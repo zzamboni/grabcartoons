@@ -142,7 +142,8 @@ sub fetch_url {
     my $url=shift;
     if ($GET_METHOD == 2) {
         my $ua=LWP::UserAgent->new;
-        my $resp=$ua->get($url);
+        my $req=new HTTP::Request('GET',$url);
+        my $resp=$ua->request($req);
         if ($resp->is_error) {
             $err="Could not retrieve $url";
             return undef;
