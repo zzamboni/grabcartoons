@@ -5,7 +5,7 @@ sub get_url_rose_is_rose {
   fetch_url($rosepage)
     or return (undef, $rosepage, $title);
   while (get_line()) {
-    if (/SRC\s*=\s*"(.*?images\/roseisrose.*?\.gif)"/i) {
+    if (/SRC\s*=\s*"(.*?images\/roseisrose.*?\.(gif|jpg))"/i) {
 	return ($rosebase.$1, $rosepage, $title);
     }
   }
