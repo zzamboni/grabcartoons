@@ -6,6 +6,21 @@ sophisticated as many of the other nice programs out there (check
 freshmeat.net, search for "comics" or "strips"), but it does the job
 for me. YMMV.
 
+How to install:
+---------------
+
+You need to have either:
+        LWP::UserAgent and HTTP::Request modules
+     or wget in your path (grabcartoons knows how to use it)
+     or lynx or some other utility (modify $XTRN_CMD in grabcartoons.pl)
+
+Other than that, you should be able to just run grabcartoons.pl from the
+directory where you unpacked the distribution, and it should
+automatically find its modules/ directory.
+
+You can also run "make install", after editing the Makefile to check
+the value of PREFIX (or run "make install PREFIX=/some/path".
+
 How to use:
 -----------
 
