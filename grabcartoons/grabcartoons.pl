@@ -38,15 +38,26 @@ $XTRN_CMD="$XTRN_PROG -q -O-";
 	      @GRABCARTOONS_DIRS,
 	     );
 
+# Verbosity flag
+$VERBOSE=0;
+
 # End config section
 ######################################################################
 
+# Check only verbosity flag first.
+Getopt::Long::Configure('pass_through');
+GetOptions('verbose|V' => \$VERBOSE);
+Getopt::Long::Configure('no_pass_through');
+
 # Check get method
 if ($GET_METHOD == 0) {
+    vmsg("Determining which method to use for grabbing URLs...\n");
     eval 'use LWP::UserAgent';
     if ($@) {
+        vmsg("Couldn't find LWP::UserAgent, trying $XTRN_PROG...\n");
         if (system("$XTRN_PROG --help >/dev/null 2>/dev/null") == 0) {
             $GET_METHOD=1;
+            vmsg("Using $XTRN_PROG.\n");
         }
         else {
             die "Error: I couldn't find LWP::UserAgent nor $XTRN_PROG\n";
@@ -54,9 +65,11 @@ if ($GET_METHOD == 0) {
     }
     else {
         $GET_METHOD=2;
+        vmsg("Found LWP::UserAgent.\n");
     }
 }
 elsif ($GET_METHOD == 2) {
+    vmsg("Loading LWP::UserAgent...\n");
     eval 'use LWP::UserAgent';
 }
 
@@ -64,17 +77,21 @@ elsif ($GET_METHOD == 2) {
 # will be the same)
 %mod_seen=();
 @MODULE_DIRS = grep { ! $mod_seen{$_} ++ } @MODULE_DIRS;
+vmsg("Scanning module directories...\n");
 # Load modules
 foreach $mdir (@MODULE_DIRS) {
-  if (-d $mdir) {
-    opendir MDIR, $mdir
-      or die "Error opening directory $mdir: $!\n";
-    @mods=grep { /\.pl$/ && -f } map { "$mdir/$_" } readdir(MDIR);
-    closedir MDIR;
-    foreach (@mods) {
-      require $_;
+    if (-d $mdir) {
+        vmsg("Loading modules in directory $mdir... ");
+        opendir MDIR, $mdir
+          or die "Error opening directory $mdir: $!\n";
+        @mods=grep { /\.pl$/ && -f "$mdir/$_" } readdir(MDIR);
+        closedir MDIR;
+        foreach (@mods) {
+            vmsg("$_ ");
+            require "$mdir/$_";
+        }
+        vmsg("\n");
     }
-  }
 }
 
 @list_of_modules=map { s/.*get_url_//; $_ } 
@@ -88,6 +105,7 @@ Usage: $0 [ option | comic_id ...]
 --list    or -l   produce a list of the known comic_id's on stdout.
 --htmllist        produce HTML list of known comic_id's on stdout.
 --version or -v   print version number
+--verbose or -V   be verbose
 --help    or -h   print this message.
 Otherwise, it will produce a page with the given comics on stdout.
 ";
@@ -135,9 +153,11 @@ else {
     &print_header;
 }
 
+vmsg("Getting cartoons...\n");
 foreach $name (@ARGV) {
   $page=lc($name);
   $page=~s/\W+/_/g;
+  vmsg("  Getting $page.\n");
   undef($err);
   $title=undef;
   ($url, $mainurl, $title)=eval "&get_url_$page()";
@@ -149,9 +169,11 @@ foreach $name (@ARGV) {
   if ($err || !$url) {
     if ($mainurl) {
       $err="Error getting the URL for <a href=\"$mainurl\">$name</a> ($page): $err";
+      vmsg("$err\n");
     }
     else {
       $err="Error getting the URL for $name ($page): $err";
+      vmsg("$err\n");
     }
     undef $url;
   }
@@ -171,12 +193,14 @@ sub fetch_url {
     my $url=shift;
     # If we are just producing a list of URLs, give a bogus error
     return undef if $htmllist;
+    vmsg("  Fetching $url... ");
     if ($GET_METHOD == 2) {
         my $ua=LWP::UserAgent->new;
         my $req=new HTTP::Request('GET',$url);
         my $resp=$ua->request($req);
         if ($resp->is_error) {
             $err="Could not retrieve $url";
+            vmsg("$err\n");
             return undef;
         }
         my $html=$resp->content;
@@ -188,6 +212,7 @@ sub fetch_url {
         my $cmd="$XTRN_CMD '$url'";
         open CMD, "$cmd |" or do {
             $err="Error executing '$cmd': $!";
+            vmsg("$err\n");
             return undef;
         };
         @LINES=<CMD>;
@@ -195,8 +220,10 @@ sub fetch_url {
     }
     else {
         $err="Internal error: Invalid value of GET_METHOD ($GET_METHOD)";
+        vmsg("$err\n");
         return undef;
     }
+    vmsg("success.\n");
     return 1;
 }
 
@@ -210,4 +237,9 @@ sub get_fullpage {
     my $r=join("\n", @LINES);
     @LINES=();
     return $r;
+}
+
+# Print a message if verbose flag is on
+sub vmsg {
+    print STDERR @_ if $VERBOSE;
 }

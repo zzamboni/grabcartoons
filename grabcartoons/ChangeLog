@@ -4,6 +4,9 @@
 	
 	* LICENSE: Added file.
 
+	* grabcartoons.pl (vmsg): Added a --verbose option to print
+	progress messages.
+
 	* modules/sinfest.pl (get_url_sinfest): Fixed it to fetch the page
 	and extract the comic URL from it, instead of using a fixed format
 	(which, depending on time differences, sometimes resulted in an
