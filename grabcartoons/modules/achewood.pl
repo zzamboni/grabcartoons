@@ -1,11 +1,11 @@
 sub get_url_achewood {
   my $awbase="http://www.achewood.com";
-  my $awpage="$awbase/index.html";
+  my $awpage="$awbase/index.php";
   my $title="Achewood";
   fetch_url($awpage)
     or return (undef, $awpage, $title);
   while (get_line()) {
-    if (/img src="(\/i\/\d{8}.gif)"/) {
+    if (/img src="(\/dat\/comic\/\d{8}.gif)"/) {
 	return ($awbase.$1, $awpage, $title);
     }
   }
