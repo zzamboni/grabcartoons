@@ -25,11 +25,13 @@ the value of PREFIX (or run "make install PREFIX=/some/path".
 How to use:
 -----------
 
-	grabcartoons.pl [--all|--list| comic_id ...]
+Usage: ./grabcartoons.pl [ option | comic_id ...]
 
---list will produce a list of the known id's on stdout
-
---all will generate a page with all the known comics on stdout
+--all     or -a   generate a page with all the known comics on stdout.
+--list    or -l   produce a list of the known comic_id's on stdout.
+--htmllist        produce HTML list of known comic_id's on stdout.
+--version or -v   print version number
+--help    or -h   print help message.
 
 Otherwise, it will produce a page with the given comics on stdout.
 
