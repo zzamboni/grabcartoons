@@ -1,3 +1,14 @@
+2002-08-28  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* Version 1.3
+	
+	* grabcartoons.pl: Fixed bug in checking $GET_METHOD, which
+	resulted in it having value of 0.
+	Cleaned up options-processing code (removed specific mention of
+	most short options, because GetOptions automatically handles
+	abbreviations; modified code layout a little bit)
+	Added -w, fixed the remaining warnings.
+
 2002-08-21  Benjamin Kuperman <kuperman@purdue.edu>
 
 	* modules/achewood.pl modules/helen.pl modules/goats.pl
