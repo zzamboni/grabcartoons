@@ -5,7 +5,7 @@ sub get_url_dilbert {
   fetch_url($dilpage)
     or return (undef, $dilpage, $title);
   while (get_line()) {
-    if (/SRC="([\w.\/]+\.(gif|jpg))[^<>]*ALT="today's Dilbert comic/i) { #'
+    if (/SRC="([\w.\/]+\.(gif|jpg))[^<>]*ALT="today's( Dilbert)? comic/i) { #'
 	return ($dilbase.$1, $dilpage, $title);
     }
   }
