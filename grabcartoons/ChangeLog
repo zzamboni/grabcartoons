@@ -1,3 +1,25 @@
+2005-03-06  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* grabcartoons.pl: Allow modules to optionally return a full HTML
+	snippet that gets used to display the comic, instead of a single
+	URL.
+
+	* modules/00grabcartoons_output.pl (print_section): Made it
+	possible to pass an HTML section that, if provided, is used
+	literally instead of the URL.
+
+	* modules/chugworth.pl (get_url_chugworth): Added module for
+	Chugworth Academy (http://www.chugworth.com/).
+
+	* modules/schlock_mercenary.pl (get_url_schlock_mercenary):
+	Modified to return actual HTML snippet instead of the previous
+	hack with the code the assumed only a URL was returned.
+
+	* modules/fifth_wave.pl (get_url_fifth_wave): Fixed URL.
+
+	* modules/alien_loves_predator.pl (get_url_alien_loves_predator):
+	Updated to new image URL.
+
 2005-03-06  Benjamin Kuperman  <kuperman@users.sourceforge.net>
 
 	* modules/little_gamers.pl (get_url_little_gamers): Updated to new

@@ -27,14 +27,19 @@ EOF
 }
 
 sub print_section {
-  my ($name, $url, $mainurl, $err)=@_;
+  my ($name, $url, $html, $mainurl, $err)=@_;
   print "<hr>\n<h2>$name</h2>\n\n";
   if ($err) {
     print "<em>$err</em><p>\n\n";
   }
   else {
     $mainurl=$url if !$mainurl;
-    print "<a href=\"$mainurl\"><img src=\"$url\" alt=\"Today's $name cartoon\" border=0></a><p>\n\n";
+    if ($html) {
+      print "<a href=\"$mainurl\">$html</a><p>\n\n";
+    }
+    else {
+      print "<a href=\"$mainurl\"><img src=\"$url\" alt=\"Today's $name cartoon\" border=0></a><p>\n\n";
+    }
   }
 }
 
