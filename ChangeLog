@@ -1,3 +1,10 @@
+2004-05-18  Diego Zamboni  <dza@zurich.ibm.com>
+
+	* modules/bizarro.pl: Removed module.
+
+	* modules/joyoftech.pl (get_url_joyoftech): Fixed to recognize
+	both png and gif images.
+
 2004-04-15  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/diesel_sweeties.pl: updated to new page format
