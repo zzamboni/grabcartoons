@@ -1,3 +1,13 @@
+2002-08-19  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* grabcartoons.pl: Added --html option to produce an HTML list of
+	the comics defined.
+
+2002-08-18  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* grabcartoons.pl: Improved command-line option processing, added
+	help option.
+
 2002-08-18  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* Version 1.0
