@@ -1,4 +1,4 @@
-2004-10-24  Diego Zamboni  <zamboni@cuper.local>
+2004-10-24  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* Version 1.9
 
@@ -12,7 +12,7 @@
 
 	* modules/achewood.pl: Changed for new image link.
 
-2004-05-18  Diego Zamboni  <dza@zurich.ibm.com>
+2004-05-18  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* modules/joy_of_tech.pl (get_url_joy_of_tech): Renamed from
 	joyoftech to joy_of_tech to be consistent with other modules, and
