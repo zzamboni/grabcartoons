@@ -1,10 +1,17 @@
 sub get_url_sinfest {
-  my $sinfestbase="http://sinfest.net";
-  my $sinfestpage="$sinfestbase/";
+  my $base="http://sinfest.net";
+  my $page="$base/";
+  my $title="Sinfest";
   my ($s,$m,$h,$dy,$mo,$yr)=localtime(time);
-  return(sprintf("$sinfestbase/comics/sf%4d%02d%02d.gif", $yr+1900, $mo+1, $dy),
-  	$sinfestpage, "Sinfest");
+  fetch_url($page)
+    or return(undef, $page, $title);
+  while (get_line()) {
+      if (/SRC\s*=\s*\".*(/comics/sf\d{8}\.gif)/i) {
+          return("$base$1", $page, $title);
+      }
+  }
+  $err="Could not find image in $title"."'s page";
+  return (undef, $page, $title);
 }
-
 
 1;
