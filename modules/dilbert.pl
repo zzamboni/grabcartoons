@@ -2,12 +2,9 @@ sub get_url_dilbert {
   my $dilbase="http://www.unitedmedia.com";
   my $dilpage="$dilbase/comics/dilbert/";
   my $title="Dilbert";
-  my $cmd="$WGET $dilpage";
-  open CMD, "$cmd |" or do {
-    $err="Error executing $cmd: $!";
-    return (undef, $dilpage, $title);
-  };
-  while (<CMD>) {
+  fetch_url($dilpage)
+    or return (undef, $dilpage, $title);
+  while (get_line()) {
     if (/SRC="([\w.\/]+\.gif)[^<>]*ALT="today's Dilbert comic/i) { #'
 	return ($dilbase.$1, $dilpage, $title);
     }

@@ -1,4 +1,5 @@
 grabcartoons
+------------
 
 This is the program I use for viewing comics on the web. It's not as
 sophisticated as many of the other nice programs out there (check
@@ -42,6 +43,14 @@ message, so you can set it to indicate the source of the error.
 If the third return element is undef, the comic's id is used as a
 title.
 
+You normally call fetch_url() with the URL to grab, and then examine
+it one line at a time using get_line() until you find the pattern that
+contains the URL of the image you want. You can also get the full page
+(or the rest of the page) as a single string using get_fullpage().
+
+The easiest way is probably to take one of the existing modules (for
+example, foxtrot.pl) and base yours on that.
+
 Notes:
 ------
 
@@ -49,6 +58,13 @@ I developed this program for personal use. If you have any problems,
 try looking at the code first. Feel free to email me with any
 questions, suggestions or code. I cannot promise any kind of support,
 but I would be happy to hear from you if you use grabcartoons.
+
+Contributors:
+-------------
+
+Ben Kuperman - first (and only, so far) user other than me, has
+               developed and fixed many modules.
+
 
 Enjoy,
 --Diego Zamboni
