@@ -1,3 +1,14 @@
+2002-10-03  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* modules/non_sequitur.pl: Added module for Non Sequitur
+	(http://www.non-sequitur.com/), contributed by Scott Baker.
+
+	* modules/bizarro.pl: Added module for Bizarro
+	(http://www.ucomics.com/bizarro/), contributed by Scott Baker.
+
+	* modules/adam_at_home.pl: Added module for Adam @ Home
+	(http://www.ucomics.com/adamathome/), contributed by Scott Baker.
+
 2002-09-26  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* modules/glasbergen.pl: Added module for
