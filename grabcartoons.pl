@@ -28,8 +28,10 @@ $GET_METHOD=0;
 $XTRN_CMD="wget -q -O-";
 
 # Where to load cartoon modules from
-@MODULE_DIRS=("$FindBin::RealBin/modules",
+@MODULE_DIRS=("$FindBin::Bin/modules",
+              "$FindBin::RealBin/modules",
 	      "$FindBin::Bin/../lib/grabcartoons/modules",
+	      "$FindBin::RealBin/../lib/grabcartoons/modules",
 	      "$HOME/.grabcartoons",
 	      @GRABCARTOONS_DIRS,
 	     );
@@ -53,6 +55,10 @@ elsif ($GET_METHOD == 2) {
     eval 'use LWP::UserAgent';
 }
 
+# Eliminate duplicates in @MODULE_DIRS (in most cases Bin and RealBin
+# will be the same)
+my %mod_seen=();
+@MODULE_DIRS = grep { ! $mod_seen{$_} ++ } @MODULE_DIRS;
 # Load modules
 foreach $mdir (@MODULE_DIRS) {
   if (-d $mdir) {
