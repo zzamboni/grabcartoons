@@ -1,6 +1,0 @@
-#!/bin/sh
-rm -rf htdocs
-cvs -d zamboni@cvs.grabcartoons.sourceforge.net:/cvsroot/grabcartoons export -Dtoday -d htdocs grabcartoons-webpage
-chmod -R go=u,go-w htdocs
-cd htdocs
-ln -s grabcartoons.html index.html
