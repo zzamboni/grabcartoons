@@ -5,7 +5,7 @@ sub print_header {
   print <<EOF;
 <html>
   <head>
-    <title>Daily Comics - $today</title>
+    <title>Daily Comics</title>
   </head>
 
   <body bgcolor="white" text="black">
