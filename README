@@ -1,0 +1,55 @@
+grabcartoons
+
+This is the program I use for viewing comics on the web. It's not as
+sophisticated as many of the other nice programs out there (check
+freshmeat.net, search for "comics" or "strips"), but it does the job
+for me. YMMV.
+
+How to use:
+-----------
+
+	grabcartoons.pl [--all|--list| comic_id ...]
+
+--list will produce a list of the known id's on stdout
+
+--all will generate a page with all the known comics on stdout
+
+Otherwise, it will produce a page with the given comics on stdout.
+
+Any errors will be included in the generated page.
+
+How to define your own comics:
+------------------------------
+
+Subroutines for grabbing comics are defined in the modules/
+directory. It also loads any files with .pl extension found in your
+$HOME/.grabcartoons/ directory, or on any directories (separated by
+colons) contained in the GRABCARTOONS_DIRS environment variable.
+
+A single file can contain more than one subroutine. Each subroutine
+must be named get_url_xxx, where xxx is an identifier for the
+comic.
+
+Each subroutine must return a three-element array where the first
+element is the URL for the image of the current cartoon, the second is
+the URL for the main page of the comic (or the one you want linked to
+from the image) and the third one is the full name of the comic.
+
+If any of the first two elements is undef, it is considered as an
+error, and the string stored in the $err variable is used as an error
+message, so you can set it to indicate the source of the error.
+
+If the third return element is undef, the comic's id is used as a
+title.
+
+Notes:
+------
+
+I developed this program for personal use. If you have any problems,
+try looking at the code first. Feel free to email me with any
+questions, suggestions or code. I cannot promise any kind of support,
+but I would be happy to hear from you if you use grabcartoons.
+
+Enjoy,
+--Diego Zamboni
+  zamboni@purdue.edu
