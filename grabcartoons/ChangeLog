@@ -1,5 +1,7 @@
-2004-05-18  Diego Zamboni  <dza@zurich.ibm.com>
+2004-05-18  Diego Zamboni  <zamboni@users.sourceforge.net>
 
+	* Version 1.8
+	
 	* modules/bizarro.pl: Removed module.
 
 	* modules/joyoftech.pl (get_url_joyoftech): Fixed to recognize
@@ -15,7 +17,6 @@
 
 	* modules/joyoftech.pl (get_url_joyoftech): Added module for "The
 	  Joy of Tech" (http://www.geekculture.com/joyoftech/).
-
 
 2004-01-12  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
