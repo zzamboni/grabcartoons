@@ -1,3 +1,9 @@
+2003-05-02  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/phd.pl (get_url_phd):  Updated this module to reflect
+	the move from Stanford's web domain to their own phdcomics.com
+	domain.
+
 2003-01-19  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* Version 1.6
