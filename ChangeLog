@@ -1,3 +1,39 @@
+2002-11-19  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* Version 1.5
+	
+	* LICENSE: Added file.
+
+	* modules/sinfest.pl (get_url_sinfest): Fixed it to fetch the page
+	and extract the comic URL from it, instead of using a fixed format
+	(which, depending on time differences, sometimes resulted in an
+	invalid URL).
+
+	* modules/non_sequitur.pl (get_url_non_sequitur): Made it fetch
+	the whole page even though the comic URL is fixed.
+
+	* modules/glasbergen.pl (get_url_glasbergen): Made it fetch the
+	whole page even tough the comic URL is fixed.
+
+	* modules/real_life_adventures.pl (get_url_real_life_adventures):
+	Added module for "Real Life Adventures", contributed by Nick
+	Adams.
+
+	* modules/oddly_enough.pl (get_url_oddly_enough): Added module for
+	"Oddly Enough", contributed by Nick Adams.
+
+	* modules/nine_to_five.pl (get_url_nine_to_five): Added module for
+	"9 to 5" contributed by Nick Adams.
+
+	* modules/mother_goose.pl (get_url_mother_goose): Added module for
+	"Mother Goose & Grim", contributed by Nick Adams.
+
+	* modules/garfield.pl (get_url_garfield): Added module for
+	Garfield, contributed by Nick Adams.
+
+	* modules/cathy.pl (get_url_cathy): Added module for Cathy,
+	contributed by Nick Adams.
+
 2002-10-10  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* Version 1.4
