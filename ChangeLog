@@ -1,4 +1,11 @@
+2003-05-13  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/doonesbury.pl (get_url_dooesbury):  Modified the
+	base URL to no longer specify what page (index.htm, index.php,
+	etc.) is being used as it appears to keep changing.
+	
 2003-05-07  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
 	* modules/achewood.pl (get_url_achewood): Updated this module to
 	reflect the change from index.html to index.php as well as a new
 	search for the comic within the page.

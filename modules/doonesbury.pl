@@ -1,7 +1,7 @@
 sub get_url_doonesbury {
     my $dbbase="http://www.doonesbury.com";
     #my $dbpage="$dbbase/strip/dailydose/index.cfm";
-    my $dbpage="$dbbase/strip/dailydose/index.htm";
+    my $dbpage="$dbbase/strip/dailydose/";
     my $title="Doonesbury";
     fetch_url($dbpage)
       or return (undef, $dbpage, $title);
