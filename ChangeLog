@@ -1,8 +1,23 @@
+2004-04-15  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/diesel_sweeties.pl: updated to new page format
+
+	* modules/angst_technology.pl: re-enabled
+
 2004-02-21  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* modules/joyoftech.pl (get_url_joyoftech): Added module for "The
 	  Joy of Tech" (http://www.geekculture.com/joyoftech/).
 
+
+2004-01-12  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/irregular2.pl: New module designed to display the
+	  annotations from the "Irregular Webcomic" page.
+
+	* modules/schlock_mercenary.pl (get_url_schlock_mercenary): New
+	  module for Schlock Mercenary (http://www.schlockmercenary.com/).
+	  
 2003-12-19  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/phd.pl: Modified the module to handle the fact that

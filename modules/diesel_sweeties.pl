@@ -7,8 +7,8 @@ sub get_url_diesel_sweeties {
   fetch_url($dspage)
     or return (undef, $dsbase, $title);
   while (get_line()) {
-    if (/<img src="(http:\/\/images.clango.org\/strips\/sw\d+.(png|gif))" border="0" alt="newest cartoon">/i) {
-        return($1, $dsbase, $title);
+    if (/<img src="(\/strips\/sw\d+.(png|gif))" border="0" alt="newest cartoon">/i) {
+        return("$dsbase$1", $dsbase, $title);
     }
   }
   $@="Could not find image in Diesel Sweeties' page";
