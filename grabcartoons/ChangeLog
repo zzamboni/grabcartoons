@@ -1,5 +1,10 @@
 2002-08-16  Diego Zamboni  <dza@zurich.ibm.com>
 
+	*  (coolcatstudio.pl): Removed, the comic doesn't seem to be
+	online anymore.
+	(gucomics.pl): Removed, the comic doesn't seem to be online
+	anymore.
+
 	* grabcartoons.pl (fetch_url,get_line,get_fullpage): Added these
 	three subroutines to make it easier to write new
 	modules. fetch_url($url) grabs a URL and stores it in a local
