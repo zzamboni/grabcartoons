@@ -1,3 +1,13 @@
+2003-11-07  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* Version 1.7
+	
+	* modules/pVp.pl (get_url_pvp): New module for pVp
+	  (http://www.pvponline.com/), contributed by Scott Baker.
+
+	* modules/00grabcartoons_output.pl (print_header): Patch from
+	  Scott Baker to make the output valid HTML 4.01 Transitional.
+
 2003-11-03  Diego Zamboni  <zamboni@users.sourceforge.net.>
 
 	* modules/dicktracy.pl: Added module contributed by Bill Huff.
