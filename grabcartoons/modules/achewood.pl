@@ -6,7 +6,7 @@ sub get_url_achewood {
     or return (undef, $awpage, $title);
   while (get_line()) {
     if (/img src="(\/i\/\d{8}.gif)"/) {
-	return ("$awbase/$1", $awpage, $title);
+	return ($awbase.$1, $awpage, $title);
     }
   }
   $err="Could not find image in $title"."'s page";

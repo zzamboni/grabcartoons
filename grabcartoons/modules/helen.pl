@@ -1,7 +1,7 @@
 # Contributed by Ben Kuperman
 
 sub get_url_helen {
-  my $helenbase="http://www.comicspage.com/helen";
+  my $helenbase="http://www.comicspage.com/helen/";
   #my $helenpage=$helenbase."/main.html";
   my $helenpage='http://www.comicspage.com/comicspage/main.jsp?custid=67&catid=1242&dir=/helen';
   my $title="Helen";

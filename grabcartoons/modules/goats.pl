@@ -8,7 +8,7 @@ sub get_url_goats {
     or return (undef, $goatbase, $title);
   while (get_line()) {
     if (/IMG SRC="(.*\/comix\/.*\.gif)" WIDTH=\d+ HEIGHT=\d+/i) {
-        return($goatbase.$1, $goatbase, $title);
+        return($goatbase.$1, $goatbase."/", $title);
     }
   }
   $@="Couldn not find image in Goat's page";
