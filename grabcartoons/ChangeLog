@@ -1,3 +1,8 @@
+2004-02-21  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* modules/joyoftech.pl (get_url_joyoftech): Added module for "The
+	  Joy of Tech" (http://www.geekculture.com/joyoftech/).
+
 2003-12-19  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/phd.pl: Modified the module to handle the fact that
