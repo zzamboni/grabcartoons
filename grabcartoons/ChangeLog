@@ -1,3 +1,27 @@
+2002-08-14  Diego Zamboni  <dza@zurich.ibm.com>
+
+	* modules/trino.pl: Removed trino.pl, because the web site is no
+	longer up.
+
+	* modules/doonesbury.pl, modules/goats.pl, modules/helen.pl,
+	modules/megatokyo.pl, modules/penny_arcade.pl: Updates by Ben
+	Kuperman.
+
+	* modules/redmeat.pl (get_url_redmeat): Added module for Red Meat
+	(http://www.redmeat.com), by Ben Kuperman.
+
+	* modules/little_gamers.pl (get_url_little_gamers): Added module
+	for Little Games (http://www.little-gamers.com), by Ben Kuperman.
+
+	* modules/diesel_sweeties.pl (get_url_diesel_sweeties): Added
+	module for Diese Sweeties (http://www.dieselsweeties.com), written
+	by Ben Kuperman.
+
+	* grabcartoons.pl: Added a "generic" first line, so that it will
+	automatically find the perl executable.
+
+	* Imported into SourceForge.
+	
 2001-07-30  Diego Zamboni  <zamboni@cerias.purdue.edu>
 
 	* modules/megatokyo.pl (get_url_megatokyo): Added module for
