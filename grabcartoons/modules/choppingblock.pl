@@ -5,7 +5,7 @@ sub get_url_choppingblock {
   fetch_url($cbpage)
     or return (undef, $cbpage, $title);
   while (get_line()) {
-    if (/IMG ALT="" BORDER=0 SRC="\/(comics\/cb\d+\.(gif|jpg))"/) {
+    if (/IMG ALT="" BORDER=0 SRC="\/(comics\/cb\d+.*?\.(gif|jpg))"/) {
 	return ("$cbbase/$1", $cbpage, $title);
     }
   }
