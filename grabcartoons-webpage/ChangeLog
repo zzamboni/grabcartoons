@@ -1,3 +1,42 @@
+2004-05-18  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* Version 1.8
+	
+	* modules/bizarro.pl: Removed module.
+
+	* modules/joyoftech.pl (get_url_joyoftech): Fixed to recognize
+	both png and gif images.
+
+2004-04-15  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/diesel_sweeties.pl: updated to new page format
+
+	* modules/angst_technology.pl: re-enabled
+
+2004-02-21  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* modules/joyoftech.pl (get_url_joyoftech): Added module for "The
+	  Joy of Tech" (http://www.geekculture.com/joyoftech/).
+
+2004-01-12  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/irregular2.pl: New module designed to display the
+	  annotations from the "Irregular Webcomic" page.
+
+	* modules/schlock_mercenary.pl (get_url_schlock_mercenary): New
+	  module for Schlock Mercenary (http://www.schlockmercenary.com/).
+	  
+2003-12-19  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/phd.pl: Modified the module to handle the fact that
+	  images may be listed as being on either phdcomic.com or
+	  phdcomics.com (which was breaking it).
+
+	* modules/goats.pl: Modified the module to handle different image
+	  extensions.
+
+	* ChangeLog: Fixed Diego's email in his Nov 03 update. :-)
+
 2003-11-07  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* Version 1.7
@@ -8,7 +47,7 @@
 	* modules/00grabcartoons_output.pl (print_header): Patch from
 	  Scott Baker to make the output valid HTML 4.01 Transitional.
 
-2003-11-03  Diego Zamboni  <zamboni@users.sourceforge.net.>
+2003-11-03  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* modules/dicktracy.pl: Added module contributed by Bill Huff.
 
