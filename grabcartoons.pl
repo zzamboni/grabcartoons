@@ -8,11 +8,13 @@ eval 'exec perl -x $0 ${1+"$@"}' # -*-perl-*-
 # $Id$
 
 use FindBin;
-use Getopt::Long qw(:config bundling);
+use Getopt::Long;
 
 use Env qw(HOME GRABCARTOONS_DIRS);
 
-$VERSION="1.6";
+$VERSION="1.7";
+
+Getopt::Long::Configure ("bundling");
 
 @GRABCARTOONS_DIRS=split(/:/, $GRABCARTOONS_DIRS||"");
 

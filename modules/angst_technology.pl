@@ -2,6 +2,8 @@ sub get_url_angst_technology {
   my $inkbase="http://www.inktank.com";
   my $inkpage="$inkbase/AT/index.cfm";
   my $title="Angst Technology";
+  $err="InkTank.com is currently down. See $inkbase for more information.";
+  return(undef, $inkpage, $title);
   fetch_url($inkpage)
     or return (undef, $inkpage, $title);
   while (get_line()) {

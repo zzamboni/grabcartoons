@@ -1,3 +1,19 @@
+2003-11-03  Diego Zamboni  <zamboni@users.sourceforge.net.>
+
+	* modules/dicktracy.pl: Added module contributed by Bill Huff.
+
+	* modules/ziggy.pl: Added module contributed by Bill Huff.
+
+	* modules/non_sequitur.pl (get_url_non_sequitur): Updated for new
+ 	  web page.
+
+	* modules/choppingblock.pl (get_url_choppingblock): Fixed, some
+	  URLs were not being caught correctly.
+
+	* modules/angst_technology.pl (get_url_angst_technology): This
+	  comic is currently not being updated. Added a
+	  meaningful error message about that.
+
 2003-09-29  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/doonesbury.pl (get_url_dooesbury): Modified the
