@@ -1,0 +1,70 @@
+2001-07-30  Diego Zamboni  <zamboni@cerias.purdue.edu>
+
+	* modules/megatokyo.pl (get_url_megatokyo): Added module for
+	"MegaTokyo" (http://www.megatokyo.com/) by Ben Kuperman.
+
+2001-07-12  Diego Zamboni  <zamboni@cerias.purdue.edu>
+
+	* modules/angst_technology.pl (get_url_angst_technology): Added
+	module for "Angst Technology" (http://www.inktank.com/AT/) by Ben
+	Kuperman.
+
+	* modules/fifth_wave.pl (get_url_fifth_wave): Added module for
+	"The Fifth Wave" (http://www.ucomics.com/thefifthwave/viewfw.htm)
+	by Ben Kuperman.
+
+2001-06-26  Diego Zamboni  <zamboni@cerias.purdue.edu>
+
+	* modules/coolcatstudio.pl (get_url_coolcatstudio): Added module
+	for "CoolCat Studio" (http://www.coolcatstudio.com/)
+
+	* modules/gucomics.pl (get_url_gucomics): Added module for
+	"GUcomics" (http://gucomics.everlore.com/), contributed by Ben
+	Kuperman.
+
+2001-06-20  Diego Zamboni  <zamboni@cerias.purdue.edu>
+
+	* modules/penny_arcade.pl (get_url_penny_arcade): Added module for 
+	"Penny Arcade" (http://www.penny-arcade.com/).
+
+2001-05-31  Diego Zamboni  <zamboni@cerias.purdue.edu>
+
+	* modules/foxtrot.pl (get_url_foxtrot): foxtrot.com closed down,
+	so I updated the module to get the comic from ucomics.com
+	instead.
+
+2001-05-25  Diego Zamboni  <zamboni@cerias.purdue.edu>
+
+	* grabcartoons.pl: Made -l print the cartoon names in alphabetical
+ 	order.
+
+	* modules/calvin_and_hobbes.pl (get_url_calvin_and_hobbes): Added
+	Calvin and Hobbes module.
+
+	* modules/goats.pl (get_url_goats): New version provided by Ben
+	Kuperman.
+
+2001-03-20  Diego Zamboni  <zamboni@cerias.purdue.edu>
+
+	* grabcartoons.pl: Fixed the HOME and GRABCARTOON_DIRS variables,
+	which were not being imported correctly. Also renamed
+	GRABCARTOON_DIRS to GRABCARTOONS_DIRS, to stay consistent with the 
+	name of the program.
+
+	* modules/phd.pl (get_url_phd): Added phd.pl, for the Piled Higher 
+	and Deeper (PhD) cartoon from http://phd.stanford.edu/
+
+	* modules/rose_is_rose.pl (get_url_rose_is_rose): Added title.
+
+	* grabcartoons.pl: Fixed a problem that made the previous
+	cartoon's title stay if a title was not specified by the current
+	module.
+
+2001-02-21  Diego Zamboni  <zamboni@cerias.purdue.edu>
+
+	* First public release.
+
+	* Major changes from my previous internal version:
+	  - Now loads modules from separate files.
+	  - Now subroutines can return the full title of the comic.
+	
