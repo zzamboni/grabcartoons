@@ -1,3 +1,9 @@
+2004-06-15  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/irregular.pl: Updated to new domain name.
+
+	* modules/achewood.pl: Changed for new image link.
+
 2004-05-18  Diego Zamboni  <dza@zurich.ibm.com>
 
 	* modules/joy_of_tech.pl (get_url_joy_of_tech): Renamed from

@@ -1,13 +1,13 @@
 # Contributed by Ben Kuperman
 
 sub get_url_irregular {
-  my $irregbase="http://www.dangermouse.net";
-  my $irregpage=$irregbase."/irregular/";
+  my $irregbase="http://www.irregularwebcomic.net";
+  my $irregpage=$irregbase."/";
   my $title="Irregular Webcomic";
   fetch_url($irregpage)
     or return (undef, $irregbase, $title);
   while (get_line()) {
-    if (/img src="(\/irregular\/comics\/\w+\.(jpg|gif))" WIDTH=\d+ HEIGHT=\d+/i) {
+    if (/img src="(\/comics\/\w+\.(jpg|gif))" WIDTH=\d+ HEIGHT=\d+/i) {
         return($irregbase.$1, $irregpage, $title);
     }
   }

@@ -5,7 +5,7 @@ sub get_url_achewood {
   fetch_url($awpage)
     or return (undef, $awpage, $title);
   while (get_line()) {
-    if (/img src="(\/dat\/comic\/\d{8}.gif)"/) {
+    if (/img src="(\/comic.php\?date=\d{8})"/) {
 	return ($awbase.$1, $awpage, $title);
     }
   }
