@@ -15,7 +15,9 @@ use FindBin;
 use Getopt::Long;
 use Env qw(HOME GRABCARTOONS_DIRS);
 
-@GRABCARTOONS_DIRS=split(/:/, $GRABCARTOONS_DIRS);
+my $VERSION="1.1";
+
+my @GRABCARTOONS_DIRS=split(/:/, $GRABCARTOONS_DIRS);
 
 ######################################################################
 # Configuration section
@@ -76,26 +78,42 @@ foreach $mdir (@MODULE_DIRS) {
                      grep { /get_url_.*$/ } keys %main::;
 
 $lom="Comic IDs defined:\n\t".join("\n\t", sort @list_of_modules)."\n";
-$usage="Usage: $0 [--help|--all|--list|--html| comic_id ...]
---help or -h   print this message.
---list or -l   produce a list of the known id's on stdout.
---all  or -a   generate a page with all the known comics on stdout.
---html         produce HTML list of known comics on stdout.
+$versiontext="GrabCartoons version $VERSION";
+$usage="$versiontext
+Usage: $0 [ option | comic_id ...]
+--all     or -a   generate a page with all the known comics on stdout.
+--list    or -l   produce a list of the known comic_id's on stdout.
+--htmllist        produce HTML list of known comic_id's on stdout.
+--version or -v   print version number
+--help    or -h   print this message.
 Otherwise, it will produce a page with the given comics on stdout.
-$lom";
+";
 $htmlhdr="";
 
 # Process options
-GetOptions('list|l' =>
+GetOptions(
+           'all|a' =>
+           sub {
+               # Generate all cartoons
+               @ARGV=sort @list_of_modules;
+           },
+           'list|l' =>
            sub {
                # List defined modules
                print $lom;
                exit;
            },
-           'all|a' =>
+           'htmllist' =>
            sub {
-               # Generate all cartoons
+               # List defined modules, but in HTML
                @ARGV=sort @list_of_modules;
+               $htmllist=1;
+           },
+           'version|v' =>
+           sub {
+               # Version
+               print "$versiontext\n";
+               exit;
            },
            'help|h' =>
            sub {
@@ -103,12 +121,6 @@ GetOptions('list|l' =>
                print $usage;
                exit;
            },
-           'html' =>
-           sub {
-               # All cartoons, but in HTML
-               @ARGV=sort @list_of_modules;
-               $htmllist=1;
-           }
           );
 
 if (!@ARGV) {
