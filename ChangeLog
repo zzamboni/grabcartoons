@@ -3,7 +3,13 @@
 	* grabcartoons.pl (fetch_url): Changed syntax to work with
 	older version of LWP::UserAgent.
 
-2002-08-16  Diego Zamboni  <dza@zurich.ibm.com>
+2002-08-16  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* modules/00grabcartoons_output.pl: Moved print_* subroutines from
+	the main program to modules/00grabcartoons_output.pl. This way
+	it's easier to customize the output of the program.
+
+	* Makefile (install): Added install target, local CERIAS targets.
 
 	* grabcartoons.pl (fetch_url): Added quotes around the URL when
 	using an external command.
