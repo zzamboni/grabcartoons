@@ -1,5 +1,6 @@
-grabcartoons
-------------
+grabcartoons version 1.0
+------------------------
+Web page: http://grabcartoons.sourceforge.net/
 
 This is the program I use for viewing comics on the web. It's not as
 sophisticated as many of the other nice programs out there (check
@@ -77,10 +78,10 @@ but I would be happy to hear from you if you use grabcartoons.
 Contributors:
 -------------
 
-Ben Kuperman - first (and only, so far) user other than me, has
-               developed and fixed many modules.
+Ben Kuperman - first user apart from me, developer and maintainer of
+               many modules. Thanks!
 
 
 Enjoy,
 --Diego Zamboni
-  zamboni@purdue.edu
+  zamboni@users.sourceforge.net

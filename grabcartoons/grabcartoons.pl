@@ -8,8 +8,8 @@ eval 'exec perl -x $0 ${1+"$@"}' # -*-perl-*-
 # $Id$
 
 # This program generates many bogus warnings if run with -w enabled.
-# The warnings are harmless but annoying, that's why I removed -w
-# from the first line above.
+# Fixing them would probably be more trouble than it's worth, that's
+# why there no -w above.
 
 use FindBin;
 use Env qw(HOME GRABCARTOONS_DIRS);
