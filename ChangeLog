@@ -1,3 +1,8 @@
+2004-11-12  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* modules/jenny_jetpack.pl (get_url_jenny_jetpack): Added module
+	  for Jenny Jetpack.
+
 2004-10-24  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* Version 1.9
