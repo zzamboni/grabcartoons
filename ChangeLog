@@ -1,3 +1,11 @@
+2002-11-20  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* grabcartoons.pl: Reworked the options processing code to enable
+	option bundling (for example, "-va" instead of "-v -a").
+	Changed -V to be an alias for --version and -v to be an alias for
+	--verbose (it was the other way around) because it seems to me
+	that --verbose is a more frequently-used option.
+
 2002-11-19  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* Version 1.5

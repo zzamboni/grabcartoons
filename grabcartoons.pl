@@ -8,11 +8,11 @@ eval 'exec perl -x $0 ${1+"$@"}' # -*-perl-*-
 # $Id$
 
 use FindBin;
-use Getopt::Long;
+use Getopt::Long qw(:config bundling);
 
 use Env qw(HOME GRABCARTOONS_DIRS);
 
-$VERSION="1.5";
+$VERSION="1.6pre";
 
 @GRABCARTOONS_DIRS=split(/:/, $GRABCARTOONS_DIRS||"");
 
@@ -39,15 +39,42 @@ $XTRN_CMD="$XTRN_PROG -q -O-";
 	     );
 
 # Verbosity flag
-$VERBOSE=0;
+$verbose=0;
 
 # End config section
 ######################################################################
 
-# Check only verbosity flag first.
-Getopt::Long::Configure('pass_through');
-GetOptions('verbose|V' => \$VERBOSE);
-Getopt::Long::Configure('no_pass_through');
+$versiontext="GrabCartoons version $VERSION";
+$usage="$versiontext
+Usage: $0 [ option | comic_id ...]
+--all     or -a   generate a page with all the known comics on stdout.
+--list    or -l   produce a list of the known comic_id's on stdout.
+--htmllist        produce HTML list of known comic_id's on stdout.
+--version or -V   print version number
+--verbose or -v   be verbose
+--help    or -h   print this message.
+Otherwise, it will produce a page with the given comics on stdout.
+";
+$doall=0;
+$dolist=0;
+
+# Process options
+GetOptions(
+           'all|a' => \$doall,
+           'list|l' => \$dolist,
+           'htmllist' => \$htmllist,
+           'verbose|v' => \$verbose,
+           'version|V' =>
+                sub {
+                    print "$versiontext\n";
+                    exit;
+                },
+           'help|h' =>
+                sub {
+                    print $usage;
+                    exit;
+                },
+          );
 
 # Check get method
 if ($GET_METHOD == 0) {
@@ -98,48 +125,22 @@ foreach $mdir (@MODULE_DIRS) {
                      grep { /get_url_.*$/ } keys %main::;
 
 $lom="Comic IDs defined:\n\t".join("\n\t", sort @list_of_modules)."\n";
-$versiontext="GrabCartoons version $VERSION";
-$usage="$versiontext
-Usage: $0 [ option | comic_id ...]
---all     or -a   generate a page with all the known comics on stdout.
---list    or -l   produce a list of the known comic_id's on stdout.
---htmllist        produce HTML list of known comic_id's on stdout.
---version or -v   print version number
---verbose or -V   be verbose
---help    or -h   print this message.
-Otherwise, it will produce a page with the given comics on stdout.
-";
 $htmlhdr="";
 
-# Process options
-GetOptions(
-           'all' =>
-                sub {
-                    # Generate all cartoons
-                    @ARGV=sort @list_of_modules;
-                },
-           'list' =>
-                sub {
-                    print $lom;
-                    exit;
-                },
-           'htmllist' =>
-                sub {
-                    # List defined modules, but in HTML
-                    @ARGV=sort @list_of_modules;
-                    $htmllist=1;
-                },
-           'version' =>
-                sub {
-                    print "$versiontext\n";
-                    exit;
-                },
-           'help|h' =>
-                sub {
-                    print $usage;
-                    exit;
-                },
-          );
+if ($dolist) {
+    print $lom;
+    exit;
+}
+
+if ($htmllist) {
+    # List defined modules, but in HTML
+    @ARGV=sort @list_of_modules;
+}
+
+if ($doall) {
+    # Generate all cartoons
+    @ARGV=sort @list_of_modules;
+}
 
 if (!@ARGV) {
     print $usage;
@@ -241,5 +242,5 @@ sub get_fullpage {
 
 # Print a message if verbose flag is on
 sub vmsg {
-    print STDERR @_ if $VERBOSE;
+    print STDERR @_ if $verbose;
 }
