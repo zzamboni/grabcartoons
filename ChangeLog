@@ -1,5 +1,8 @@
 2002-08-19  Diego Zamboni  <zamboni@users.sourceforge.net>
 
+	* modules/00grabcartoons_output.pl (print_footer): Removed
+	"automatically" from the footer.
+
 	* grabcartoons.pl: Expanded the list of module directories to
 	include fully-resolved (without symlinks) locations. This should
 	make it OK to link to the grabcartoons binary from somewhere
