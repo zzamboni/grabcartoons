@@ -12,7 +12,7 @@ use Getopt::Long qw(:config bundling);
 
 use Env qw(HOME GRABCARTOONS_DIRS);
 
-$VERSION="1.6pre";
+$VERSION="1.6";
 
 @GRABCARTOONS_DIRS=split(/:/, $GRABCARTOONS_DIRS||"");
 
@@ -46,7 +46,7 @@ $verbose=0;
 
 $versiontext="GrabCartoons version $VERSION";
 $usage="$versiontext
-Usage: $0 [ option | comic_id ...]
+Usage: $0 [ options ] [ comic_id ...]
     --all     or -a   generate a page with all the known comics on stdout.
     --list    or -l   produce a list of the known comic_id's on stdout.
     --htmllist        produce HTML list of known comic_id's on stdout.
@@ -60,6 +60,8 @@ Otherwise, it will produce a page with the given comics on stdout.
 ";
 $doall=0;
 $dolist=0;
+$file=undef;
+$output=undef;
 
 # Process options
 GetOptions(
@@ -167,7 +169,7 @@ if (!@ARGV) {
 
 # output to a file if desired
 if( $output )
-{ 
+{
     open STDOUT, ">$output" or die "can't write to file $output: $!\n";
 }
 
