@@ -101,41 +101,6 @@ foreach $name (@ARGV) {
 
 &print_footer;
 
-sub print_header {
-  my $today=scalar localtime;
-  print <<EOF;
-<html>
-  <head>
-    <title>Daily Comics - $today</title>
-  </head>
-
-  <body bgcolor="white" text="black">
-    <h1>Daily Comics - $today</h1>
-EOF
-}
-
-sub print_footer {
-  print <<EOF;
-
-<hr>
-<small>This page was created automatically by grabcartoons, written by <a href="mailto:zamboni\@cs.purdue.edu">Diego Zamboni</a></small>
-  </body>
-</html>
-EOF
-}
-
-sub print_section {
-  my ($name, $url, $mainurl, $err)=@_;
-  print "<hr>\n<h2>$name</h2>\n\n";
-  if ($err) {
-    print "<em>$err</em><p>\n\n";
-  }
-  else {
-    $mainurl=$url if !$mainurl;
-    print "<a href=\"$mainurl\"><img src=\"$url\" alt=\"Today's $name cartoon\" border=0></a><p>\n\n";
-  }
-}
-
 # Get a URL, split in lines and store them for later fetching.
 # If an error occurs, returns undef.
 sub fetch_url {
