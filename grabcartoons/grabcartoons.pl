@@ -12,6 +12,7 @@ eval 'exec perl -x $0 ${1+"$@"}' # -*-perl-*-
 # why there no -w above.
 
 use FindBin;
+use Getopt::Long;
 use Env qw(HOME GRABCARTOONS_DIRS);
 
 @GRABCARTOONS_DIRS=split(/:/, $GRABCARTOONS_DIRS);
@@ -68,17 +69,53 @@ foreach $mdir (@MODULE_DIRS) {
 @list_of_modules=map { s/.*get_url_//; $_ } 
                      grep { /get_url_.*$/ } keys %main::;
 
-# List defined modules
-if ($ARGV[0] =~ /^(-l|--list)$/) {
-  print "Modules defined:\n\t".join("\n\t", sort @list_of_modules)."\n";
-  exit;
-}
-# Generate all cartoons
-if ($ARGV[0] =~ /^(-a|--all)$/) {
-  @ARGV=sort @list_of_modules;
+$lom="Comic IDs defined:\n\t".join("\n\t", sort @list_of_modules)."\n";
+$usage="Usage: $0 [--help|--all|--list|--html| comic_id ...]
+--help or -h   print this message.
+--list or -l   produce a list of the known id's on stdout.
+--all  or -a   generate a page with all the known comics on stdout.
+--html         produce HTML list of known comics on stdout.
+Otherwise, it will produce a page with the given comics on stdout.
+$lom";
+$htmlhdr="";
+
+# Process options
+GetOptions('list|l' =>
+           sub {
+               # List defined modules
+               print $lom;
+               exit;
+           },
+           'all|a' =>
+           sub {
+               # Generate all cartoons
+               @ARGV=sort @list_of_modules;
+           },
+           'help|h' =>
+           sub {
+               # Help
+               print $usage;
+               exit;
+           },
+           'html' =>
+           sub {
+               # All cartoons, but in HTML
+               @ARGV=sort @list_of_modules;
+               $htmllist=1;
+           }
+          );
+
+if (!@ARGV) {
+    print $usage;
+    exit;
 }
 
-&print_header;
+if ($htmllist) {
+    &print_header_htmllist($htmlhdr);
+}
+else {
+    &print_header;
+}
 
 foreach $name (@ARGV) {
   $page=lc($name);
@@ -86,6 +123,10 @@ foreach $name (@ARGV) {
   undef($err);
   $title=undef;
   ($url, $mainurl, $title)=eval "&get_url_$page()";
+  if ($htmllist) {
+      &print_section_htmllist($page, $title||$name, $mainurl);
+      next;
+  }
   $err=$@ if $@;
   if ($err || !$url) {
     if ($mainurl) {
@@ -99,12 +140,19 @@ foreach $name (@ARGV) {
   &print_section($title||$name, $url, $mainurl, $err);
 }
 
-&print_footer;
+if ($htmllist) {
+    &print_footer_htmllist;
+}
+else {
+    &print_footer;
+}
 
 # Get a URL, split in lines and store them for later fetching.
 # If an error occurs, returns undef.
 sub fetch_url {
     my $url=shift;
+    # If we are just producing a list of URLs, give a bogus error
+    return undef if $htmllist;
     if ($GET_METHOD == 2) {
         my $ua=LWP::UserAgent->new;
         my $req=new HTTP::Request('GET',$url);
