@@ -1,13 +1,13 @@
-sub get_url_alien_loves_predator {
-    my $base="http://alienlovespredator.com";
-    my $page="index.php";
-    my $title="Alien Loves Predator";
+sub get_url_chugworth {
+    my $base="http://www.chugworth.com";
+    my $page="comic.php";
+    my $title="Chugworth Academy";
     fetch_url("$base/$page") or return (undef, "$base/$page", $title);
 
     while (get_line()) {
-	if (m/src=\"(.*?strips.*?\.jpg)\"/i) {
+	if (m@src='(comic/.*?\.jpg)'@i) {
 	    $url = "$1";
-	    return ("$url", "$base/$page", $title);
+	    return ("$base/$url", "$base/$page", $title);
    	}
     }
 

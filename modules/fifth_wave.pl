@@ -1,7 +1,7 @@
 # http://www.ucomics.com/thefifthwave/viewfw.htm
 sub get_url_fifth_wave {
   my $fwbase="http://www.ucomics.com";
-  my $fwpage="$fwbase/thefifthwave/viewfw.htm";
+  my $fwpage="$fwbase/thefifthwave/index.phtml";
   my $title="The 5th Wave";
   fetch_url($fwpage)
     or return (undef, $fwpage, $title);

@@ -10,13 +10,11 @@ sub get_url_schlock_mercenary {
   #my $retstring=get_fullpage();
   #$retstring =~ s/\s+/ /g;
   while (get_line()) {
-      if (/.*<!--startcomic-->(.*)<!--endcomic-->/i) {
-	($retval = $1) =~ s!(SRC=")(/comics[^"]*")!$1$schlockbase$2!ig;
-	  return("\" width=0 height=0 >".$retval."<a href=\"$schlockbase\"><img width=0 height=0 src=\"", $schlockpage, $title);
-      }
-      if (/(.*\/comics\/.*)/i) {
-	($retval = $1) =~ s!(SRC=")(/comics[^"]*")!$1$schlockbase$2!ig;
-	  return("\" width=0 height=0 >".$retval."<a href=\"$schlockbase\"><img width=0 height=0 src=\"", $schlockpage, $title);
+      if (/^(.*\/comics\/.*)/i) {
+	$block=$1;
+	$block=~s/<br>//;
+	$block=~s/SRC="/SRC="$schlockbase/gi;
+	return (undef, $schlockpage, $title, $block);
       }
   }
 

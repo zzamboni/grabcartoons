@@ -12,7 +12,7 @@ use Getopt::Long;
 
 use Env qw(HOME GRABCARTOONS_DIRS);
 
-$VERSION="1.9";
+$VERSION="1.10";
 
 Getopt::Long::Configure ("bundling");
 
@@ -190,13 +190,13 @@ foreach $name (@ARGV) {
   vmsg("  Getting $page.\n");
   undef($err);
   $title=undef;
-  ($url, $mainurl, $title)=eval "&get_url_$page()";
+  ($url, $mainurl, $title, $html)=eval "&get_url_$page()";
   if ($htmllist) {
       &print_section_htmllist($page, $title||$name, $mainurl);
       next;
   }
   $err=$@ if $@;
-  if ($err || !$url) {
+  if ($err || (!$url && !$html)) {
     if ($mainurl) {
       $err="Error getting the URL for <a href=\"$mainurl\">$name</a> ($page): $err";
       vmsg("$err\n");
@@ -207,7 +207,7 @@ foreach $name (@ARGV) {
     }
     undef $url;
   }
-  &print_section($title||$name, $url, $mainurl, $err);
+  &print_section($title||$name, $url, $html, $mainurl, $err);
 }
 
 if ($htmllist) {
