@@ -5,7 +5,7 @@ sub get_url_joyoftech {
     fetch_url($page)
 	or return (undef, $page, $title);
     while (get_line()) {
-	if (/src="(joyimages\/\d+\.gif)"/) {
+	if (/src="(joyimages\/\d+\.(?:gif|png))"/) {
 	return ($base."$1", $page, $title);
     }
   }
