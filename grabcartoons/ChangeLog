@@ -1,3 +1,14 @@
+2003-12-19  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/phd.pl: Modified the module to handle the fact that
+	  images may be listed as being on either phdcomic.com or
+	  phdcomics.com (which was breaking it).
+
+	* modules/goats.pl: Modified the module to handle different image
+	  extensions.
+
+	* ChangeLog: Fixed Diego's email in his Nov 03 update. :-)
+
 2003-11-07  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* Version 1.7
@@ -8,7 +19,7 @@
 	* modules/00grabcartoons_output.pl (print_header): Patch from
 	  Scott Baker to make the output valid HTML 4.01 Transitional.
 
-2003-11-03  Diego Zamboni  <zamboni@users.sourceforge.net.>
+2003-11-03  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* modules/dicktracy.pl: Added module contributed by Bill Huff.
 
