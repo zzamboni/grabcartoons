@@ -1,4 +1,6 @@
-#!/p/perl/bin/perl
+eval 'exec perl -x $0 ${1+"$@"}' # -*-perl-*-
+  if 0;
+#!perl
 #
 # Grab daily cartoons from their web sites.
 # Diego Zamboni, Oct 28, 1998.
