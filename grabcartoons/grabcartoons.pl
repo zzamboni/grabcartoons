@@ -47,12 +47,15 @@ $verbose=0;
 $versiontext="GrabCartoons version $VERSION";
 $usage="$versiontext
 Usage: $0 [ option | comic_id ...]
---all     or -a   generate a page with all the known comics on stdout.
---list    or -l   produce a list of the known comic_id's on stdout.
---htmllist        produce HTML list of known comic_id's on stdout.
---version or -V   print version number
---verbose or -v   be verbose
---help    or -h   print this message.
+    --all     or -a   generate a page with all the known comics on stdout.
+    --list    or -l   produce a list of the known comic_id's on stdout.
+    --htmllist        produce HTML list of known comic_id's on stdout.
+    --file    or -f   read list of comics from specified file.
+    --write   or -w   write output to specified file instead of stdout.
+    --version or -V   print version number
+    --verbose or -v   be verbose
+    --help    or -h   print this message.
+
 Otherwise, it will produce a page with the given comics on stdout.
 ";
 $doall=0;
@@ -60,9 +63,11 @@ $dolist=0;
 
 # Process options
 GetOptions(
-           'all|a' => \$doall,
-           'list|l' => \$dolist,
-           'htmllist' => \$htmllist,
+           'all|a'     => \$doall,
+           'list|l'    => \$dolist,
+           'htmllist'  => \$htmllist,
+           'f|file=s'  => \$file,
+           'w|write=s' => \$output,
            'verbose|v' => \$verbose,
            'version|V' =>
                 sub {
@@ -142,10 +147,30 @@ if ($doall) {
     @ARGV=sort @list_of_modules;
 }
 
+# Read the comics from a file if desired
+if( $file )
+{
+    open COMICS, $file or die "can't open $file: $!\n";
+    @ARGV = <COMICS>;
+    close COMICS;
+    # we allow comments and spaces
+    s/^\s+//g for @ARGV;
+    s/\s+$//g for @ARGV;
+    s/\s+/_/g for @ARGV;
+    @ARGV = grep !/^#/, @ARGV;
+}
+
 if (!@ARGV) {
     print $usage;
     exit;
 }
+
+# output to a file if desired
+if( $output )
+{ 
+    open STDOUT, ">$output" or die "can't write to file $output: $!\n";
+}
+
 
 if ($htmllist) {
     &print_header_htmllist($htmlhdr);
