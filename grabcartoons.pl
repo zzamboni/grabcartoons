@@ -11,7 +11,7 @@ use FindBin;
 use Getopt::Long;
 use Env qw(HOME GRABCARTOONS_DIRS);
 
-$VERSION="1.3";
+$VERSION="1.4";
 
 @GRABCARTOONS_DIRS=split(/:/, $GRABCARTOONS_DIRS||"");
 
