@@ -1,4 +1,4 @@
-sub get_url_joyoftech {
+sub get_url_joy_of_tech {
     my $base="http://www.geekculture.com/joyoftech/";
     my $page="$base";
     my $title="The Joy of Tech";
