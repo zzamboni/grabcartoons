@@ -1,3 +1,10 @@
+2004-05-18  Diego Zamboni  <dza@zurich.ibm.com>
+
+	* modules/joy_of_tech.pl (get_url_joy_of_tech): Renamed from
+	joyoftech to joy_of_tech to be consistent with other modules, and
+	to preserve the ability of specifying the comic name (with spaces)
+	as an argument.
+
 2004-05-18  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* Version 1.8
