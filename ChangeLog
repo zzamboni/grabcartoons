@@ -1,3 +1,11 @@
+2003-01-19  Diego Zamboni  <dza@zurich.ibm.com>
+
+	* Version 1.6
+	
+	* modules/bizarro.pl (get_url_bizarro): Fixed this module to get
+	the comic from its new location at
+	http://www.kingfeatures.com/features/comics/bizarro/about.htm
+
 2002-08-21  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/little_gamers.pl (get_url_little_gamers): Corrected
