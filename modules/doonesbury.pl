@@ -11,7 +11,7 @@ sub get_url_doonesbury {
     while (<CMD>) {
         # if (/img src=".*(images.*comics.*db.*\.gif).*border="0"/i) {
         # Grrr.... akamai sillyness
-        if (/img src="(http:\/\/a.*images.*comics.*db.*\.gif)".*border="0"/i) {
+        if (/img src="(http:\/\/images.*comics.*db.*\.gif)".*border="0"/i) {
             return ($1, $dbpage, $title);
         }
     }

@@ -8,11 +8,11 @@ sub get_url_penny_arcade {
     return (undef, $page, $title);
   };
   while (<CMD>) {
-    if (m@src="(images/\d{4}/\d{8}.\.gif)"@i) {
+    if (m@src="(images/\d{4}/\d{8}.\.(gif|jpg))"@i) {
 	return ("$base/$1", $page, $title);
     }
   }
-  $err="Could not find image in $title's page";
+  $err="Could not find image in $title"."'s page";
   return (undef, $page, $title);
 }
 

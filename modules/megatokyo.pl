@@ -8,11 +8,11 @@ sub get_url_megatokyo {
     return (undef, $mtpage, $title);
   };
   while (<CMD>) {
-    if (/IMG SRC="(strips\/\d{4}-\d{2}-\d{2}\.gif)"/) {
+    if (/IMG SRC="\/(strips\/\d+\.(gif|jpg))"/) {
 	return ("$mtbase/$1", $mtpage, $title);
     }
   }
-  $err="Could not find image in $title's page";
+  $err="Could not find image in $title"."'s page";
   return (undef, $mtpage, $title);
 }
 

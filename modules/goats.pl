@@ -10,7 +10,7 @@ sub get_url_goats {
     return (undef, $goatbase, $title);
   };
   while (<CMD>) {
-    if (/IMG SRC="(.*\/comix\/.*\.gif)" WIDTH=750 HEIGHT=26[0-9]/i) {
+    if (/IMG SRC="(.*\/comix\/.*\.gif)" WIDTH=\d+ HEIGHT=\d+/i) {
         return($goatbase.$1, $goatbase, $title);
     }
   }
