@@ -9,9 +9,10 @@ eval 'exec perl -x $0 ${1+"$@"}' # -*-perl-*-
 
 use FindBin;
 use Getopt::Long;
+
 use Env qw(HOME GRABCARTOONS_DIRS);
 
-$VERSION="1.4";
+$VERSION="1.5";
 
 @GRABCARTOONS_DIRS=split(/:/, $GRABCARTOONS_DIRS||"");
 
