@@ -7,7 +7,7 @@ sub get_url_little_gamers {
   while (get_line()) {
     #if (/img border="0" src="(comics\/\d+\.gif)"/) {
     #if (/img src=\'(\/index.php\?do_command=show_strip&strip_id=\d+&auth=[0-9-]+)\' border=0/) {
-    if (/img src="(http:\/\/pimp.little-gamers.com\/comics\/\d+.(gif|jpg))" alt=".*" border="0"/i) {
+    if (/img src="(http:\/\/(pimp|www).little-gamers.com\/comics\/\d+.(gif|jpg))" alt=".*" border="0"/i) {
 	return ("$1", $lgpage, $title);
     }
   }
