@@ -1,3 +1,11 @@
+2004-10-24  Diego Zamboni  <zamboni@cuper.local>
+
+	* Version 1.9
+
+	* modules/alien_loves_predator.pl (get_url_alien_loves_predator):
+	  Added module for "Alien Loves Predator"
+	  (http://alienlovespredator.com/), contributed by Scott Baker.
+
 2004-06-15  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/irregular.pl: Updated to new domain name.
