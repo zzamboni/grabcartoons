@@ -7,14 +7,13 @@ eval 'exec perl -x $0 ${1+"$@"}' # -*-perl-*-
 #
 # $Id$
 
-use strict;
 use FindBin;
 use Getopt::Long;
 use Env qw(HOME GRABCARTOONS_DIRS);
 
-my $VERSION="1.3";
+$VERSION="1.3";
 
-my @GRABCARTOONS_DIRS=split(/:/, $GRABCARTOONS_DIRS||"");
+@GRABCARTOONS_DIRS=split(/:/, $GRABCARTOONS_DIRS||"");
 
 ######################################################################
 # Configuration section
@@ -62,7 +61,7 @@ elsif ($GET_METHOD == 2) {
 
 # Eliminate duplicates in @MODULE_DIRS (in most cases Bin and RealBin
 # will be the same)
-my %mod_seen=();
+%mod_seen=();
 @MODULE_DIRS = grep { ! $mod_seen{$_} ++ } @MODULE_DIRS;
 # Load modules
 foreach $mdir (@MODULE_DIRS) {
