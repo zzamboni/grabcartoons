@@ -153,7 +153,7 @@ sub fetch_url {
         $_.="\n" foreach (@LINES);
     }
     elsif ($GET_METHOD == 1) {
-        my $cmd="$XTRN_CMD $url";
+        my $cmd="$XTRN_CMD '$url'";
         open CMD, "$cmd |" or do {
             $err="Error executing '$cmd': $!";
             return undef;
