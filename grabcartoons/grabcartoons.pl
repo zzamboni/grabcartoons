@@ -1,23 +1,20 @@
 eval 'exec perl -x $0 ${1+"$@"}' # -*-perl-*-
   if 0;
-#!perl
+#!perl -w
 #
 # Grab daily cartoons from their web sites.
 # Diego Zamboni, Oct 28, 1998.
 #
 # $Id$
 
-# This program generates many bogus warnings if run with -w enabled.
-# Fixing them would probably be more trouble than it's worth, that's
-# why there no -w above.
-
+use strict;
 use FindBin;
 use Getopt::Long;
 use Env qw(HOME GRABCARTOONS_DIRS);
 
-my $VERSION="1.2";
+my $VERSION="1.3";
 
-my @GRABCARTOONS_DIRS=split(/:/, $GRABCARTOONS_DIRS);
+my @GRABCARTOONS_DIRS=split(/:/, $GRABCARTOONS_DIRS||"");
 
 ######################################################################
 # Configuration section
@@ -27,7 +24,10 @@ $GET_METHOD=0;
 
 # Command to get a web page and print it to stdout, if $GET_METHOD=2
 # or you don't have LWP::UserAgent installed
-$XTRN_CMD="wget -q -O-";
+# This program must be in your path, otherwise change $XTRN_PROG to
+# include the full path.
+$XTRN_PROG="wget";
+$XTRN_CMD="$XTRN_PROG -q -O-";
 
 # Where to load cartoon modules from
 @MODULE_DIRS=("$FindBin::Bin/modules",
@@ -45,8 +45,11 @@ $XTRN_CMD="wget -q -O-";
 if ($GET_METHOD == 0) {
     eval 'use LWP::UserAgent';
     if ($@) {
-        if (system("$XTRN_CMD --help >/dev/null 2>/dev/null") == 0) {
+        if (system("$XTRN_PROG --help >/dev/null 2>/dev/null") == 0) {
             $GET_METHOD=1;
+        }
+        else {
+            die "Error: I couldn't find LWP::UserAgent nor $XTRN_PROG\n";
         }
     }
     else {
@@ -92,35 +95,32 @@ $htmlhdr="";
 
 # Process options
 GetOptions(
-           'all|a' =>
-           sub {
-               # Generate all cartoons
-               @ARGV=sort @list_of_modules;
-           },
-           'list|l' =>
-           sub {
-               # List defined modules
-               print $lom;
-               exit;
-           },
+           'all' =>
+                sub {
+                    # Generate all cartoons
+                    @ARGV=sort @list_of_modules;
+                },
+           'list' =>
+                sub {
+                    print $lom;
+                    exit;
+                },
            'htmllist' =>
-           sub {
-               # List defined modules, but in HTML
-               @ARGV=sort @list_of_modules;
-               $htmllist=1;
-           },
-           'version|v' =>
-           sub {
-               # Version
-               print "$versiontext\n";
-               exit;
-           },
+                sub {
+                    # List defined modules, but in HTML
+                    @ARGV=sort @list_of_modules;
+                    $htmllist=1;
+                },
+           'version' =>
+                sub {
+                    print "$versiontext\n";
+                    exit;
+                },
            'help|h' =>
-           sub {
-               # Help
-               print $usage;
-               exit;
-           },
+                sub {
+                    print $usage;
+                    exit;
+                },
           );
 
 if (!@ARGV) {
