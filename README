@@ -49,7 +49,10 @@ Usage: ./grabcartoons.pl [ option | comic_id ...]
 --all     or -a   generate a page with all the known comics on stdout.
 --list    or -l   produce a list of the known comic_id's on stdout.
 --htmllist        produce HTML list of known comic_id's on stdout.
---version or -v   print version number
+--file    or -f   read list of comics from specified file.
+--write   or -w   write output to specified file instead of stdout.
+--version or -V   print version number
+--verbose or -v   be verbose
 --help    or -h   print help message.
 
 Otherwise, it will produce a page with the given comics on stdout.
@@ -102,7 +105,7 @@ Contributors:
 Ben Kuperman - first user apart from me, developer and maintainer of
                many modules.
 
-Nick Adams, Alain Brunet, Scott Baker - contributed several new modules.
+Module contributors: Nick Adams, Alain Brunet, Scott Baker, Yanick. 
 
 
 Enjoy,

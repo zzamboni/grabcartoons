@@ -1,3 +1,26 @@
+2002-08-21  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/little_gamers.pl (get_url_little_gamers): Corrected
+	this module to work with the PHP based system they are now
+	using.
+
+	* grabcartoons.pl: Added a "-w" and "--write" option to
+	allow output to be sent to a file instead of stdout, submitted
+	by Yanick.
+
+	* grabcartoons.pl: Added a "-f" and "--file" option to allow
+	the list of comics to be stored in a file instead of being
+	specified on the command line, submitted by Yanick.
+
+	* modules/kevin_and_kell.pl (get_url_kevin_and_kell): Added
+	module for "Kevin and Kell", contributed by Yanick.
+
+	* modules/liberty_meadows.pl (get_url_liberty_meadows): Added
+	module for "Liberty Meadows", contributed by Yanick.
+
+	* modules/sluggy_freelance.pl (get_url_sluggy_freelance): Added
+	module for "Sluggy Freelance", contributed by Yanick.
+ 
 2002-11-20  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* grabcartoons.pl: Reworked the options processing code to enable
@@ -80,7 +103,7 @@
 	abbreviations; modified code layout a little bit)
 	Added -w, fixed the remaining warnings.
 
-2002-08-21  Benjamin Kuperman <kuperman@purdue.edu>
+2002-08-21  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/achewood.pl modules/helen.pl modules/goats.pl
 	modules/diesel_sweeties.pl: remove double '/' in image URLs
@@ -131,7 +154,7 @@
 
 	* First release on sourceforge.net.
 
-2002-08-16  Benjamin Kuperman <kuperman@purdue.edu>
+2002-08-16  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* grabcartoons.pl (fetch_url): Changed syntax to work with
 	older version of LWP::UserAgent.
@@ -163,7 +186,7 @@
 	* modules/*: Modified all the existing modules to use fetch_url
 	and get_line instead of running wget directly.
 
-2002-08-15  Benjamin Kuperman <kuperman@purdue.edu>
+2002-08-15  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/achewood.pl (get_url_achewood): Added module for Achewood
 	comic (http://www.achewood.com/)
