@@ -1,5 +1,7 @@
 2005-03-06  Diego Zamboni  <zamboni@users.sourceforge.net>
 
+	* Version 1.10
+	
 	* grabcartoons.pl: Allow modules to optionally return a full HTML
 	snippet that gets used to display the comic, instead of a single
 	URL.
