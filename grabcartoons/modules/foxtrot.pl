@@ -2,12 +2,9 @@ sub get_url_foxtrot {
   my $base="http://www.ucomics.com";
   my $page="$base/foxtrot/";
   my $title="Foxtrot";
-  my $cmd="$WGET $page";
-  open CMD, "$cmd |" or do {
-    $err="Error executing $cmd: $!";
-    return (undef, $page, $title);
-  };
-  while (<CMD>) {
+  fetch_url($page)
+    or return (undef, $page, $title);
+  while (get_line()) {
     if (m!src=\".*(images\.ucomics\.com/comics/ft/.*\.gif)!i) {
 	return ("http://$1", $page, $title);
     }

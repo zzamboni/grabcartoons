@@ -3,12 +3,9 @@ sub get_url_doonesbury {
     #my $dbpage="$dbbase/strip/dailydose/index.cfm";
     my $dbpage="$dbbase/strip/dailydose/index.htm";
     my $title="Doonesbury";
-    my $cmd="$WGET $dbpage";
-    open CMD, "$cmd |" or do {
-        $@="Error executing $cmd: $!";
-        return (undef, $dbpage, $title);
-    };
-    while (<CMD>) {
+    fetch_url($dbpage)
+      or return (undef, $dbpage, $title);
+    while (get_line()) {
         # if (/img src=".*(images.*comics.*db.*\.gif).*border="0"/i) {
         # Grrr.... akamai sillyness
         if (/img src="(http:\/\/images.*comics.*db.*\.gif)".*border="0"/i) {

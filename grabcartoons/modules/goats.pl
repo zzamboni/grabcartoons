@@ -4,12 +4,9 @@ sub get_url_goats {
   my $goatbase="http://www.goats.com";
   my $goatpage=$goatbase."/index.html";
   my $title="Goats";
-  my $cmd="$WGET $goatpage";
-  open CMD, "$cmd |" or do {
-    $@="Error executing $cmd: $!";
-    return (undef, $goatbase, $title);
-  };
-  while (<CMD>) {
+  fetch_url($goatpage)
+    or return (undef, $goatbase, $title);
+  while (get_line()) {
     if (/IMG SRC="(.*\/comix\/.*\.gif)" WIDTH=\d+ HEIGHT=\d+/i) {
         return($goatbase.$1, $goatbase, $title);
     }

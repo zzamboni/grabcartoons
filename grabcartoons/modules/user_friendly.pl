@@ -2,12 +2,9 @@ sub get_url_user_friendly {
   my $ufbase="http://www.userfriendly.org";
   my $ufpage="$ufbase/static/";
   my $title="User Friendly";
-  my $cmd="$WGET $ufpage";
-  open CMD, "$cmd |" or do {
-    $err="Error executing $cmd: $!";
-    return (undef, $ufpage, $title);
-  };
-  while (<CMD>) {
+  fetch_url($ufpage)
+    or return (undef, $ufpage, $title);
+  while (get_line()) {
     if (/Latest.*SRC\s*=\s*"(.*\/cartoons\/.*?\.gif)"/i) { #'
 	return ($1, $ufpage, $title);
     }

@@ -19,13 +19,12 @@ use Env qw(HOME GRABCARTOONS_DIRS);
 ######################################################################
 # Configuration section
 
-# Where wget is located (leave as is if it's in your PATH)
-# If you run it from crontab, make sure you set the PATH in the crontab
-# entry, or provide the full path here.
-$WGET_PATH="wget";
+# What to use: 0 - autoselect, 1 - external command, 2 - LWP::UserAgent
+$GET_METHOD=0;
 
-# Command to get a web page and print it to stdout
-$WGET="$WGET_PATH -q -O-";
+# Command to get a web page and print it to stdout, if $GET_METHOD=2
+# or you don't have LWP::UserAgent installed
+$XTRN_CMD="wget -q -O-";
 
 # Where to load cartoon modules from
 @MODULE_DIRS=("$FindBin::RealBin/modules",
@@ -36,6 +35,22 @@ $WGET="$WGET_PATH -q -O-";
 
 # End config section
 ######################################################################
+
+# Check get method
+if ($GET_METHOD == 0) {
+    eval 'use LWP::UserAgent';
+    if ($@) {
+        if (system("$XTRN_CMD --help >/dev/null 2>/dev/null") == 0) {
+            $GET_METHOD=1;
+        }
+    }
+    else {
+        $GET_METHOD=2;
+    }
+}
+elsif ($GET_METHOD == 2) {
+    eval 'use LWP::UserAgent';
+}
 
 # Load modules
 foreach $mdir (@MODULE_DIRS) {
@@ -121,11 +136,46 @@ sub print_section {
   }
 }
 
-######################################################################
-# Cartoon URL generation section
-# Each subroutine must return a two-element array containing the URL
-# for the image of today's cartoon and the URL for the main page of
-# the strip, or undef if an error occurs.
-# Each subroutine must be named get_url_name, where "name" is the name
-# of the cartoon, all in lowercase.
-######################################################################
+# Get a URL, split in lines and store them for later fetching.
+# If an error occurs, returns undef.
+sub fetch_url {
+    my $url=shift;
+    if ($GET_METHOD == 2) {
+        my $ua=LWP::UserAgent->new;
+        my $resp=$ua->get($url);
+        if ($resp->is_error) {
+            $err="Could not retrieve $url";
+            return undef;
+        }
+        my $html=$resp->content;
+        # Split on lines and store
+        @LINES=split("\n", $html);
+        $_.="\n" foreach (@LINES);
+    }
+    elsif ($GET_METHOD == 1) {
+        my $cmd="$XTRN_CMD $url";
+        open CMD, "$cmd |" or do {
+            $err="Error executing '$cmd': $!";
+            return undef;
+        };
+        @LINES=<CMD>;
+        close CMD;
+    }
+    else {
+        $err="Internal error: Invalid value of GET_METHOD ($GET_METHOD)";
+        return undef;
+    }
+    return 1;
+}
+
+# Get a line off the last url retrieved. Automatically stores it in $_
+sub get_line {
+    return $_=shift @LINES;
+}
+
+# Get the full page as a single string
+sub get_fullpage {
+    my $r=join("\n", @LINES);
+    @LINES=();
+    return $r;
+}

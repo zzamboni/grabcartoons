@@ -1,3 +1,16 @@
+2002-08-16  Diego Zamboni  <dza@zurich.ibm.com>
+
+	* grabcartoons.pl (fetch_url,get_line,get_fullpage): Added these
+	three subroutines to make it easier to write new
+	modules. fetch_url($url) grabs a URL and stores it in a local
+	array, and get_line() gets one line at a time. get_fullpage
+	returns the complete page as a single string.
+	Now it also uses LWP::UserAgent if available, instead of an
+	external command.
+
+	* modules/*: Modified all the existing modules to use fetch_url
+	and get_line instead of running wget directly.
+
 2002-08-15  Benjamin Kuperman <kuperman@purdue.edu>
 
 	* modules/achewood.pl (get_url_achewood): Added module for Achewood
