@@ -14,4 +14,4 @@ install:
 	install -m 644 modules/*.pl $(PREFIX)/lib/grabcartoons/modules
 
 targz:
-	cd $(TARGZDIR); rm -rf grabcartoon*; cvs -d zamboni@cvs.grabcartoons.sourceforge.net:/cvsroot/grabcartoons export -Dtoday -d grabcartoons-$(VERSION) grabcartoons; tar zcvf $(TARGZFILE) grabcartoons-$(VERSION)
+	cd $(TARGZDIR); rm -rf grabcartoon*; cvs -d :ext:zamboni@cvs.sourceforge.net:/cvsroot/grabcartoons export -Dtoday -d grabcartoons-$(VERSION) grabcartoons; tar zcvf $(TARGZFILE) grabcartoons-$(VERSION)
