@@ -1,3 +1,16 @@
+2005-04-13  Benjamin Kuperman  <kuperman@users.sourceforge.net>
+        * modules/irregular2.pl (get_url_irregular2): Updated module to take
+	  advantage of new block fetching.
+
+2005-04-11  Benjamin Kuperman  <kuperman@users.sourceforge.net>
+	* modules/exponent.pl (get_url_exponent): Added a module to get the
+	  comics from the Purdue student newspaper
+	  (http://www.purdueexponent.org/comics/).
+
+2005-04-09  Benjamin Kuperman  <kuperman@users.sourceforge.net>
+	* modules/schlock_mercenary.pl (get_url_schlock_mercenary): Updated to
+	  handle the Sunday edition of the comic (multi-line)
+
 2005-03-09  Benjamin Kuperman  <kuperman@users.sourceforge.net>
 
 	* modules/legostar_galactica.pl (get_url_legostar_galactica): Added
