@@ -1,3 +1,13 @@
+2005-07-17  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* Version 1.11
+	
+	* modules/penny_arcade.pl (get_url_penny_arcade): Updated for new
+	page format.
+
+	* modules/toothpastefordinner.pl (get_url_toothpastefordinner):
+	Added module for http://www.toothpastefordinner.com/.
+
 2005-04-13  Benjamin Kuperman  <kuperman@users.sourceforge.net>
         * modules/irregular2.pl (get_url_irregular2): Updated module to take
 	  advantage of new block fetching.
