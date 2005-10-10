@@ -8,8 +8,10 @@ sub get_url_irregular2 {
   #fetch_url("http://www.irregularwebcomic.net/cgi-bin/comic.pl?comic=805")
     or return (undef, $irregbase, $title);
   my $block = "";
+#print "searching\n";
   while (get_line()) {
     if (/(<img src="(\/comics\/\w+\.(jpg|gif))" WIDTH=\d+ HEIGHT=\d+[^>]*>)/i) {
+#print "Found comic\n";
 	my $line=$1;
 	$line =~ s/"\/comics/"$irregbase\/comics/i;
 	$block .= $line;
@@ -17,15 +19,20 @@ sub get_url_irregular2 {
 	# Find the annotation
 	my $annote=0;
 	while (get_line()) {
-	   if (/^\[<a href.*show me annotations/i) {
+#print "In this: $_\n";
+	   #if (/^Options.*\[\s*Annotations/i) {
+	   if (/^<table cellpadding=2 cellspacing=0 border=1 align="center">$/i) {
+#print "Done\n";
 	     $block .= "<a href=\"$irregbase\">";
 	     last;
 	   } 
 	   if (/<\/div>/) {
+#print "Starting annotation\n";
 	     $annote=1;
 	     next;
 	   }
 	   if (1 == $annote) {
+#print "adding\n";
 	     $block .= $_;
 	   }
 	}

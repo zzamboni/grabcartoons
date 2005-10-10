@@ -1,3 +1,11 @@
+2005-10-10  Benjamin Kuperman  <kuperman@users.sourceforge.net>
+
+	* module/legostar_galactica.pl (get_url_legostar_galactica): Updated
+	  URL for move from keenspace to comicgen.
+
+        * modules/irregular2.pl (get_url_irregular2): Updated module to
+	  attempt to handle new annotation style.
+
 2005-07-17  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* Version 1.11
