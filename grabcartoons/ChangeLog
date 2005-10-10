@@ -6,6 +6,9 @@
         * modules/irregular2.pl (get_url_irregular2): Updated module to
 	  attempt to handle new annotation style.
 
+	* modules/partiallyclips.pl (get_url_partiallyclips): Added
+	PartiallyClips comic on request from author.
+
 2005-07-17  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* Version 1.11
