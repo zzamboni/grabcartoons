@@ -1,3 +1,8 @@
+2006-02-10  Benjamin Kuperman  <Kuperman@users.sourceforge.net>
+
+	* modules/penny_arcade.pl (get_url_penny_arcade): Updated for new
+	  page url and image name.
+	
 2005-10-10  Benjamin Kuperman  <kuperman@users.sourceforge.net>
 
 	* module/legostar_galactica.pl (get_url_legostar_galactica): Updated
