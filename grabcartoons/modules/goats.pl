@@ -7,7 +7,7 @@ sub get_url_goats {
   fetch_url($goatpage)
     or return (undef, $goatbase, $title);
   while (get_line()) {
-    if (/IMG SRC="(.*\/comix\/.*\.(gif|png|jpg))" WIDTH=\d+ HEIGHT=\d+/i) {
+    if (/IMG SRC="(.*\/comix\/.*\.(gif|png|jpg))" WIDTH=(")?\d+(")? HEIGHT=(")?\d+(")?/i) {
         return($goatbase.$1, $goatbase."/", $title);
     }
   }

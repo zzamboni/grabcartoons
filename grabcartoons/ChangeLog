@@ -1,4 +1,9 @@
-2006-02-10  Benjamin Kuperman  <Kuperman@users.sourceforge.net>
+2006-03-08  Benjamin Kuperman  <kuperman@users.sourceforge.net>
+	
+	* modules/goats.pl (get_url_goats): Fix to handle "" around image width
+	  and height.
+
+2006-02-10  Benjamin Kuperman  <kuperman@users.sourceforge.net>
 
 	* modules/penny_arcade.pl (get_url_penny_arcade): Updated for new
 	  page url and image name.
