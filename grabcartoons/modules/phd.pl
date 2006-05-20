@@ -1,5 +1,5 @@
 sub get_url_phd {
-  my $phdbase="http://www.phdcomics.com/comics";
+  my $phdbase="http://www.phdcomics.com";
   my $phdpage="$phdbase/comics.php";
   my $title="Piled Higher and Deeper";
   fetch_url($phdpage)

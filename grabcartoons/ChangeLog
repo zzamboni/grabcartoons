@@ -1,3 +1,7 @@
+2006-05-20  Benjamin Kuperman  <kuperman@users.sourceforge.net>
+	
+	* modules/phd.pl (get_url_phd): Changed base url.
+
 2006-03-08  Benjamin Kuperman  <kuperman@users.sourceforge.net>
 	
 	* modules/goats.pl (get_url_goats): Fix to handle "" around image width
