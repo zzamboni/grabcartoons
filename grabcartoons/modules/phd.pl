@@ -5,7 +5,7 @@ sub get_url_phd {
   fetch_url($phdpage)
     or return (undef, $phdpage, $title);
   while (get_line()) {
-    if (/src=(http:\/\/www.phdcomic(s)?.com\/comics\/)?(archive\/[^.]+\.gif)/) {
+    if (/src=(http:\/\/www.phdcomic(s)?.com\/)?(comics\/archive\/[^.]+\.gif)/) {
 	return ($phdbase."/$3", $phdpage, $title);
     }
   }
