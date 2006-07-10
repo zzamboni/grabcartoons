@@ -1,3 +1,7 @@
+2006-07-10  Benjamin Kuperman  <kuperman@users.sourceforge.net>
+
+	* modules/sinfest.pl (get_url_sinfest): Updated to new site layout.
+
 2006-05-20  Benjamin Kuperman  <kuperman@users.sourceforge.net>
 	
 	* modules/phd.pl (get_url_phd): Changed base url.

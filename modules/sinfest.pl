@@ -6,7 +6,7 @@ sub get_url_sinfest {
   fetch_url($page)
     or return(undef, $page, $title);
   while (get_line()) {
-      if (m!SRC\s*=\s*\".*(/comics/sf\d{8}\.gif)!i) {
+      if (m!SRC\s*=\s*\".*(/comikaze/comics/\d{4}-\d{2}-\d{2}\.gif)!i) {
           return("$base$1", $page, $title);
       }
   }
