@@ -191,11 +191,11 @@ foreach $name (@ARGV) {
   undef($err);
   $title=undef;
   ($url, $mainurl, $title, $html)=eval "&get_url_$page()";
+  $err=$@ if $@;
   if ($htmllist) {
       &print_section_htmllist($page, $title||$name, $mainurl);
       next;
   }
-  $err=$@ if $@;
   if ($err || (!$url && !$html)) {
     if ($mainurl) {
       $err="Error getting the URL for <a href=\"$mainurl\">$name</a> ($page): $err";
