@@ -1,3 +1,25 @@
+2006-09-10  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* Switched Sourceforge repository from CVS to Subversion.
+	
+	* modules/wondermark.pl: Added module for Wondermark
+	(http://wondermark.com/)
+
+	* modules/xkcd.pl: Added module for xkcd (http://xkcd.com/).
+
+	* modules/concerned.pl: Module for "Concerned" (http://hlcomic.com/).
+
+	* modules/smbc.pl: Added module for "Saturday Morning Break
+	Cereal" (http://smbc-comics.com/).
+
+	* modules/mother_goose.pl: Updated for new website.
+	
+	* Removed the following modules: helen.pl (comic no longer appears
+	in the web page), Jenny Jetpack (doesn't exist anymore), Dr. Fun
+	(has ceased publication), Legostar Galactica (checks referrer and
+	serves an empty image), Oddly Enough (web site disappeared).
+	
+
 2006-07-10  Benjamin Kuperman  <kuperman@users.sourceforge.net>
 
 	* modules/sinfest.pl (get_url_sinfest): Updated to new site layout.
