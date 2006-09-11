@@ -1,3 +1,9 @@
+2006-09-11  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* Version 1.12
+
+	* modules/irregular.pl: Removed old version, renamed new version.
+
 2006-09-10  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* Switched Sourceforge repository from CVS to Subversion.
