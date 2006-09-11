@@ -1,6 +1,6 @@
 # Contributed by Ben Kuperman
 
-sub get_url_irregular2 {
+sub get_url_irregular {
   my $irregbase="http://www.irregularwebcomic.net";
   my $irregpage=$irregbase."/";
   my $title="Irregular Webcomic";
