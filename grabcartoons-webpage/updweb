@@ -1,21 +1,23 @@
-#!/bin/sh -x 
+#!/bin/bash
 HOME=/home/groups/g/gr/grabcartoons
 SVNDIR="$HOME/grabcartoons"
 WEBDIR="$SVNDIR/grabcartoons-webpage"
 CODEDIR="$SVNDIR/grabcartoons"
 HTDOCS="$HOME/htdocs"
 
+FORCE=$1
+
 cd $SVNDIR
-if svn update | grep -v '^At revision'; then
+if [ -n "$FORCE" ] || svn update | grep -v '^At revision'; then
     cd $WEBDIR
-    VER=`perl -ne '/^\$VERSION="(\S+)"/ && print $1' $CODEDIR/grabcartoons.pl`
+    VER=`perl -ne '/^\\$VERSION="(\S+)"/ && print $1' $CODEDIR/grabcartoons.pl`
     sed "s/VER/$VER/" gr-pre.html > grabcartoons.html
-    $CODEDIR/grabcartoons/grabcartoons.pl --html > lom.html
+    $CODEDIR/grabcartoons.pl --html > lom.html
     cat lom.html gr-post.html >> grabcartoons.html
     cp $CODEDIR/ChangeLog .
     cp ChangeLog grabcartoons.html cartoons-sample.html $HTDOCS
+    cd $HTDOCS
+    rm -f index.html
+    ln -s grabcartoons.html index.html
+    chmod -R go=u,go-w .
 fi
-cd $HTDOCS
-rm -f index.html
-ln -s grabcartoons.html index.html    
-chmod -R go=u,go-w .
