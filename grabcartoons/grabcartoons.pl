@@ -5,7 +5,6 @@ eval 'exec perl -x $0 ${1+"$@"}' # -*-perl-*-
 # Grab daily cartoons from their web sites.
 # Diego Zamboni, Oct 28, 1998.
 #
-# $Id$
 
 use FindBin;
 use Getopt::Long;
