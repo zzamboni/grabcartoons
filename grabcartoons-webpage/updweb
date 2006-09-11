@@ -1,4 +1,8 @@
 #!/bin/sh -x 
+SVNDIR=/home/groups/g/gr/grabcartoons/grabcartoons
+WEBDIR="$SVNDIR/grabcartoons-webpage"
+CODEDIR="$SVNDIR/grabcartoons"
+
 rm -rf htdocs
 cvs -d zamboni@cvs.sourceforge.net:/cvsroot/grabcartoons export -Dtoday -d htdocs grabcartoons-webpage
 chmod -R go=u,go-w htdocs
