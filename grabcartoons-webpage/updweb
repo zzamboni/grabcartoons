@@ -1,9 +1,10 @@
 #!/bin/bash
-HOME=/home/groups/g/gr/grabcartoons
-SVNDIR="$HOME/grabcartoons"
+GRHOME=/home/groups/g/gr/grabcartoons
+USHOME=/home/users/z/za/zamboni/checkouts
+SVNDIR="$USHOME/grabcartoons"
 WEBDIR="$SVNDIR/grabcartoons-webpage"
 CODEDIR="$SVNDIR/grabcartoons"
-HTDOCS="$HOME/htdocs"
+HTDOCS="$GRHOME/htdocs"
 
 FORCE=$1
 
