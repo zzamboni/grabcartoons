@@ -1,17 +1,5 @@
-sub get_url_calvin_and_hobbes {
-  my $base="http://www.ucomics.com";
-  my $page="$base/calvinandhobbes/";
-  my $title="Calvin and Hobbes";
-  fetch_url($page)
-    or return (undef, $page, $title);
-  while (get_line()) {
-    if (m!src=\".*(images\.ucomics\.com/comics/ch/.*\.gif)!i) {
-	return ("http://$1", $page, $title);
-    }
-  }
-  $err="Could not find image in ${title}'s page";
-  return (undef, $page, $title);
-}
-
-
-1;
+$COMIC{calvin_and_hobbes} = {
+			     'Title' => 'Cavin and Hobbes',
+			     'Page' => 'http://www.ucomics.com/calvinandhobbes/',
+			     'Regex' => qr(src="(http://images\.ucomics\.com/comics/ch\/.*\.(jpg|gif))),
+			    };

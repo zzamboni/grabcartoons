@@ -1,10 +1,5 @@
-# Written by Diego Zamboni
-sub get_url_toothpastefordinner {
-    # This is easy, fixed URL
-    my $base="http://www.toothpastefordinner.com/";
-    my $page="$base";
-    return("$base/today.gif", $page, "Toothpaste for dinner");
-}
-
-
-1;
+$COMIC{toothpastefordinner} = {
+			       Title => 'Toothpaste for Dinner',
+			       Page => 'http://www.toothpastefordinner.com/',
+			       Regex => qr(Today's comic: \<a href="(http://www.toothpastefordinner.com/\d+/\S+.gif)"),
+			      };

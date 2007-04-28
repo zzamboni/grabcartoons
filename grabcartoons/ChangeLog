@@ -1,3 +1,16 @@
+2007-04-29  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* Version 2.0!
+
+	* Completely revamped module definition format, it is much simpler
+	now, and normally you won't have to write any Perl code.
+
+	* New module for Questionable Content (http://questionablecontent.net).
+
+	* Removed Purdue Exponent module (page does not exist anymore).
+
+	* Fixed Achewood and Liberty Meadows modules for new page format.
+	
 2006-09-11  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* Version 1.12
