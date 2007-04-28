@@ -62,31 +62,44 @@ Any errors will be included in the generated page.
 How to define your own comics:
 ------------------------------
 
-Subroutines for grabbing comics are defined in the modules/
-directory. It also loads any files with .pl extension found in your
-$HOME/.grabcartoons/ directory, or on any directories (separated by
+PLEASE NOTE: THIS HAS CHANGED COMPLETELY IN VERSION 2.0.
+
+Modules are defined in files with .pl extension which define where and how
+to fetch the comic.
+
+Each comic definition is a set of pair/value keys assigned as a Perl hashref
+to an element of the %COMIC hash. For example:
+
+$COMIC{foxtrot} = {
+		   Title => 'Foxtrot',
+		   Base => 'http://www.ucomics.com',
+		   Page => '{Base}/foxtrot/',
+		   Regex => qr!src=\"(http://images\.ucomics\.com/comics/ft/.*\.gif)!i,
+		  };
+
+The key used for the %COMIC hash is the "short name" of the comic, and the
+valid fields in the hash are:
+    Title   => title of the comic
+    Page    => URL where to get it
+    Regex   => regex to obtain image, must put the image in $1
+                  (the first parenthesized group)
+    Prepend/Append => strings to prepend or append to $1 before
+           returning it. May make use of other fields, referenced
+           as {FieldName}
+    StaticURL => static image URL to return
+    StaticHTML => static HTML snippet to return
+    Function  => a function to call. It must return
+          ($html, $title, $error) (this is useful for quickly porting
+          pre-2.0 comic definitions)
+    NoShowTitle => if true, do not display the title of the comic
+          (for those that always have it in the drawing)
+
+Precedence (from higher to lower) is Function, StaticURL, StaticHTML,
+and Regex (which uses Page, Prepend and Append).
+
+Comic definitions are loaded from the modules/ directory, from your
+$HOME/.grabcartoons/ directory, and from any directories (separated by
 colons) contained in the GRABCARTOONS_DIRS environment variable.
-
-A single file can contain more than one subroutine. Each subroutine
-must be named get_url_xxx, where xxx is an identifier for the
-comic.
-
-Each subroutine must return a three-element array where the first
-element is the URL for the image of the current cartoon, the second is
-the URL for the main page of the comic (or the one you want linked to
-from the image) and the third one is the full name of the comic.
-
-If any of the first two elements is undef, it is considered as an
-error, and the string stored in the $err variable is used as an error
-message, so you can set it to indicate the source of the error.
-
-If the third return element is undef, the comic's id is used as a
-title.
-
-You normally call fetch_url() with the URL to grab, and then examine
-it one line at a time using get_line() until you find the pattern that
-contains the URL of the image you want. You can also get the full page
-(or the rest of the page) as a single string using get_fullpage().
 
 The easiest way is probably to take one of the existing modules (for
 example, foxtrot.pl) and base yours on that.

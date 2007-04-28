@@ -1,19 +1,8 @@
-sub get_url_angst_technology {
-  my $inkbase="http://www.inktank.com";
-  my $inkpage="$inkbase/AT/index.cfm";
-  my $title="Angst Technology";
-  #$err="InkTank.com is currently down. See $inkbase for more information.";
-  #return(undef, $inkpage, $title);
-  fetch_url($inkpage)
-    or return (undef, $inkpage, $title);
-  while (get_line()) {
-    if (/SRC="(\/images\/AT\/cartoons\/\d\d-\d\d-\d\d\.gif)"/) {
-	return ($inkbase."$1", $inkpage, $title);
-    }
-  }
-  $err="Could not find image in inktank's page";
-  return (undef, $inkpage, $title);
-}
-
-
-1;
+$COMIC{angst_technology} = {
+			    'Title' => 'Angst Technology',
+			    'Base' => 'http://inktank.com',
+			    'Page' => '{Base}/AT/index.cfm',
+			    'Regex' => qr/SRC="(\/images\/AT\/cartoons\/\d\d-\d\d-\d\d\.gif)"/,
+			    'Prepend' => '{Base}',
+			    'NoShowTitle' => 1,
+                           };
