@@ -62,7 +62,12 @@ Any errors will be included in the generated page.
 How to define your own comics:
 ------------------------------
 
-PLEASE NOTE: THIS HAS CHANGED COMPLETELY IN VERSION 2.0.
+-----------------------------------------------------------------------
+PLEASE NOTE: THIS HAS CHANGED COMPLETELY IN VERSION 2.0. If you have
+modules written for pre-2.0 grabcartoons, you can use the convert.pl
+included in the distribution to semi-automate the conversion. See the
+comments at the top of convert.pl for instructions.
+-----------------------------------------------------------------------
 
 Modules are defined in files with .pl extension which define where and how
 to fetch the comic.

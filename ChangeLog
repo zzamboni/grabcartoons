@@ -1,9 +1,9 @@
 2007-04-29  Diego Zamboni  <zamboni@users.sourceforge.net>
 
-	* Version 2.0!
+	* Version 2.0
 
 	* Completely revamped module definition format, it is much simpler
-	now, and normally you won't have to write any Perl code.
+	now. See the README file for a description of the new format.
 
 	* New module for Questionable Content (http://questionablecontent.net).
 
