@@ -109,6 +109,11 @@ colons) contained in the GRABCARTOONS_DIRS environment variable.
 The easiest way is probably to take one of the existing modules (for
 example, foxtrot.pl) and base yours on that.
 
+If you develop any new modules, please share them with me! You can
+post them to the "Feature Requests" tracker in the SF project page,
+and I will add them to a future release:
+http://sourceforge.net/tracker/?group_id=60063&atid=492936
+
 Notes:
 ------
 
