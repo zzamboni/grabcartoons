@@ -3,15 +3,22 @@
 sub print_header {
   my $today=scalar localtime;
   print <<EOF;
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
   
 <html>
   <head>
     <title>Daily Comics</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <style type="text/css">
+    <!--
+      body { color: black; background-color: white; }
+      a img { border-width: 0; }
+      address { font-size: small; font-style: normal; }
+    -->
+    </style>
   </head>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 
-  <body bgcolor="white" text="black">
+  <body>
     <h1>Daily Comics - $today</h1>
 EOF
 }
@@ -20,7 +27,7 @@ sub print_footer {
   print <<EOF;
 
 <hr>
-<small>This page was created by <a href="http://grabcartoons.sourceforge.net/">grabcartoons</a>.</small>
+<address>This page was created by <a href="http://grabcartoons.sourceforge.net/">grabcartoons</a>.</address>
   </body>
 </html>
 EOF
@@ -28,19 +35,26 @@ EOF
 
 sub print_section {
   my ($name, $url, $html, $mainurl, $err)=@_;
-  print "<hr>\n<h2>$name</h2>\n\n";
+  my $style="";
+  if ($name =~ /^nt\|(.*)/) {
+    $name = $1;
+    $style = " style=\"display:none;\"";
+  }
+  print "<hr>\n<h2$style>$name</h2>\n\n";
+  print "<p>\n";
   if ($err) {
-    print "<em>$err</em><p>\n\n";
+    print "<em>$err</em>\n\n";
   }
   else {
     $mainurl=$url if !$mainurl;
     if ($html) {
-      print "<a href=\"$mainurl\">$html</a><p>\n\n";
+      print "<a href=\"$mainurl\">$html</a>\n";
     }
     else {
-      print "<a href=\"$mainurl\"><img src=\"$url\" alt=\"Today's $name cartoon\" border=0></a><p>\n\n";
+      print "<a href=\"$mainurl\"><img src=\"$url\" alt=\"Today's $name cartoon\"></a>\n";
     }
   }
+  print "</p>\n\n";
 }
 
 1;

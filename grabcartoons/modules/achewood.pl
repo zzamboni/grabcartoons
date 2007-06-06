@@ -1,7 +1,6 @@
 $COMIC{achewood} = {
 		    'Title' => 'Achewood',
 		    'Page' => 'http://www.achewood.com',
-		    'Regex' => qr!img[^<>]*src="(/comic.php\?date=[^"]*)"!,
+		    'Regex' => qr!img src="(http://m\.assetbar\.com/[^"]*)"!,
 		    'NoShowTitle' => 1,
-                    'Prepend' => '{Page}',
                    };
