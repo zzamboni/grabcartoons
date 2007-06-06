@@ -28,7 +28,10 @@ $GET_METHOD=0;
 # This program must be in your path, otherwise change $XTRN_PROG to
 # include the full path.
 $XTRN_PROG="wget";
-$XTRN_CMD="$XTRN_PROG -q -O-";
+$USER_AGENT=""; # uncomment the following line if you have problems
+#$USER_AGENT=" -U \"Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/521.25 (KHTML, like Gecko) Safari/521.24\"";
+# TODO - add in other user-agent strings if needed
+$XTRN_CMD="$XTRN_PROG -q -O- $USER_AGENT";
 
 # Where to load cartoon modules from
 @MODULE_DIRS=("$FindBin::Bin/modules",
@@ -321,13 +324,15 @@ sub get_comic {
   my $C=shift;
   my %C=%{$C};
   my $title=$C{Title};
-  $title="" if $C{NoShowTitle};
+  #$title="" if $C{NoShowTitle};
+  $title = "nt|" . $title if $C{NoShowTitle};
 
   if (defined($C{Function})) {
     return $C{Function}->();
   }
   elsif (defined($C{StaticURL})) {
-    return (qq(<img border=0 src="$C{StaticURL}">), $title, undef);
+    #return (qq(<img border=0 src="$C{StaticURL}">), $title, undef);
+    return (qq(<img src="$C{StaticURL}" alt="Today's $C{Title} comic">), $title, undef);
   }
   elsif (defined($C{StaticHTML})) {
     return ($C{StaticHTML}, )
@@ -346,7 +351,8 @@ sub get_comic {
 	  unless $url;
 	$url.=$C{Append} if $C{Append};
 	$url=$C{Prepend}.$url if $C{Prepend};
-	return (qq(<img border=0 src="$url">), $title, undef);
+	#return (qq(<img border=0 src="$url">), $title, undef);
+        return (qq(<img src="$url" alt="Today's $C{Title} comic">), $title, undef);
       }
     }
     return (undef, $C{Title}, "Could not find image in $C{Title}'s page");

@@ -1,5 +1,20 @@
 2007-06-06  Benjamin Kuperman  <kuperman@users.sourceforge.net>
 
+	* modules/00grabcartoons_output.pl, grabcartoons.pl: modified output
+	to have hidden h2 headers included, but not displayed (useful for
+	creating a weekly sheet)
+
+	* modules/00grabcartoons_output.pl, grabcartoons.pl: began changing
+	output web page to be HTML strict.  Now uses CSS, no bare <p> tags,
+	all img tags should have an alt attribute.
+
+	* modules/mother_goose.pl: Escaped ampersand (for valid HTML)
+
+	* modules/achewood.pl: Rolled changes back.  Might need to monitor
+	this one.
+
+2007-06-06  Benjamin Kuperman  <kuperman@users.sourceforge.net>
+
 	* Updated xkcd.pl and achewood.pl to new page format.
 
 2007-04-29  Diego Zamboni  <zamboni@users.sourceforge.net>
