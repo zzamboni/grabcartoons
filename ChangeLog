@@ -1,3 +1,11 @@
+2007-06-07  Benjamin Kuperman  <kuperman@users.sourceforge.net>
+
+	* modules/schlock_mercenary.pl: added "alt" to <img> for HTML
+	validation.
+
+	* modules/00grabcartoons_output: added escaping for embedded '&'
+	characters.
+
 2007-06-06  Benjamin Kuperman  <kuperman@users.sourceforge.net>
 
 	* modules/00grabcartoons_output.pl, grabcartoons.pl: modified output
