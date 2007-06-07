@@ -14,7 +14,9 @@ sub get_url_schlock_mercenary {
   my $block = "";
   while (get_line()) {
     if (/^.*(<img\s+src\s*="\/comics\/.*\.(jpg|jpeg|gif|png)\"\s*>)/i) {
-      $block.="$1<br>";
+      my $tmp = $1;
+      $tmp =~ s/>/ alt="Today's $title">/gi;
+      $block.="$tmp<br>";
     }
   }
   if ( $block =~ /img/i ) {
