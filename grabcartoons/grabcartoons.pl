@@ -308,6 +308,11 @@ sub _replace_vars {
 #     Page    => URL where to get it
 #     Regex   => regex to obtain image, must put the image in $1
 #                   (the first parenthesized group)
+#     ExtraImgAttrsRegex => regular expression to obtain additional
+#                attributes of the comic's <img> tag. It has to 
+#                match on the same line that Regex matches. If not
+#                specified, a generic text is used for the "alt"
+#                image attribute.
 #     Prepend/Append => strings to prepend or append to $1 before
 #            returning it. May make use of other fields, referenced
 #            as {FieldName}
@@ -351,8 +356,12 @@ sub get_comic {
 	  unless $url;
 	$url.=$C{Append} if $C{Append};
 	$url=$C{Prepend}.$url if $C{Prepend};
+	$extraattrs=qq(alt="Today's $C{Title} comic");
+	if (exists($C{ExtraImgAttrsRegex}) && /$C{ExtraImgAttrsRegex}/) {
+	    $extraattrs=$1 if $1;
+	}
 	#return (qq(<img border=0 src="$url">), $title, undef);
-        return (qq(<img src="$url" alt="Today's $C{Title} comic">), $title, undef);
+        return (qq(<img src="$url" $extraattrs>), $title, undef);
       }
     }
     return (undef, $C{Title}, "Could not find image in $C{Title}'s page");
