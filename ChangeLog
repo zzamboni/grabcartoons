@@ -1,3 +1,19 @@
+2007-06-15  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* grabcartoons.pl (get_comic): Added use of the ExtraImgAttrsRegex
+	  field, which allows capturing additional attributes for
+	  the comic's <img> tag.
+
+	* modules/xkcd.pl: Added ExtraImgAttrsRegex field to capture
+	  xkcd's extended title attributes.
+
+	* modules/chugworth.pl: Removed module - site has been down for
+	  several weeks already.
+	
+	* modules/machall.pl: Fixed for new page format.
+
+	* modules/redmeat.pl: Fixed for new format of img tag.
+
 2007-06-07  Benjamin Kuperman  <kuperman@users.sourceforge.net>
 
 	* modules/schlock_mercenary.pl: added "alt" to <img> for HTML
