@@ -1,3 +1,7 @@
+2007-06-28  Benjamin Kuperman  <kuperman@users.sourceforge.net>
+
+	* modules/achewood.pl: Added 'title' information via ExtraImgAttrsRegex
+
 2007-06-15  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* grabcartoons.pl (get_comic): Added use of the ExtraImgAttrsRegex
