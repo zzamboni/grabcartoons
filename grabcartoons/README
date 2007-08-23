@@ -44,20 +44,25 @@ the value of PREFIX (or run "make install PREFIX=/some/path".
 How to use:
 -----------
 
-Usage: ./grabcartoons.pl [ option | comic_id ...]
+Usage: ./grabcartoons.pl [ options ] [ comic_id ...]
 
---all     or -a   generate a page with all the known comics on stdout.
---list    or -l   produce a list of the known comic_id's on stdout.
---htmllist        produce HTML list of known comic_id's on stdout.
---file    or -f   read list of comics from specified file.
---write   or -w   write output to specified file instead of stdout.
---version or -V   print version number
---verbose or -v   be verbose
---help    or -h   print help message.
+    --all      or -a   generate a page with all the known comics on stdout.
+    --list     or -l   produce a list of the known comic_id's on stdout.
+    --htmllist         produce HTML list of known comic_id's on stdout.
+    --file     or -f   read list of comics from specified file.
+    --write    or -w   write output to specified file instead of stdout.
+    --version  or -V   print version number
+    --verbose  or -v   be verbose
+    --help     or -h   print this message.
+    --notitles or -t   do not show comic titles (for those that have them)
 
 Otherwise, it will produce a page with the given comics on stdout.
 
 Any errors will be included in the generated page.
+
+About the --notitles option: some comics have a title for each
+individual strip. By default the title is displayed next to the comic
+name, unless --notitles is specified.
 
 How to define your own comics:
 ------------------------------
@@ -75,12 +80,13 @@ to fetch the comic.
 Each comic definition is a set of pair/value keys assigned as a Perl hashref
 to an element of the %COMIC hash. For example:
 
-$COMIC{foxtrot} = {
-		   Title => 'Foxtrot',
-		   Base => 'http://www.ucomics.com',
-		   Page => '{Base}/foxtrot/',
-		   Regex => qr!src=\"(http://images\.ucomics\.com/comics/ft/.*\.gif)!i,
-		  };
+$COMIC{xkcd} = {
+		Title => 'xkcd',
+		Page => 'http://xkcd.com/',
+		Regex => qr!img[^<>]*src="(http://imgs\.xkcd\.com/comics.*?)"!i,
+		TitleRegex => qr!^<h1>(.+)</h1><br/>!i,
+		ExtraImgAttrsRegex => qr!img[^<>]*src="http://imgs\.xkcd\.com/comics.*?" (title=".*")!i,
+	       };
 
 The key used for the %COMIC hash is the "short name" of the comic, and the
 valid fields in the hash are:
@@ -88,6 +94,17 @@ valid fields in the hash are:
     Page    => URL where to get it
     Regex   => regex to obtain image, must put the image in $1
                   (the first parenthesized group)
+    ExtraImgAttrsRegex => regular expression to obtain additional
+               attributes of the comic's <img> tag. It has to 
+               match on the same line that Regex matches. If not
+               specified, a generic text is used for the "alt"
+               image attribute. Must put the extra attributes
+               in $1 (first parenthesized group)
+    TitleRegex => regular expression to capture the title of the
+               comic. It can match on any line _before_ Regex matches.
+               If it does not match, no title is displayed (just the comic name).
+               Only works for comics for which Regex is also defined.
+	       Must put the comic title in $1 (first parenthesized group)
     Prepend/Append => strings to prepend or append to $1 before
            returning it. May make use of other fields, referenced
            as {FieldName}
@@ -100,14 +117,15 @@ valid fields in the hash are:
           (for those that always have it in the drawing)
 
 Precedence (from higher to lower) is Function, StaticURL, StaticHTML,
-and Regex (which uses Page, Prepend and Append).
+and Regex (which uses Page, Prepend and Append, and optionally
+ExtraImgAttrsRegex and TitleRegex).
 
 Comic definitions are loaded from the modules/ directory, from your
 $HOME/.grabcartoons/ directory, and from any directories (separated by
 colons) contained in the GRABCARTOONS_DIRS environment variable.
 
 The easiest way is probably to take one of the existing modules (for
-example, foxtrot.pl) and base yours on that.
+example, xkcd.pl) and base yours on that.
 
 If you develop any new modules, please share them with me! You can
 post them to the "Feature Requests" tracker in the SF project page,
