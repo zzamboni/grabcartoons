@@ -51,14 +51,15 @@ $verbose=0;
 $versiontext="GrabCartoons version $VERSION";
 $usage="$versiontext
 Usage: $0 [ options ] [ comic_id ...]
-    --all     or -a   generate a page with all the known comics on stdout.
-    --list    or -l   produce a list of the known comic_id's on stdout.
-    --htmllist        produce HTML list of known comic_id's on stdout.
-    --file    or -f   read list of comics from specified file.
-    --write   or -w   write output to specified file instead of stdout.
-    --version or -V   print version number
-    --verbose or -v   be verbose
-    --help    or -h   print this message.
+    --all      or -a   generate a page with all the known comics on stdout.
+    --list     or -l   produce a list of the known comic_id's on stdout.
+    --htmllist         produce HTML list of known comic_id's on stdout.
+    --file     or -f   read list of comics from specified file.
+    --write    or -w   write output to specified file instead of stdout.
+    --version  or -V   print version number
+    --verbose  or -v   be verbose
+    --help     or -h   print this message.
+    --notitles or -t   do not show comic titles (for those that have them)
 
 Otherwise, it will produce a page with the given comics on stdout.
 ";
@@ -66,6 +67,7 @@ $doall=0;
 $dolist=0;
 $file=undef;
 $output=undef;
+$notitles=0;
 
 # Process options
 GetOptions(
@@ -75,6 +77,7 @@ GetOptions(
            'f|file=s'  => \$file,
            'w|write=s' => \$output,
            'verbose|v' => \$verbose,
+	   'notitles|t'=> \$notitles,
            'version|V' =>
                 sub {
                     print "$versiontext\n";
@@ -313,6 +316,10 @@ sub _replace_vars {
 #                match on the same line that Regex matches. If not
 #                specified, a generic text is used for the "alt"
 #                image attribute.
+#     TitleRegex => regular expression to capture the title of the
+#                comic. It can match on any line _before_ Regex matches.
+#                If it does not match, no title is displayed (just the comic name).
+#                Only works for comics for which Regex is also defined.
 #     Prepend/Append => strings to prepend or append to $1 before
 #            returning it. May make use of other fields, referenced
 #            as {FieldName}
@@ -349,6 +356,11 @@ sub get_comic {
     fetch_url($C{Page})
       or return (undef, $C{Title}, $err || "Error fetching page");
     while (get_line()) {
+      unless($notitles) {
+	if ($C{TitleRegex} && /$C{TitleRegex}/) {
+	  $title.=" - $1" if $1;
+	}
+      }
       if (/$C{Regex}/) {
 	my $url=$1;
 	return (undef, $C{Title}, 
