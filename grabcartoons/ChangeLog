@@ -1,3 +1,14 @@
+2007-08-23  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* grabcartoons.pl (get_comic): Added support for TitleRegex field,
+	which allows for capturing a comic title that will be displayed
+	next to the comic name.
+	* grabcartoons.pl (get_comic): Added --notitles option (-t) to
+	supress display of individual comic titles even when the
+	TitleRegex field is defined.
+	* modules/xkcd.pl: Added TitleRegex field.
+	* modules/penny_arcade.pl: Added TitleRegex field.
+
 2007-06-28  Benjamin Kuperman  <kuperman@users.sourceforge.net>
 
 	* modules/achewood.pl: Added 'title' information via ExtraImgAttrsRegex
