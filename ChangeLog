@@ -1,3 +1,7 @@
+2007-08-24  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* grabcartoons.pl: Version 2.1.
+
 2007-08-23  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* grabcartoons.pl (get_comic): Added support for TitleRegex field,
