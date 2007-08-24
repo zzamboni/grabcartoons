@@ -14,7 +14,7 @@ sub get_url_irregular {
     or return (undef, $irregbase, $title);
   my $block = "";
   while (get_line()) {
-    if (/(<img src="(\/comics\/\w+\.(jpg|gif))" WIDTH=\d+ HEIGHT=\d+[^>]*>)/i) {
+    if (/(<img src="(\/comics\/\w+\.(jpg|gif))" WIDTH="?\d+"? HEIGHT="?\d+"?[^>]*>)/i) {
       my $line=$1;
       $line =~ s/"\/comics/"$irregbase\/comics/i;
       $block .= $line;
