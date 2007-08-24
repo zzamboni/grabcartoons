@@ -1,3 +1,9 @@
+2007-08-24  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* modules/getfuzzy.pl: Added module for "Get
+	Fuzzy" (http://www.comics.com/comics/getfuzzy/), contributed by
+	Alan Hoyle.
+
 2007-08-24  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/irregular.pl (get_comic): Now allow optional quotes around

@@ -14,4 +14,4 @@ install:
 	install -m 644 modules/*.pl $(PREFIX)/lib/grabcartoons/modules
 
 targz:
-	cd $(TARGZDIR); rm -rf grabcartoon*; svn export https://svn.sourceforge.net/svnroot/grabcartoons/trunk/grabcartoons grabcartoons-$(VERSION) ; tar zcvf $(TARGZFILE) grabcartoons-$(VERSION)
+	cd $(TARGZDIR); rm -rf grabcartoon*; svn export https://grabcartoons.svn.sourceforge.net/svnroot/grabcartoons/trunk/grabcartoons grabcartoons-$(VERSION) ; tar zcvf $(TARGZFILE) grabcartoons-$(VERSION)
