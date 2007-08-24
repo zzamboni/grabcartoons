@@ -1,3 +1,8 @@
+2007-08-24  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/irregular.pl (get_comic): Now allow optional quotes around
+	height and width values.
+
 2007-08-24  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* grabcartoons.pl: Version 2.1.
