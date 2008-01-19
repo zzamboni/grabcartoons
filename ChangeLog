@@ -1,3 +1,7 @@
+2008-01-19  Diego M. Zamboni  <zamboni@sagnix.local>
+
+	* modules/smbc.pl: Fixed according to change in web page.
+
 2007-12-04  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/megatokyo.pl: Updated to new URL in page and added rule to
