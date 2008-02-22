@@ -1,4 +1,8 @@
-2008-01-19  Diego M. Zamboni  <zamboni@sagnix.local>
+2008-02-22  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* modules/ctrlaltdel.pl: Added module for Ctrl+Alt+Del (http://www.ctrlaltdel-online.com/).
+
+2008-01-19  Diego M. Zamboni  <zamboni@users.sourceforge.net>
 
 	* modules/smbc.pl: Fixed according to change in web page.
 
