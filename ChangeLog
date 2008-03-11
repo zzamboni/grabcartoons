@@ -1,3 +1,7 @@
+2008-03-11  Benjamin Kuperman <kuperman@users.sourceforge.net>
+	
+	* modules/megatokyo.pl: fixed search for image extension to include png
+
 2008-02-22  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* modules/ctrlaltdel.pl: Added module for Ctrl+Alt+Del (http://www.ctrlaltdel-online.com/).
