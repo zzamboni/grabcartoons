@@ -1,3 +1,7 @@
+2008-04-17  Benjamin Kuperman <kuperman@users.sourceforge.net>
+	
+	* modules/diesel_sweeties.pl: updated to new alt tag
+
 2008-03-11  Benjamin Kuperman <kuperman@users.sourceforge.net>
 	
 	* modules/megatokyo.pl: fixed search for image extension to include png
