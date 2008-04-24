@@ -1,3 +1,12 @@
+2008-04-25  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* modules/pVp.pl,modules/toothpastefordinner.pl: Fixed for changes
+	in the web pages.
+	* modules/angst_technology.pl: Removed this module, since the
+	comic is no longer being published.
+	* modules/concerned.pl: Removed this module, since the
+	comic is no longer being published.
+
 2008-04-17  Benjamin Kuperman <kuperman@users.sourceforge.net>
 	
 	* modules/dilbert.pl: using the RSS feed as the site now is flash
