@@ -1,3 +1,8 @@
+2008-04-29  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* modules/phd.pl: Added TitleRegex field for capturing the comic's
+		  title.
+
 2008-04-25  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/sinfest.pl: Search string now includes JPG and PNG
