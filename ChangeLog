@@ -1,3 +1,11 @@
+2008-05-22  Benjamin Kuperman <kuperman@users.sourceforge.net>
+	
+	* modules/dilbert.pl: Switch back to main site, use "fast" page
+
+2008-05-11  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/joy_of_tech.pl: Sometimes they have a letter after the number
+
 2008-04-29  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* modules/phd.pl: Added TitleRegex field for capturing the comic's
