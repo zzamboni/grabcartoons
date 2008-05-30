@@ -1,3 +1,7 @@
+2008-05-30  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/little_gamers.pl: Updated for new site layout
+
 2008-05-22  Benjamin Kuperman <kuperman@users.sourceforge.net>
 	
 	* modules/dilbert.pl: Switch back to main site, use "fast" page
