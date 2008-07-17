@@ -1,3 +1,18 @@
+2008-07-17  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/adam_at_home.pl,
+	  modules/calvin_and_hobbes.pl,
+	  modules/cathy.pl,
+	  modules/dick_tracy.pl,
+	  modules/fifth_wave.pl,
+	  modules/foxtrot.pl,
+	  modules/garfield.pl,
+	  modules/nine_to_five.pl,
+	  modules/real_life_adventures.pl,
+	  modules/ziggy.pl: Updated to change from "UComics" to "GoComics"
+
+	* modules/non_sequitur.pl: Changed to be hosted at GoComics.com
+
 2008-05-30  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/little_gamers.pl: Updated for new site layout
