@@ -1,5 +1,5 @@
 $COMIC{calvin_and_hobbes} = {
 			     'Title' => 'Calvin and Hobbes',
-			     'Page' => 'http://www.ucomics.com/calvinandhobbes/',
-			     'Regex' => qr(src="(http://images\.ucomics\.com/comics/ch\/.*\.(jpg|gif))),
+			     'Page' => 'http://www.gocomics.com/calvinandhobbes/',
+			     'Regex' => qr(src="(http://.*\.uclick\.com/comics/ch\/.*\.(jpg|gif|png))),
 			    };
