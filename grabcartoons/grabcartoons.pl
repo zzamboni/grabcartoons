@@ -11,7 +11,7 @@ use Getopt::Long;
 
 use Env qw(HOME GRABCARTOONS_DIRS);
 
-$VERSION="2.1";
+$VERSION="2.2";
 
 Getopt::Long::Configure ("bundling");
 

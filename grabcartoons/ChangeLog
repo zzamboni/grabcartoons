@@ -1,3 +1,11 @@
+2008-07-21  Diego M. Zamboni  <zamboni@users.sourceforge.net>
+
+	* grabcartoons.pl: Version 2.2
+
+2008-07-21  Diego M. Zamboni  <zamboni@users.sourceforge.net>
+
+	* modules/choppingblock.pl: Fixed for changes in web page.
+
 2008-07-17  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/adam_at_home.pl,
