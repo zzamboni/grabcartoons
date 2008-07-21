@@ -1,5 +1,14 @@
 2008-07-21  Diego M. Zamboni  <zamboni@users.sourceforge.net>
 
+	* grabcartoons.pl (get_comic): Added SubstOnRegexResult parameter,
+	to allow replacing strings after obtaining them with the Regex
+	parameter.
+	* modules/user_friendly.pl: Modified to fix the large version of
+	the image.
+	
+
+2008-07-21  Diego M. Zamboni  <zamboni@users.sourceforge.net>
+
 	* Added modules for the following comics, all contributed by
 	theyranos@sourceforge:
 	Monty (http://www.comics.com/comics/monty)

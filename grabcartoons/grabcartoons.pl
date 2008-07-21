@@ -320,6 +320,10 @@ sub _replace_vars {
 #                comic. It can match on any line _before_ Regex matches.
 #                If it does not match, no title is displayed (just the comic name).
 #                Only works for comics for which Regex is also defined.
+#     SubstOnRegexResult => a two-element array reference containing
+#            [ regex, string ]. If specified, the given substitution will
+#            be applied to the string captured by Regex, before applying
+#            any Prepend/Append strings.
 #     Prepend/Append => strings to prepend or append to $1 before
 #            returning it. May make use of other fields, referenced
 #            as {FieldName}
@@ -366,6 +370,9 @@ sub get_comic {
 	return (undef, $C{Title}, 
 		"Regular expression $C{Regex} matches, but did not return a match group")
 	  unless $url;
+	if (exists($C{SubstOnRegexResult})) {
+	    $url =~ s@$C{SubstOnRegexResult}[0]@$C{SubstOnRegexResult}[1]@;
+	}
 	$url.=$C{Append} if $C{Append};
 	$url=$C{Prepend}.$url if $C{Prepend};
 	$extraattrs=qq(alt="Today's $C{Title} comic");
