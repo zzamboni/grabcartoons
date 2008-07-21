@@ -5,7 +5,14 @@
 	parameter.
 	* modules/user_friendly.pl: Modified to fix the large version of
 	the image.
-	
+	* Added modules for the following comics, all originaly
+	contributed by theyranos@sourceforge:
+	Full Frontal Nerdity (http://nodwick.humor.gamespy.com/ffn)
+	Herman (http://www.comics.com/comics/herman)
+	Applegeeks (http://www.applegeeks.com)
+	Off the Mark (http://www.comics.com/comics/offthemark)
+	Reality Machine (http://realitymachine.net)
+	Nodwick (http://nodwick.humor.gamespy.com/gamespyarchive)
 
 2008-07-21  Diego M. Zamboni  <zamboni@users.sourceforge.net>
 
