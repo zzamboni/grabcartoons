@@ -1,5 +1,19 @@
 2008-07-21  Diego M. Zamboni  <zamboni@users.sourceforge.net>
 
+	* Added modules for the following comics, all contributed by
+	theyranos@sourceforge:
+	Monty (http://www.comics.com/comics/monty)
+	Order of the Stick
+	(http://www.giantitp.com/comics/ootslatest.html)
+	Erfworld (http://www.giantitp.com/comics/erflatest.html)
+	Pearls before Swine (http://www.comics.com/comics/pearls)
+	Sleep Deprivation Theatre (http://drmoose.net)
+	Wally and Osborne (http://wallyandosborne.com/)
+	Atland (http://www.realmofatland.com)
+	Shit Happens (http://www.ruthe.de - in German)
+
+2008-07-21  Diego M. Zamboni  <zamboni@users.sourceforge.net>
+
 	* grabcartoons.pl: Version 2.2
 
 2008-07-21  Diego M. Zamboni  <zamboni@users.sourceforge.net>
