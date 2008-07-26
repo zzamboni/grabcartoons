@@ -1,3 +1,11 @@
+2008-07-26  Diego M. Zamboni  <zamboni@users.sourceforge.ne>
+
+	* grabcartoons.pl: Version 2.3
+
+	* modules/eightbit.pl: Added modules for goblins
+	(http://goblinscomic.com/) and 8-bit Theather
+	(http://www.nuklearpower.com/).
+
 2008-07-21  Diego M. Zamboni  <zamboni@users.sourceforge.net>
 
 	* grabcartoons.pl (get_comic): Added SubstOnRegexResult parameter,
