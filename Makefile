@@ -15,3 +15,7 @@ install:
 
 targz:
 	cd $(TARGZDIR); rm -rf grabcartoon*; svn export https://grabcartoons.svn.sourceforge.net/svnroot/grabcartoons/trunk/grabcartoons grabcartoons-$(VERSION) ; tar zcvf $(TARGZFILE) grabcartoons-$(VERSION)
+
+test:
+	./grabcartoons.pl $(C) > t.html
+	open t.html

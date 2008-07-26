@@ -1,3 +1,49 @@
+2008-07-26  Diego M. Zamboni  <zamboni@users.sourceforge.ne>
+
+	* grabcartoons.pl: Version 2.3
+
+	* modules/eightbit.pl: Added modules for goblins
+	(http://goblinscomic.com/) and 8-bit Theather
+	(http://www.nuklearpower.com/).
+
+2008-07-21  Diego M. Zamboni  <zamboni@users.sourceforge.net>
+
+	* grabcartoons.pl (get_comic): Added SubstOnRegexResult parameter,
+	to allow replacing strings after obtaining them with the Regex
+	parameter.
+	* modules/user_friendly.pl: Modified to fix the large version of
+	the image.
+	* Added modules for the following comics, all originaly
+	contributed by theyranos@sourceforge:
+	Full Frontal Nerdity (http://nodwick.humor.gamespy.com/ffn)
+	Herman (http://www.comics.com/comics/herman)
+	Applegeeks (http://www.applegeeks.com)
+	Off the Mark (http://www.comics.com/comics/offthemark)
+	Reality Machine (http://realitymachine.net)
+	Nodwick (http://nodwick.humor.gamespy.com/gamespyarchive)
+
+2008-07-21  Diego M. Zamboni  <zamboni@users.sourceforge.net>
+
+	* Added modules for the following comics, all contributed by
+	theyranos@sourceforge:
+	Monty (http://www.comics.com/comics/monty)
+	Order of the Stick
+	(http://www.giantitp.com/comics/ootslatest.html)
+	Erfworld (http://www.giantitp.com/comics/erflatest.html)
+	Pearls before Swine (http://www.comics.com/comics/pearls)
+	Sleep Deprivation Theatre (http://drmoose.net)
+	Wally and Osborne (http://wallyandosborne.com/)
+	Atland (http://www.realmofatland.com)
+	Shit Happens (http://www.ruthe.de - in German)
+
+2008-07-21  Diego M. Zamboni  <zamboni@users.sourceforge.net>
+
+	* grabcartoons.pl: Version 2.2
+
+2008-07-21  Diego M. Zamboni  <zamboni@users.sourceforge.net>
+
+	* modules/choppingblock.pl: Fixed for changes in web page.
+
 2008-07-17  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/adam_at_home.pl,
