@@ -1,3 +1,7 @@
+2008-11-09  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/rose_is_rose.pl: Updated to handle new page/site
+
 2008-07-26  Diego M. Zamboni  <zamboni@users.sourceforge.ne>
 
 	* grabcartoons.pl: Version 2.3
