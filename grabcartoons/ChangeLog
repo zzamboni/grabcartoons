@@ -1,3 +1,34 @@
+2008-12-02  Diego M. Zamboni  <zamboni@users.sourceforge.net>
+
+	* grabcartoons.pl: Added templates! Now common sites
+	(e.g. comics.com) can be defined as a template, and comics from
+	those sites can be easily added simply by specifying their name
+	and the template. See modules/20templates.pl for the existing
+	templates.
+
+	* grabcartoons.pl (get_comic): Added new StartRegex and EndRegex
+	attributes, to allow capturing a region of lines. Also added the
+	InclusiveCapture attribute to define whether the first/last lines
+	of the region should be included in the capture.
+
+	* modules/getfuzzy.pl, modules/monty.pl, modules/herman.pl,
+	modules/offthemark.pl, modules/rose_is_rose.pl, modules/pearls.pl:
+	modified to use the new comics.com_big or comics.com_small templates.
+
+	* modules/goblins.pl: Rewrote to make use of new Start/EndRegex
+	attributes.
+
+	* modules/sleep_deprivation_theatre.pl: Removed because the site
+	is "offline until further notice".
+
+	* modules/wondermark.pl: Modified for changes in the page, also to
+	get the alt and title attributes.
+
+	* modules/user_friendly.pl: Reverted to small images - the big
+	ones have nag strips sometimes.
+
+	* modules/shithappens.pl: Fixed for changes in the page.
+
 2008-11-09  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/rose_is_rose.pl: Updated to handle new page/site

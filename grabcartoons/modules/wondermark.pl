@@ -1,7 +1,7 @@
 $COMIC{wondermark} = {
 		      Title => 'Wondermark',
-		      Page => 'http://www.wondermark.com/',
-		      Regex => qr!src="/(comics/.*\.gif)"!i,
-		      Prepend => '{Page}',
+		      Page => 'http://wondermark.com/',
+		      Regex => qr!src="({Page}c/.*\.gif)"!i,
+		      ExtraImgAttrsRegex => qr!src="{Page}c/.*\.gif".*(alt=.*title=".*?")!i,
 		      NoShowTitle => 1,
 		     };

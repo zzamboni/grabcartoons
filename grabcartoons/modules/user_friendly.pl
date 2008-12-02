@@ -3,5 +3,4 @@ $COMIC{user_friendly} = {
 			 Base => 'http://www.userfriendly.org',
 			 Page => '{Base}/static/',
 			 Regex => qr/Latest.*SRC\s*=\s*"(.*\/cartoons\/.*?\.gif)"/i,
-			 SubstOnRegexResult => [ qr(/xuf), "/uf" ],
 			};

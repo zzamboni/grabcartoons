@@ -199,6 +199,32 @@ foreach $name (@ARGV) {
     next;
   }
   $C=$COMIC{$page};
+
+  # First of all, if a template is specified, merge the fields
+  if ($C->{Template}) {
+    unless ($TEMPLATE{$C->{Template}}) {
+      warn "Internal Error: the requested template '$C->{Template}' does not exist.\n";
+      next;
+    }
+    my %tmpl=%{$TEMPLATE{$C->{Template}}};
+    my ($k,$v);
+    my $newC={};
+    while (($k,$v) = each(%tmpl)) {
+      $newC->{$k}=$v;
+    }
+    while (($k,$v) = each(%$C)) {
+      $newC->{$k}=$v;
+    }
+    # If _Template_Code exists, execute it with the merged snippet as argument,
+    # and delete it from the merged snippet
+    if ($tmpl{_Template_Code}) {
+      delete($newC->{_Template_Code});
+      $tmpl{_Template_Code}->($newC);
+    }
+    # Replace $C with the merged snippet
+    $C=$newC;
+  }
+
   # replace variable references
   for (keys(%$C)) {
     $C->{$_}=_replace_vars($C->{$_}, $C);
@@ -322,27 +348,46 @@ sub _replace_vars {
 #                Only works for comics for which Regex is also defined.
 #     SubstOnRegexResult => a two-element array reference containing
 #            [ regex, string ]. If specified, the given substitution will
-#            be applied to the string captured by Regex, before applying
-#            any Prepend/Append strings.
-#     Prepend/Append => strings to prepend or append to $1 before
-#            returning it. May make use of other fields, referenced
-#            as {FieldName}
+#            be applied to the string captured by Regex or by Start/EndRegex,
+#            before applying any Prepend/Append strings.
+#            The replacement string may include other fields, referenced as {FieldName}.
+#     Prepend/Append => strings to prepend or append to $1 (or to the string
+#            captured by Start/EndRegex) before returning it. May make use of
+#            other fields, referenced as {FieldName}
+#     StartRegex/EndRegex => regular expressions that specify the first
+#            and last lines to capture. The matching lines are included in
+#            the output if InclusiveCapture == 1, and not included
+#            if InclusiveCapture == 0 (the default).
+#            These two field must always be included together.
+#     InclusiveCapture => true/false value that specifies whether the lines
+#            that match Start/EndRegex should be returned in the output. By
+#            default InclusiveCapture == false.
 #     StaticURL => static image URL to return
 #     StaticHTML => static HTML snippet to return
 #     Function  => a function to call. It must return
 #           ($html, $title, $error)
 #     NoShowTitle => if true, do not display the title of the comic
 #           (for those that always have it in the drawing)
+#     Template => if present, specified a template that will be used
+#           for this comic (e.g. for comics coming from a single
+#           sindicated site, so the mechanism is the same for all of them)
+#           Essentially the fields from the template and the $COMIC snippet
+#           are merged and then processed in the usual way.
+#           If the template contains a _Template_Code atribute, it is
+#           executed on the merged snippet before processing it.
+#           Templates are defined in modules/20templates.pl.
 #
 # Precedence (from higher to lower) is Function, StaticURL, StaticHTML,
 # and Regex.
 sub get_comic {
   my $C=shift;
   my %C=%{$C};
+
   my $title=$C{Title};
   #$title="" if $C{NoShowTitle};
   $title = "nt|" . $title if $C{NoShowTitle};
 
+  # Now see which method is specified for fetching the comic.
   if (defined($C{Function})) {
     return $C{Function}->();
   }
@@ -354,24 +399,39 @@ sub get_comic {
     return ($C{StaticHTML}, )
   }
   elsif (defined($C{Page})) {
-    unless (defined($C{Regex})) {
-      return (undef, $C{Title}, "The comic definition has a Page attribute but no Regex attribute.\n");
+    # Some sanity checks first...
+    # If any of Start/EndRegex is defined, the other must also be
+    if ( ($C{StartRegex} && !$C{EndRegex}) || (!$C{StartRegex} && $C{EndRegex}) ) {
+      return (undef, $C{Title}, "Internal Error: The comic definition has one of Start/EndRegex but not the other.\n");
     }
+    my $startend = defined($C{StartRegex});
+    # otherwise we expect a Regex attribute
+    if (!$startend && !defined($C{Regex})) {
+      return (undef, $C{Title}, "Internal Error: The comic definition has a Page attribute but no Regex attribute.\n");
+    }
+    # but we cannot have both Regex and Start/EndRegex
+    if ($startend && defined($C{Regex})) {
+      return (undef, $C{Title}, "Internal Error: The comic definition has both Regex and Start/EndRegex attributes.\n");
+    }
+
+    # Finally, we get to fetching the page
     fetch_url($C{Page})
       or return (undef, $C{Title}, $err || "Error fetching page");
+    my $output="";
     while (get_line()) {
       unless($notitles) {
 	if ($C{TitleRegex} && /$C{TitleRegex}/) {
 	  $title.=" - $1" if $1;
 	}
       }
-      if (/$C{Regex}/) {
+      if ($C{Regex} && /$C{Regex}/) {
 	my $url=$1;
 	return (undef, $C{Title}, 
 		"Regular expression $C{Regex} matches, but did not return a match group")
 	  unless $url;
 	if (exists($C{SubstOnRegexResult})) {
-	    $url =~ s@$C{SubstOnRegexResult}[0]@$C{SubstOnRegexResult}[1]@;
+	  my $repl = _replace_vars($C{SubstOnRegexResult}[1], $C);
+	  $url =~ s@$C{SubstOnRegexResult}[0]@$repl@;
 	}
 	$url.=$C{Append} if $C{Append};
 	$url=$C{Prepend}.$url if $C{Prepend};
@@ -381,6 +441,22 @@ sub get_comic {
 	}
 	#return (qq(<img border=0 src="$url">), $title, undef);
         return (qq(<img src="$url" $extraattrs>), $title, undef);
+      }
+      elsif ($C{StartRegex} && /$C{StartRegex}/) {
+	$output.=$_ if $C{InclusiveCapture};
+	$incapture=1;
+      } elsif ($incapture && /$C{EndRegex}/) {
+	$output.=$_ if $C{InclusiveCapture};
+	$incapture = 0;
+	if (exists($C{SubstOnRegexResult})) {
+	  my $repl = _replace_vars($C{SubstOnRegexResult}[1], $C);
+	  $output =~ s@$C{SubstOnRegexResult}[0]@$repl@;
+	}
+	$output.=$C{Append} if $C{Append};
+	$output=$C{Prepend}.$output if $C{Prepend};
+	return ($output, $title, undef);
+      } elsif ($incapture) {
+	$output.=$_;
       }
     }
     return (undef, $C{Title}, "Could not find image in $C{Title}'s page");
