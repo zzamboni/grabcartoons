@@ -1,5 +1,9 @@
 2008-12-03  Diego M. Zamboni  <zamboni@users.sourceforge.net>
 
+	* modules/20templates.pl: Added a template for gocomics.com.
+
+	* Modified all the gocomics.com modules to use the new template.
+
 	* modules/schlock_mercenary.pl: Modified to make use of
 	Start/EndRegex.
 
