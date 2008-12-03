@@ -346,10 +346,12 @@ sub _replace_vars {
 #                comic. It can match on any line _before_ Regex matches.
 #                If it does not match, no title is displayed (just the comic name).
 #                Only works for comics for which Regex is also defined.
-#     SubstOnRegexResult => a two-element array reference containing
-#            [ regex, string ]. If specified, the given substitution will
+#     SubstOnRegexResult => a two- or three-element array reference containing
+#            [ regex, string, [global] ]. If specified, the given substitution will
 #            be applied to the string captured by Regex or by Start/EndRegex,
 #            before applying any Prepend/Append strings.
+#            If "global" is given and true, a global replace will be done, otherwise
+#            only the first ocurrence will be replaced.
 #            The replacement string may include other fields, referenced as {FieldName}.
 #     Prepend/Append => strings to prepend or append to $1 (or to the string
 #            captured by Start/EndRegex) before returning it. May make use of
@@ -431,7 +433,12 @@ sub get_comic {
 	  unless $url;
 	if (exists($C{SubstOnRegexResult})) {
 	  my $repl = _replace_vars($C{SubstOnRegexResult}[1], $C);
-	  $url =~ s@$C{SubstOnRegexResult}[0]@$repl@;
+	  if ($C{SubstOnRegexResult}[2]) {
+	    $url =~ s@$C{SubstOnRegexResult}[0]@$repl@g;
+	  }
+	  else {
+	    $url =~ s@$C{SubstOnRegexResult}[0]@$repl@;
+	  }
 	}
 	$url.=$C{Append} if $C{Append};
 	$url=$C{Prepend}.$url if $C{Prepend};
@@ -450,7 +457,12 @@ sub get_comic {
 	$incapture = 0;
 	if (exists($C{SubstOnRegexResult})) {
 	  my $repl = _replace_vars($C{SubstOnRegexResult}[1], $C);
-	  $output =~ s@$C{SubstOnRegexResult}[0]@$repl@;
+	  if ($C{SubstOnRegexResult}[2]) {
+	    $output =~ s@$C{SubstOnRegexResult}[0]@$repl@g;
+	  }
+	  else {
+	    $output =~ s@$C{SubstOnRegexResult}[0]@$repl@;
+	  }
 	}
 	$output.=$C{Append} if $C{Append};
 	$output=$C{Prepend}.$output if $C{Prepend};

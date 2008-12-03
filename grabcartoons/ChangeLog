@@ -1,3 +1,13 @@
+2008-12-03  Diego M. Zamboni  <zamboni@users.sourceforge.net>
+
+	* modules/schlock_mercenary.pl: Modified to make use of
+	Start/EndRegex.
+
+	* grabcartoons.pl (get_comic): Added an optional third element to
+	SubstOnRegexResult that indicates whether a global
+	search-and-replace (/g) should be done. By default a single
+	search-and-replace is performed.
+
 2008-12-02  Diego M. Zamboni  <zamboni@users.sourceforge.net>
 
 	* grabcartoons.pl: Added templates! Now common sites
