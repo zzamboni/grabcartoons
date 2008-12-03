@@ -1,3 +1,7 @@
+2008-12-03  Benjamin Kuperman <kuperman@usesrs.sourceforge.net>
+
+	* modules/alien_loves_predator.pl: Fixed to prepend the base URL.
+
 2008-12-03  Diego M. Zamboni  <zamboni@users.sourceforge.net>
 
 	* modules/20templates.pl: Added a template for gocomics.com.
