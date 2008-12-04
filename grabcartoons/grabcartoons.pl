@@ -38,6 +38,7 @@ $XTRN_CMD="$XTRN_PROG -q -O- $USER_AGENT";
               "$FindBin::RealBin/modules",
 	      "$FindBin::Bin/../lib/grabcartoons/modules",
 	      "$FindBin::RealBin/../lib/grabcartoons/modules",
+	      "$HOME/.grabcartoons/modules",
 	      "$HOME/.grabcartoons",
 	      @GRABCARTOONS_DIRS,
 	     );
