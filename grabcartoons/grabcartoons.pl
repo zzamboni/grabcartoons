@@ -60,11 +60,13 @@ Usage: $0 [ options ] [ comic_id ...]
     --verbose  or -v   be verbose
     --help     or -h   print this message.
     --notitles or -t   do not show comic titles (for those that have them)
+    --templates        produce a list of defined templates
 
 Otherwise, it will produce a page with the given comics on stdout.
 ";
 $doall=0;
 $dolist=0;
+$listoftemplates=0;
 $file=undef;
 $output=undef;
 $notitles=0;
@@ -78,6 +80,7 @@ GetOptions(
            'w|write=s' => \$output,
            'verbose|v' => \$verbose,
 	   'notitles|t'=> \$notitles,
+	   'templates' => \$listoftemplates,
            'version|V' =>
                 sub {
                     print "$versiontext\n";
@@ -136,13 +139,18 @@ foreach $mdir (@MODULE_DIRS) {
 }
 
 @list_of_modules=keys %COMIC;
+@list_of_templates=keys %TEMPLATE;
 
 $lom="Comic IDs defined:\n\t".join("\n\t", sort @list_of_modules)."\n";
 $htmlhdr="";
 
 if ($dolist) {
-    print $lom;
-    exit;
+  print $lom;
+  exit;
+}
+if ($listoftemplates) {
+  print "Templates defined:\n\t".join("\n\t", map { $_ . "\t" . $TEMPLATE{$_}->{_Template_Description}||"" } sort @list_of_templates)."\n";
+  exit;
 }
 
 if ($htmllist) {
