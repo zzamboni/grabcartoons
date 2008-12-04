@@ -62,7 +62,13 @@ Usage: $0 [ options ] [ comic_id ...]
     --notitles or -t   do not show comic titles (for those that have them)
     --templates        produce a list of defined templates
 
-Otherwise, it will produce a page with the given comics on stdout.
+By default, it will produce a page with the given comics on stdout.
+
+comic_id can be:
+  - Any of the predefined modules (e.g. sinfest, adam_at_home)
+  - Of the form 'template:comic title', including quotes if the title has
+    spaces (e.g. 'gocomis.com:Citizen Dog', comics.com_big:Frazz). This will
+    generate on the fly a module for the given comic.
 ";
 $doall=0;
 $dolist=0;
@@ -197,16 +203,34 @@ else {
 
 vmsg("Getting cartoons...\n");
 foreach $name (@ARGV) {
-  $page=lc($name);
-  $page=~s/\W+/_/g;
-  vmsg("  Getting $page.\n");
+  my ($templ, $comic)=split(/:/, $name, 2);
+  # If the given name is of the form template:cartoon and the template
+  # is valid, generate a $COMIC snippet on the fly
+  if ($templ && $comic) {
+    if (defined($TEMPLATE{$templ})) {
+      vmsg("  Generating module for '$comic' on the fly, using template '$templ'\n");
+      $C={};
+      $C->{Title} = $comic;
+      $C->{Template} = $templ;
+    }
+    else {
+      warn "Error: I do not know template '$templ'\n";
+      next;
+    }
+  }
+  else {
+    $page=lc($name);
+    $page=~s/\W+/_/g;
+    vmsg("  Getting $page.\n");
+    if (!exists($COMIC{$page})) {
+      warn "Error: I do not know '$page'\n";
+      next;
+    }
+    $C=$COMIC{$page};
+  }
+
   undef($err);
   $title=undef;
-  if (!exists($COMIC{$page})) {
-    warn "Error: I do not know '$page'\n";
-    next;
-  }
-  $C=$COMIC{$page};
 
   # First of all, if a template is specified, merge the fields
   if ($C->{Template}) {
