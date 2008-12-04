@@ -413,7 +413,7 @@ sub _replace_vars {
 #           Templates are defined in modules/20templates.pl.
 #
 # Precedence (from higher to lower) is Function, StaticURL, StaticHTML,
-# and Regex.
+# StartRegex/EndRegex and Regex.
 sub get_comic {
   my $C=shift;
   my %C=%{$C};

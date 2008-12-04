@@ -1,3 +1,27 @@
+2008-12-04  Diego Zamboni <zamboni@users.sourceforge.net>
+
+        * grabcartoons/README, grabcartoons/grabcartoons.pl: Updated
+        documentation.
+
+2008-12-04  Diego Zamboni <zamboni@users.sourceforge.net>
+
+        * grabcartoons/grabcartoons.pl: Added ~/.grabcartoons/modules/ to
+        the list of module directories, for consistency. I left
+        ~/.grabcartoons/ for backward compatibility.
+
+2008-12-04  Diego Zamboni <zamboni@users.sourceforge.net>
+
+        * grabcartoons/grabcartoons.pl: Added ability to specify
+        template-based comics without the need for a pre-written module,
+        using the form "template:comic title" as the specification of the
+        comic.
+
+2008-12-04  Diego Zamboni <zamboni@users.sourceforge.net>
+
+        * Added --templates option, to produce a list of existing templates.
+        Also added human-readable descriptions to the template definitions,
+        which are used by the --templates option.
+
 2008-12-03  Benjamin Kuperman <kuperman@usesrs.sourceforge.net>
 
 	* modules/alien_loves_predator.pl: Fixed to prepend the base URL.

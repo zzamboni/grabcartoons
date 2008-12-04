@@ -45,7 +45,6 @@ How to use:
 -----------
 
 Usage: ./grabcartoons.pl [ options ] [ comic_id ...]
-
     --all      or -a   generate a page with all the known comics on stdout.
     --list     or -l   produce a list of the known comic_id's on stdout.
     --htmllist         produce HTML list of known comic_id's on stdout.
@@ -55,14 +54,32 @@ Usage: ./grabcartoons.pl [ options ] [ comic_id ...]
     --verbose  or -v   be verbose
     --help     or -h   print this message.
     --notitles or -t   do not show comic titles (for those that have them)
+    --templates        produce a list of defined templates
 
-Otherwise, it will produce a page with the given comics on stdout.
+By default, it will produce a page with the given comics on stdout.
+
+comic_id can be:
+  - Any of the predefined modules (e.g. sinfest, adam_at_home)
+  - Of the form 'template:comic title', including quotes if the title has
+    spaces (e.g. 'gocomis.com:Citizen Dog', comics.com_big:Frazz). This will
+    generate on the fly a module for the given comic.
 
 Any errors will be included in the generated page.
 
 About the --notitles option: some comics have a title for each
 individual strip. By default the title is displayed next to the comic
 name, unless --notitles is specified.
+
+
+About templates:
+----------------
+
+Templates define a common way of fetching all the comics from certain
+sites (such as comics.com or gocomics.com) that host multiple comic
+strips. If a template exists, you can easily define new modules for
+comics from that site, or even request them on the fly without having
+to write a module, by specifying the comic_id as "template:comic title".
+
 
 How to define your own comics:
 ------------------------------
@@ -88,6 +105,26 @@ $COMIC{xkcd} = {
 		ExtraImgAttrsRegex => qr!img[^<>]*src="http://imgs\.xkcd\.com/comics.*?" (title=".*")!i,
 	       };
 
+If the comic is from a site for which a template exists, the
+definition is even easier, you just have to specify the comic name and
+the template. For example:
+
+$COMIC{calvin_and_hobbes} = {
+			     'Title' => 'Calvin and Hobbes',
+			     'Template' => 'gocomics.com',
+			    };
+
+Each template defines how to automatically convert the comic title
+into a "tag" (which normally becomes part of the URL for the
+comic). If the automatic conversion does not work appropriately, you
+can manually specify the tag. For example:
+
+$COMIC{adam_at_home}={
+		      Title	=> 'Adam @ Home',
+		      Tag       => 'adamathome',
+		      Template  => 'gocomics.com',
+		     };
+
 The key used for the %COMIC hash is the "short name" of the comic, and the
 valid fields in the hash are:
     Title   => title of the comic
@@ -98,31 +135,56 @@ valid fields in the hash are:
                attributes of the comic's <img> tag. It has to 
                match on the same line that Regex matches. If not
                specified, a generic text is used for the "alt"
-               image attribute. Must put the extra attributes
-               in $1 (first parenthesized group)
+               image attribute.
     TitleRegex => regular expression to capture the title of the
                comic. It can match on any line _before_ Regex matches.
                If it does not match, no title is displayed (just the comic name).
                Only works for comics for which Regex is also defined.
-	       Must put the comic title in $1 (first parenthesized group)
-    Prepend/Append => strings to prepend or append to $1 before
-           returning it. May make use of other fields, referenced
-           as {FieldName}
+    SubstOnRegexResult => a two- or three-element array reference containing
+           [ regex, string, [global] ]. If specified, the given substitution will
+           be applied to the string captured by Regex or by Start/EndRegex,
+           before applying any Prepend/Append strings.
+           If "global" is given and true, a global replace will be done, otherwise
+           only the first ocurrence will be replaced.
+           The replacement string may include other fields, referenced as {FieldName}.
+    Prepend/Append => strings to prepend or append to $1 (or to the string
+           captured by Start/EndRegex) before returning it. May make use of
+           other fields, referenced as {FieldName}
+    StartRegex/EndRegex => regular expressions that specify the first
+           and last lines to capture. The matching lines are included in
+           the output if InclusiveCapture == 1, and not included
+           if InclusiveCapture == 0 (the default).
+           These two field must always be included together.
+    InclusiveCapture => true/false value that specifies whether the lines
+           that match Start/EndRegex should be returned in the output. By
+           default InclusiveCapture == false.
     StaticURL => static image URL to return
     StaticHTML => static HTML snippet to return
     Function  => a function to call. It must return
-          ($html, $title, $error) (this is useful for quickly porting
-          pre-2.0 comic definitions)
+          ($html, $title, $error)
     NoShowTitle => if true, do not display the title of the comic
           (for those that always have it in the drawing)
+    Template => if present, specified a template that will be used
+          for this comic (e.g. for comics coming from a single
+          sindicated site, so the mechanism is the same for all of them)
+          Essentially the fields from the template and the $COMIC snippet
+          are merged and then processed in the usual way.
+          If the template contains a _Template_Code atribute, it is
+          executed on the merged snippet before processing it.
+          Templates are defined in modules/20templates.pl.
 
 Precedence (from higher to lower) is Function, StaticURL, StaticHTML,
-and Regex (which uses Page, Prepend and Append, and optionally
-ExtraImgAttrsRegex and TitleRegex).
+StartRegex/EndRegex and Regex.
+
+Both Regex and Start/EndRegex use Page, and optionally Prepend, Append,
+ExtraImgAttrsRegex, TitleRegex and SubstOnRegexResult.
+
+Start/EndRegex optionally uses InclusiveCapture.
 
 Comic definitions are loaded from the modules/ directory, from your
-$HOME/.grabcartoons/ directory, and from any directories (separated by
-colons) contained in the GRABCARTOONS_DIRS environment variable.
+$HOME/.grabcartoons/modules directory, and from any directories
+(separated by colons) contained in the GRABCARTOONS_DIRS environment
+variable.
 
 The easiest way is probably to take one of the existing modules (for
 example, xkcd.pl) and base yours on that.
