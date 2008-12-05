@@ -1,5 +1,8 @@
 2008-12-05  Diego M. Zamboni  <zamboni@users.sourceforge.net>
 
+	* modules/20templates.pl: Fixed double slash in gocomics.com
+	template.
+
 	* modules/ffn.pl: Added NoShowTitle.
 
 2008-12-04  Diego Zamboni <zamboni@users.sourceforge.net>

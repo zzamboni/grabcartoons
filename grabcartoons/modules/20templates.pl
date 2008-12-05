@@ -18,7 +18,7 @@ $TEMPLATE{'comics.com_small'} = {
 
 $TEMPLATE{'gocomics.com'} = {
     '_Template_Description' => "Comics hosted at gocomics.com",
-    'Base' => 'http://www.gocomics.com/',
+    'Base' => 'http://www.gocomics.com',
     'Page' => '{Base}/{Tag}/',
     'Regex' => qr(src=\"(http://.*\.uclick\.com/comics/.*\.(jpg|gif|png)))i,
     '_Template_Code' => sub { $H=shift; unless ($H->{Tag}) { my $tag=lc($H->{Title}); $tag=~s/\s//g; $H->{Tag} = $tag } },
