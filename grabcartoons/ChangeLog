@@ -1,4 +1,27 @@
-2008-12-05  Diego M. Zamboni  <zamboni@users.sourceforge.net>
+2008-12-05  Diego Zamboni <zamboni@users.sourceforge.net>
+
+        * grabcartoons/grabcartoons.pl: Added option to request random
+        comics to be selected. The option takes a numeric argument: --random
+        n, will choose n comics at random (without repetition) and fetch
+        them. If any other comics are explicitely requested, the random ones
+        will be output after them (and will not include any of the
+        explicitely-requested ones).
+
+        * grabcartoons/modules/goblins.pl,
+        grabcartoons/modules/schlock_mercenary.pl: Modified modules that use
+        SubstOnRegexResult for the new syntax (array of arrays)
+
+        * grabcartoons/modules/savage_chickens.pl: Added module for
+        http://savagechickens.com.
+
+        * grabcartoons/README, grabcartoons/grabcartoons.pl: Modified
+        SubstOnRegexResult to be an array of arrays, to allow for multiple
+        replacements to be done in sequence.
+
+        * grabcartoons/modules/20templates.pl: Fixed double slash in
+	gocomics.com template.
+
+        * grabcartoons/modules/ffn.pl: Added NoShowTitle
 
 	* modules/20templates.pl: Fixed double slash in gocomics.com
 	template.
