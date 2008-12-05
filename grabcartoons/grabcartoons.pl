@@ -363,6 +363,24 @@ sub _replace_vars {
   return $str;
 }
 
+# Process a string according to the existence and value
+# of SubstOnRegexResult.
+sub _do_regex_replacements {
+  my $s=shift;
+  my $C=shift;
+  if (exists($C->{SubstOnRegexResult})) {
+    foreach my $tuple (@{$C->{SubstOnRegexResult}}) {
+      my $repl = _replace_vars($tuple->[1], $C);
+      if ($tuple->[2]) {
+	$s =~ s!$tuple->[0]!$repl!g;
+      } else {
+	$s =~ s!$tuple->[0]!$repl!;
+      }
+    }
+  }
+  return $s;
+}
+
 # Process a %COMIC snippet, passed as a hashref
 # Return ($html, $title, $error)
 # Valid fields:
@@ -379,13 +397,16 @@ sub _replace_vars {
 #                comic. It can match on any line _before_ Regex matches.
 #                If it does not match, no title is displayed (just the comic name).
 #                Only works for comics for which Regex is also defined.
-#     SubstOnRegexResult => a two- or three-element array reference containing
-#            [ regex, string, [global] ]. If specified, the given substitution will
-#            be applied to the string captured by Regex or by Start/EndRegex,
-#            before applying any Prepend/Append strings.
-#            If "global" is given and true, a global replace will be done, otherwise
-#            only the first ocurrence will be replaced.
-#            The replacement string may include other fields, referenced as {FieldName}.
+#     SubstOnRegexResult => an array of two- or three-element array
+#            references containing [ regex, string, [global] ]. If
+#            specified, the substitution specified by each element
+#            will be applied to the string captured by Regex or by
+#            Start/EndRegex, before applying any Prepend/Append
+#            strings.  Each tuple will be applied in the order they
+#            are specified. If "global" is given and true, a global
+#            replace will be done, otherwise only the first ocurrence
+#            will be replaced.  The replacement string may include
+#            other fields, referenced as {FieldName}.
 #     Prepend/Append => strings to prepend or append to $1 (or to the string
 #            captured by Start/EndRegex) before returning it. May make use of
 #            other fields, referenced as {FieldName}
@@ -464,15 +485,7 @@ sub get_comic {
 	return (undef, $C{Title}, 
 		"Regular expression $C{Regex} matches, but did not return a match group")
 	  unless $url;
-	if (exists($C{SubstOnRegexResult})) {
-	  my $repl = _replace_vars($C{SubstOnRegexResult}[1], $C);
-	  if ($C{SubstOnRegexResult}[2]) {
-	    $url =~ s@$C{SubstOnRegexResult}[0]@$repl@g;
-	  }
-	  else {
-	    $url =~ s@$C{SubstOnRegexResult}[0]@$repl@;
-	  }
-	}
+	$url = _do_regex_replacements($url, $C);
 	$url.=$C{Append} if $C{Append};
 	$url=$C{Prepend}.$url if $C{Prepend};
 	$extraattrs=qq(alt="Today's $C{Title} comic");
@@ -488,15 +501,7 @@ sub get_comic {
       } elsif ($incapture && /$C{EndRegex}/) {
 	$output.=$_ if $C{InclusiveCapture};
 	$incapture = 0;
-	if (exists($C{SubstOnRegexResult})) {
-	  my $repl = _replace_vars($C{SubstOnRegexResult}[1], $C);
-	  if ($C{SubstOnRegexResult}[2]) {
-	    $output =~ s@$C{SubstOnRegexResult}[0]@$repl@g;
-	  }
-	  else {
-	    $output =~ s@$C{SubstOnRegexResult}[0]@$repl@;
-	  }
-	}
+	$output = _do_regex_replacements($output, $C);
 	$output.=$C{Append} if $C{Append};
 	$output=$C{Prepend}.$output if $C{Prepend};
 	return ($output, $title, undef);
