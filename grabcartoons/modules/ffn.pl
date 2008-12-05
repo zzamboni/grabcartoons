@@ -3,4 +3,5 @@ $COMIC{ffn} = {
     Page => 'http://nodwick.humor.gamespy.com/ffn',
     Regex => qr(img src="http\://nodwick\.humor\.gamespy\.com/ffn/(strips/.*\.jpg)"),
     Prepend => '{Page}/',
+    NoShowTitle => 1,
 };

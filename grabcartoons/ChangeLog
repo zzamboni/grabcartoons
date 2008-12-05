@@ -1,3 +1,7 @@
+2008-12-05  Diego M. Zamboni  <zamboni@users.sourceforge.net>
+
+	* modules/ffn.pl: Added NoShowTitle.
+
 2008-12-04  Diego Zamboni <zamboni@users.sourceforge.net>
 
         * grabcartoons/README, grabcartoons/grabcartoons.pl: Updated
