@@ -4,5 +4,5 @@ $COMIC{schlock_mercenary} = {
     Page => '{Base}',
     StartRegex => qr(\<td class="Comic"),
     EndRegex => qr(\</td\>|\<!--AIO_END--\>),
-    SubstOnRegexResult => [ qr(src="/comics), 'src="{Base}comics', 1 ],
+    SubstOnRegexResult => [ [ qr(src="/comics), 'src="{Base}comics', 1 ] ],
 };
