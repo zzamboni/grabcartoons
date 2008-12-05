@@ -181,10 +181,17 @@ if( $file )
     @ARGV = <COMICS>;
     close COMICS;
     # we allow comments and spaces
-    s/^\s+//g for @ARGV;
-    s/\s+$//g for @ARGV;
+    s/^\s+// for @ARGV;
+    s/\s+$// for @ARGV;
     s/\s+/_/g for @ARGV;
     @ARGV = grep !/^#/, @ARGV;
+}
+
+# Normalize before random selection, otherwise we might
+# end up with duplicate comics
+foreach (@ARGV) {
+  $_ = lc($_);
+  s/\W+/_/g;
 }
 
 # If random comics were requested, choose them
@@ -243,14 +250,12 @@ foreach $name (@ARGV) {
     }
   }
   else {
-    $page=lc($name);
-    $page=~s/\W+/_/g;
-    vmsg("  Getting $page.\n");
-    if (!exists($COMIC{$page})) {
-      warn "Error: I do not know '$page'\n";
+    vmsg("  Getting $name.\n");
+    if (!exists($COMIC{$name})) {
+      warn "Error: I do not know '$name'\n";
       next;
     }
-    $C=$COMIC{$page};
+    $C=$COMIC{$name};
   }
 
   undef($err);
@@ -287,17 +292,17 @@ foreach $name (@ARGV) {
   }
   $mainurl=$C->{Page};
   if ($htmllist) {
-      &print_section_htmllist($page, $C->{Title}||$name, $mainurl);
+      &print_section_htmllist($name, $C->{Title}||$name, $mainurl);
       next;
   }
   ($html, $title, $err)=get_comic($C);
   if ($err || !$html) {
     if ($mainurl) {
-      $err="Error getting the URL for <a href=\"$mainurl\">$name</a> ($page): $err";
+      $err="Error getting the URL for <a href=\"$mainurl\">$name</a>: $err";
       vmsg("$err\n");
     }
     else {
-      $err="Error getting the URL for $name ($page): $err";
+      $err="Error getting the URL for $name: $err";
       vmsg("$err\n");
     }
   }
@@ -368,7 +373,7 @@ sub vmsg {
     print STDERR @_ if $verbose;
 }
 
-# Replace references of the form $Name with the
+# Replace references of the form {Name} with the
 # value of the Name field, if it exists
 sub _replace_vars {
   my $str=shift;

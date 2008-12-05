@@ -1,3 +1,8 @@
+2008-12-05  Diego Zamboni  <zamboni@users.sourceforge.net>
+
+	* grabcartoons.pl: Fixed normalization bug that would result in
+	possible duplicate comics when using --random.
+
 2008-12-05  Diego Zamboni <zamboni@users.sourceforge.net>
 
         * grabcartoons/grabcartoons.pl: Added option to request random
