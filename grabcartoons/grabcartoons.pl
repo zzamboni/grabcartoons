@@ -56,6 +56,8 @@ Usage: $0 [ options ] [ comic_id ...]
     --list     or -l   produce a list of the known comic_id's on stdout.
     --htmllist         produce HTML list of known comic_id's on stdout.
     --file     or -f   read list of comics from specified file.
+    --random n         select n comics at random (they will be output after
+                       any other comics requested)
     --write    or -w   write output to specified file instead of stdout.
     --version  or -V   print version number
     --verbose  or -v   be verbose
@@ -77,6 +79,7 @@ $listoftemplates=0;
 $file=undef;
 $output=undef;
 $notitles=0;
+$random=0;
 
 # Process options
 GetOptions(
@@ -88,6 +91,7 @@ GetOptions(
            'verbose|v' => \$verbose,
 	   'notitles|t'=> \$notitles,
 	   'templates' => \$listoftemplates,
+	   'random=i'  => \$random,
            'version|V' =>
                 sub {
                     print "$versiontext\n";
@@ -181,6 +185,25 @@ if( $file )
     s/\s+$//g for @ARGV;
     s/\s+/_/g for @ARGV;
     @ARGV = grep !/^#/, @ARGV;
+}
+
+# If random comics were requested, choose them
+if ($random) {
+  vmsg("Choosing $random random comics... ");
+  for my $c (@ARGV) {
+    $COMIC{$c}->{__chosen} = 1 if exists($COMIC{$c});
+  }
+  while ($random) {
+    my $cnum=int(rand(scalar(@list_of_modules)));
+    my $cname=$list_of_modules[$cnum];
+    if (!($COMIC{$cname}->{__chosen})) {
+      push @ARGV, $cname;
+      $COMIC{$cname}->{__chosen} = 1;
+      $random--;
+      vmsg("$cname ");
+    }
+  }
+  vmsg("\n");
 }
 
 if (!@ARGV) {
