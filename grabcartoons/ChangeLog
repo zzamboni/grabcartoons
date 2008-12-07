@@ -1,3 +1,7 @@
+2008-12-07  Diego M. Zamboni  <zamboni@users.sourceforge.net>
+
+	* grabcartoons.pl: Version 2.4
+
 2008-12-05  Diego Zamboni  <zamboni@users.sourceforge.net>
 
 	* grabcartoons.pl: Fixed normalization bug that would result in
