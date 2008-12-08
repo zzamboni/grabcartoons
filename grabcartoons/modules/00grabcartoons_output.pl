@@ -27,7 +27,7 @@ sub print_footer {
   print <<EOF;
 
 <hr>
-<address>This page was created by <a href="http://grabcartoons.sourceforge.net/">grabcartoons</a>.</address>
+<address>This page was created by <a href="http://grabcartoons.sourceforge.net/">grabcartoons $VERSION</a>.</address>
   </body>
 </html>
 EOF

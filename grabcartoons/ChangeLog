@@ -1,6 +1,9 @@
-2008-12-07  Diego M. Zamboni  <zamboni@users.sourceforge.net>
+2008-12-08  Diego M. Zamboni  <zamboni@users.sourceforge.net>
 
 	* grabcartoons.pl: Version 2.4
+
+	* modules/00grabcartoons_output.pl (print_footer): Added version
+	number to footer.
 
 2008-12-05  Diego Zamboni  <zamboni@users.sourceforge.net>
 
@@ -29,8 +32,6 @@
 
         * grabcartoons/modules/20templates.pl: Fixed double slash in
 	gocomics.com template.
-
-        * grabcartoons/modules/ffn.pl: Added NoShowTitle
 
 	* modules/20templates.pl: Fixed double slash in gocomics.com
 	template.
