@@ -14,7 +14,7 @@ sub get_url_irregular {
     or return (undef, $irregbase, $title);
   my $block = "";
   while (get_line()) {
-    if (/(<img src="(\/comics\/\w+\.(jpg|gif))" WIDTH="?\d+"? HEIGHT="?\d+"?[^>]*>)/i) {
+    if (/(<img src="(\/comics\/\w+\.(jpg|gif|png))" WIDTH="?\d+"? HEIGHT="?\d+"?[^>]*>)/i) {
       my $line=$1;
       $line =~ s/"\/comics/"$irregbase\/comics/i;
       $block .= $line;
@@ -22,17 +22,20 @@ sub get_url_irregular {
       # Find the annotation
       my $annote=0;
       while (get_line()) {
-	if (/^<table cellpadding=2 cellspacing=0 border=1 align="center">$/i) {
-	  $block .= "<a href=\"$irregbase\">";
-	  last;
-	} 
-	if (/<\/div>/) {
-	  $annote=1;
-	  next;
-	}
-	if (1 == $annote) {
-	  $block .= $_;
-	}
+          if (/<div id="annotation"[^>]*>(.*)/i) {
+              $block .= "<div id=\"annotation\">$1";
+              $annote=1;
+              next;
+              #$block .= "<a href=\"$irregbase\">";
+              #last;
+          } 
+          if (1 == $annote) {
+              $block .= $_;
+              if (/^<\/div>/) {
+                  $annote=0;
+                  last;
+              }
+          }
       }
       return($block, $title, undef);
     }

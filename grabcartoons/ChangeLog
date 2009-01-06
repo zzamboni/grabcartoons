@@ -1,3 +1,8 @@
+2009-01-06  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/irregular.pl: Updated to work with current page, however
+	more changes are expected in the near future.
+
 2008-12-08  Diego M. Zamboni  <zamboni@users.sourceforge.net>
 
 	* grabcartoons.pl: Version 2.4
