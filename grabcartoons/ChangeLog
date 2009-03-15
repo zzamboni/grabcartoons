@@ -1,3 +1,11 @@
+2009-02-14  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/20templates.pl: Updated to work with new gocomics layout.
+	this change is a bit of a hack, but uses info they have labelled as
+	"image file path for sharing sites to pick up".
+
+	* modules/wallyandosborne.pl: Updated
+
 2009-01-06  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/irregular.pl: Updated to work with current page, however
