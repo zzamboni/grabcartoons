@@ -3,5 +3,5 @@ $COMIC{goblins} = {
     Page => 'http://goblinscomic.com',
     StartRegex => qr(\<div id="Comic"\>),
     EndRegex => qr(\</div\>),
-    SubstOnRegexResult => [ [ qr(src="/comics), 'src="{Page}/comics' ] ],
+    SubstOnRegexResult => [ [ qr(src="/comics), 'src="{Page}/comics', 1 ] ],
 };
