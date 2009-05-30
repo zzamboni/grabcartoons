@@ -1,6 +1,7 @@
 $COMIC{eightbit} = {
 			     Title => '8-Bit Theater',
 			     Base => 'http://www.nuklearpower.com/',
-			     Page => '{Base}latest.php',
-			     Regex => qr(src="(http://www\.nuklearpower\.com/comics/\d+\.(gif|jpg|png))"),
+			     Page => '{Base}8-bit-theater/',
+			     Regex => qr(src="(http://www\.nuklearpower\.com/comics/8-bit-theater/\d+\.(gif|jpg|png))"),
+			     TitleRegex => qr(\<div class="navbar-title"\>(.*?)\</div\>),
 			    };
