@@ -1,3 +1,25 @@
+2009-05-30  Diego Zamboni <diego@zzamboni.org>
+
+        * Makefile: Added ability to specify the output filename for the
+	test target, using the OUT variable. Defaults to t.html as before.
+	Added default comic selection (-a) to test target.
+
+        * modules/toothpastefordinner.pl: Fixed for change in
+        the webpage.
+
+        * modules/pVp.pl: Fixed for change in web page, and
+        added TitleRegex.
+
+        * modules/herman.pl: Removed NoShowTitle, since the
+        title is no longer shown in the panel.
+
+        * modules/goblins.pl: Fixed missing global replace to
+        properly display all parts of the comic.
+
+        * modules/eightbit.pl: Fixed for changes in the web site.
+
+        * grabcartoons.pl: Cleaned up error output.
+
 2009-02-14  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/20templates.pl: Updated to work with new gocomics layout.
