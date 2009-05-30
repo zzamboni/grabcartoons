@@ -4,6 +4,10 @@ PREFIX=/usr/local
 TARGZFILE=grabcartoons-$(VERSION).tar.gz
 TARGZDIR=$(HOME)/tmp
 
+# Defaults for the test target.
+OUT:=t.html
+C:=-a
+
 all:
 	@echo "Valid Targets: install targz. Use with care."
 
@@ -17,5 +21,5 @@ targz:
 	cd $(TARGZDIR); rm -rf grabcartoon*; svn export https://grabcartoons.svn.sourceforge.net/svnroot/grabcartoons/trunk/grabcartoons grabcartoons-$(VERSION) ; tar zcvf $(TARGZFILE) grabcartoons-$(VERSION)
 
 test:
-	./grabcartoons.pl -v $(C) > t.html
-	open t.html
+	./grabcartoons.pl -v $(C) > $(OUT)
+	open $(OUT)
