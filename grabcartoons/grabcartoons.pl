@@ -232,6 +232,7 @@ else {
     &print_header;
 }
 
+# Finally, get the comics
 vmsg("Getting cartoons...\n");
 foreach $name (@ARGV) {
   my ($templ, $comic)=split(/:/, $name, 2);
@@ -298,12 +299,12 @@ foreach $name (@ARGV) {
   ($html, $title, $err)=get_comic($C);
   if ($err || !$html) {
     if ($mainurl) {
-      $err="Error getting the URL for <a href=\"$mainurl\">$name</a>: $err";
-      vmsg("$err\n");
+      warn "Error fetching $name [$mainurl]: $err\n";
+      $err="Error fetching <a href=\"$mainurl\">$name</a>: $err";
     }
     else {
       $err="Error getting the URL for $name: $err";
-      vmsg("$err\n");
+      warn "$err\n";
     }
   }
   &print_section($title, undef, $html, $mainurl, $err);
@@ -322,14 +323,14 @@ sub fetch_url {
     my $url=shift;
     # If we are just producing a list of URLs, give a bogus error
     return undef if $htmllist;
-    vmsg("  Fetching $url... ");
+    vmsg("    Fetching $url... ");
     if ($GET_METHOD == 2) {
         my $ua=LWP::UserAgent->new;
         my $req=new HTTP::Request('GET',$url);
         my $resp=$ua->request($req);
         if ($resp->is_error) {
             $err="Could not retrieve $url";
-            vmsg("$err\n");
+	    warn "$err\n";
             return undef;
         }
         my $html=$resp->content;
@@ -341,7 +342,7 @@ sub fetch_url {
         my $cmd="$XTRN_CMD '$url'";
         open CMD, "$cmd |" or do {
             $err="Error executing '$cmd': $!";
-            vmsg("$err\n");
+	    warn "$err\n";
             return undef;
         };
         @LINES=<CMD>;
@@ -349,7 +350,7 @@ sub fetch_url {
     }
     else {
         $err="Internal error: Invalid value of GET_METHOD ($GET_METHOD)";
-        vmsg("$err\n");
+	warn "$err\n";
         return undef;
     }
     vmsg("success.\n");
