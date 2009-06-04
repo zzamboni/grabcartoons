@@ -190,10 +190,10 @@ if( $file )
 
 # Normalize before random selection, otherwise we might
 # end up with duplicate comics
-foreach (@ARGV) {
-  $_ = lc($_);
-  s/\W+/_/g;
-}
+#foreach (@ARGV) {
+#  $_ = lc($_);
+#  s/[^\w:.]+/_/g;
+#}
 
 # If random comics were requested, choose them
 if ($random) {
@@ -263,12 +263,22 @@ foreach $name (@ARGV) {
   undef($err);
   $title=undef;
 
-  # First of all, if a template is specified, merge the fields
   if ($C->{Template}) {
     unless ($TEMPLATE{$C->{Template}}) {
       error("[$name] Internal Error: the requested template '$C->{Template}' does not exist.\n");
       next;
     }
+    # If _Init_Code exists, execute it with the template snippet as
+    # argument, and delete it afterward. This is meant to allow the
+    # template to execute one-time initialization code (e.g. get list
+    # of comics from the web site). The code can store any data in the
+    # hash it receives as argument, and that data will be available
+    # for all other uses of the template in the current run.
+    if (exists($TEMPLATE{$C->{Template}}->{_Init_Code})) {
+      $TEMPLATE{$C->{Template}}->{_Init_Code}->($TEMPLATE{$C->{Template}});
+      delete($TEMPLATE{$C->{Template}}->{_Init_Code});
+    }
+    # Next, merge the fields of the comic's hash with the template hash
     my %tmpl=%{$TEMPLATE{$C->{Template}}};
     my ($k,$v);
     my $newC={};
