@@ -4,12 +4,22 @@ PREFIX=/usr/local
 TARGZFILE=grabcartoons-$(VERSION).tar.gz
 TARGZDIR=$(HOME)/tmp
 
-# Defaults for the test target.
-OUT:=t.html
+# Defaults for the test target, can be overriden by passing the
+# corresponding variable to make, e.g. "make test C=sinfest V="
+
+# Fetch all comics
 C:=-a
+# Set the output file accordingly to the comic
+ifeq ($(C),-a)
+	OUT:=all.html
+else
+	OUT:=$(C).html
+endif
+# Verbose by default
+V:=-v
 
 all:
-	@echo "Valid Targets: install targz. Use with care."
+	@echo "Valid Targets: install test. Use with care."
 
 install:
 	mkdir -p -m 755 $(PREFIX)/bin
@@ -17,9 +27,6 @@ install:
 	install -m 755 grabcartoons.pl $(PREFIX)/bin
 	install -m 644 modules/*.pl $(PREFIX)/lib/grabcartoons/modules
 
-targz:
-	cd $(TARGZDIR); rm -rf grabcartoon*; svn export https://grabcartoons.svn.sourceforge.net/svnroot/grabcartoons/trunk/grabcartoons grabcartoons-$(VERSION) ; tar zcvf $(TARGZFILE) grabcartoons-$(VERSION)
-
 test:
-	./grabcartoons.pl -v $(C) > $(OUT)
-	open $(OUT)
+	./grabcartoons.pl $(V) "$(C)" > "$(OUT)"
+	open "$(OUT)"
