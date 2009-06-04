@@ -80,6 +80,7 @@ $file=undef;
 $output=undef;
 $notitles=0;
 $random=0;
+$allerrors="";
 
 # Process options
 GetOptions(
@@ -246,14 +247,14 @@ foreach $name (@ARGV) {
       $C->{Template} = $templ;
     }
     else {
-      warn "Error: I do not know template '$templ'\n";
+      error("[$name] Error: I do not know template '$templ'\n");
       next;
     }
   }
   else {
     vmsg("  Getting $name.\n");
     if (!exists($COMIC{$name})) {
-      warn "Error: I do not know '$name'\n";
+      error("[$name] Error: I do not know '$name'\n");
       next;
     }
     $C=$COMIC{$name};
@@ -265,7 +266,7 @@ foreach $name (@ARGV) {
   # First of all, if a template is specified, merge the fields
   if ($C->{Template}) {
     unless ($TEMPLATE{$C->{Template}}) {
-      warn "Internal Error: the requested template '$C->{Template}' does not exist.\n";
+      error("[$name] Internal Error: the requested template '$C->{Template}' does not exist.\n");
       next;
     }
     my %tmpl=%{$TEMPLATE{$C->{Template}}};
@@ -299,12 +300,12 @@ foreach $name (@ARGV) {
   ($html, $title, $err)=get_comic($C);
   if ($err || !$html) {
     if ($mainurl) {
-      warn "Error fetching $name [$mainurl]: $err\n";
+      error("[$name] Error fetching $name [$mainurl]: $err\n");
       $err="Error fetching <a href=\"$mainurl\">$name</a>: $err";
     }
     else {
       $err="Error getting the URL for $name: $err";
-      warn "$err\n";
+      error("[$name] $err\n");
     }
   }
   &print_section($title, undef, $html, $mainurl, $err);
@@ -315,6 +316,11 @@ if ($htmllist) {
 }
 else {
     &print_footer;
+}
+
+# Print any errors
+if ($allerrors) {
+    warn "The following errors occurred:\n$allerrors";
 }
 
 # Get a URL, split in lines and store them for later fetching.
@@ -330,7 +336,7 @@ sub fetch_url {
         my $resp=$ua->request($req);
         if ($resp->is_error) {
             $err="Could not retrieve $url";
-	    warn "$err\n";
+	    error("$err\n");
             return undef;
         }
         my $html=$resp->content;
@@ -342,7 +348,7 @@ sub fetch_url {
         my $cmd="$XTRN_CMD '$url'";
         open CMD, "$cmd |" or do {
             $err="Error executing '$cmd': $!";
-	    warn "$err\n";
+	    error("$err\n");
             return undef;
         };
         @LINES=<CMD>;
@@ -350,7 +356,7 @@ sub fetch_url {
     }
     else {
         $err="Internal error: Invalid value of GET_METHOD ($GET_METHOD)";
-	warn "$err\n";
+	error("$err\n");
         return undef;
     }
     vmsg("success.\n");
@@ -540,4 +546,11 @@ sub get_comic {
     }
     return (undef, $C{Title}, "Could not find image in $C{Title}'s page");
   }
+}
+
+# Report and store errors
+sub error {
+    my $errstr=shift;
+    warn $errstr;
+    $allerrors.=$errstr;
 }
