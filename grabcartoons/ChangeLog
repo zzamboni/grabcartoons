@@ -1,3 +1,33 @@
+2009-06-05  Diego Zamboni <diego@zzamboni.org>
+
+        * Makefile: Improved test target by allowing to specify
+        comics to test and output file.  By default tests all modules and
+        outputs to "all.html". If the C variable is specified, it is used
+        both as the comic name and the output file. The output file can be
+        specified explicitely using OUT. Set "V=" (empty string) to disable
+        verbose mode in the test target.
+
+        * modules/20templates.pl: Added _Template_Init to the
+        comics.com_{small,big} templates. The function gets the list of
+        existing comics from the web site, and stores it locally. This makes
+        it possible for _Template_Code (also modified) to check if the comic
+        exists, and to get the proper title for each comic, without having
+        to rely on generic name-transformation rules to get its "short
+        name".
+
+        * grabcartoons.pl: Added handling of the _Template_Init
+        function. If this key exists in the hash that defines a template, it
+        will be executed only once per run (i.e. if multiple comics from the
+        same template are requested, it will be executed only once at the
+        beginning). This is meant to give the template the opportunity to
+        perform some one-time initialization. The function is called with
+        the template's hash as an argument, so it can store additional
+        information there for further use.
+
+        * grabcartoons.pl: If errors occur, print them at the
+        moment they occur, but also repeat them at the end (useful when
+        using the -v flag)
+
 2009-05-30  Diego Zamboni <diego@zzamboni.org>
 
         * Makefile: Added ability to specify the output filename for the
