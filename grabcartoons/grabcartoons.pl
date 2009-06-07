@@ -190,10 +190,44 @@ if( $file )
 
 # Normalize before random selection, otherwise we might
 # end up with duplicate comics
-#foreach (@ARGV) {
-#  $_ = lc($_);
-#  s/[^\w:.]+/_/g;
-#}
+my @normalized_comics=();
+vmsg("Normalizing list of requested comics...\n");
+foreach my $comic (@ARGV) {
+  # If it's a template:comic pair, leave it alone, templates do their own normalization
+  if ($comic =~ /^.+:.+$/) {
+    vmsg("  $comic is a template:comic pair, leaving unmodified.\n");
+    push @normalized_comics, $comic;
+    next;
+  }
+  my $title=lc($comic);
+  # First, try the name as given
+  if (exists($COMIC{$title})) {
+    vmsg("  $title found as a valid comic tag\n");
+    push @normalized_comics, $title;
+    next;
+  }
+  # Next, search for it in the titles
+  my $tag=(grep { lc($COMIC{$_}->{Title}) eq $title } keys(%COMIC))[0];
+  if ($tag) {
+    vmsg("  $comic found by searching comic titles\n");
+    push @normalized_comics, $tag;
+    next;
+  }
+  # Finally, try the old generic normalization - replace all non-alphanumeric characters with underscores
+  vmsg("  $comic not found - trying generic normalization\n");
+  $tag=$title;
+  $tag=~s/\W+/_/g;
+  if (exists($COMIC{$tag})) {
+    vmsg("  $comic found as tag $tag\n");
+    push @normalized_comics, $tag;
+    next;
+  }
+  else {
+    error("[$comic] Error: I do not know '$comic' - skipping it\n");
+    next;
+  }
+}
+@ARGV=@normalized_comics;
 
 # If random comics were requested, choose them
 if ($random) {
