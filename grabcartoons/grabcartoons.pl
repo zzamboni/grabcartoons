@@ -268,15 +268,19 @@ foreach $name (@ARGV) {
       error("[$name] Internal Error: the requested template '$C->{Template}' does not exist.\n");
       next;
     }
-    # If _Init_Code exists, execute it with the template snippet as
-    # argument, and delete it afterward. This is meant to allow the
-    # template to execute one-time initialization code (e.g. get list
-    # of comics from the web site). The code can store any data in the
-    # hash it receives as argument, and that data will be available
-    # for all other uses of the template in the current run.
+    # If _Init_Code exists, execute it with the template snippet AND
+    # the (still unmerged) comic snippet as arguments, and delete it
+    # afterward only if the function returns a true value. This is
+    # meant to allow the template to execute one-time initialization
+    # code (e.g. get list of comics from the web site). The
+    # conditional deletion allows initialization to be deferred
+    # depending on the specifics of the comic snippet, for
+    # example. The code can store any data in the hash it receives as
+    # argument, and that data will be available for all other uses of
+    # the template in the current run.
     if (exists($TEMPLATE{$C->{Template}}->{_Init_Code})) {
-      $TEMPLATE{$C->{Template}}->{_Init_Code}->($TEMPLATE{$C->{Template}});
-      delete($TEMPLATE{$C->{Template}}->{_Init_Code});
+      my $res=$TEMPLATE{$C->{Template}}->{_Init_Code}->($TEMPLATE{$C->{Template}}, $C);
+      delete($TEMPLATE{$C->{Template}}->{_Init_Code}) if $res;
     }
     # Next, merge the fields of the comic's hash with the template hash
     my %tmpl=%{$TEMPLATE{$C->{Template}}};

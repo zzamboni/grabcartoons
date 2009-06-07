@@ -5,10 +5,16 @@ $TEMPLATE{'comics.com_big'} = {
     'Base' => 'http://comics.com',
     'Page' => '{Base}/{Tag}/',
     'Regex' => qr(a href="(http://assets\.comics\.com/dyn/str_strip/.*?\.zoom\.(gif|png|jpg))"),
-    '_Init_Code' => sub { $H=shift;
-      vmsg("  Initializing template '$H->{_Template_Name}'\n");
+    '_Init_Code' => sub {
+      my $H=shift; my $C=shift;
+      # If the comic already has a tag, skip the initialization, since we trust the tag is correct
+      if ($C->{Tag}) {
+	vmsg("  [tmpl:$H->{_Template_Name}] Skipping initialization for now, commic already has a tag (".$C->{Tag}.")\n");
+	return undef;
+      }
+      vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
       # Get the list of comics from the website
-      die "Error fetching $H->{Base} to get list of comics\n" unless fetch_url($H->{Base});
+      die "[tmpl:$H->{_Template_Name}] Error fetching $H->{Base} to get list of comics\n" unless fetch_url($H->{Base});
       while (get_line()) {
 	if (/CMC\.Comics\s+=\s+(.*);\s*$/) {
 	  $comics=$1;
@@ -18,7 +24,7 @@ $TEMPLATE{'comics.com_big'} = {
 	  $comics =~ s/\[\{/{/g;
 	  $comics =~ s/\}\]/}/g;
 	  eval '$H->{_Comics}='.$comics;
-	  die "Internal error in template '$H->{_Template_Name}': $@\n" if $@;
+	  die "[tmpl:$H->{_Template_Name}] Internal error: $@\n" if $@;
 	  $ch=$H->{_Comics};
 	  foreach $k (keys(%$ch)) {
 	    # We don't need the long descriptions
@@ -27,37 +33,37 @@ $TEMPLATE{'comics.com_big'} = {
 	    $ch->{$ch->{$k}->{URL}}=$ch->{$k};
 	    delete($ch->{$k});
 	  }
-	  vmsg("    Got comics list from comics.com\n");
-	  return;
+	  vmsg("    [tmpl:$H->{_Template_Name}] Got comics list from comics.com\n");
+	  return 1;
 	}
       }
-      die "Could not find the list of comics for template '$H->{_Template_Name}' in $H->{Base}\n";
+      die "[tmpl:$H->{_Template_Name}] Could not find the list of comics in $H->{Base}\n";
     },
     '_Template_Code' => sub { $H=shift;
-      # Make sure we have a valid tag
-      $ch=$H->{_Comics};
       # If a tag was manually set, respect it
       unless ($H->{Tag}) {
 	# Otherwise, try to derive it from the comic's title
 	my $title=lc($H->{Title});
-	vmsg("    Trying to find the tag for '$title'\n");
+	# Make sure we have a valid tag
+	$ch=$H->{_Comics};
+	vmsg("    [tmpl:$H->{_Template_Name}] Trying to find the tag for '$title'\n");
 	# First, see if the title is a valid tag already.
 	if ($ch->{$title}) {
 	  # If so, store it as tag and replace the title with the appropriate comic name
 	  $H->{Tag}=$title;
 	  $H->{Title}=$ch->{$title}->{Comic};
-	  vmsg("      Done - comic title was the tag\n");
+	  vmsg("      [tmpl:$H->{_Template_Name}] Done - comic title was the tag\n");
 	}
 	else {
 	  # Second, search for the title in the comics we know
-	  vmsg("      Looking for the comic's title '$title' in the list of comics\n");
+	  vmsg("      [tmpl:$H->{_Template_Name}] Looking for the comic's title '$title' in the list of comics\n");
 	  my $tag=(grep { lc($ch->{$_}->{Comic}) eq $title } keys(%$ch))[0];
 	  # If that doesn't work, try some blind normalization
 	  if ($tag) {
-	    vmsg("      Found the title in the list of comics\n");
+	    vmsg("      [tmpl:$H->{_Template_Name}] Found the title in the list of comics\n");
 	  }
 	  else {
-	    vmsg("      Title not found in comics list - trying some normalization\n");
+	    vmsg("      [tmpl:$H->{_Template_Name}] Title not found in comics list - trying some normalization\n");
 	    $tag=$title;
 	    $tag=~s/\s+\&\s+/&/g;
 	    $tag=~s/\.//g;
@@ -70,9 +76,9 @@ $TEMPLATE{'comics.com_big'} = {
 	    $H->{Title} = $ch->{$tag}->{Comic};
 	  }
 	}
+	# No matter how we got the tag, check that it is valid
+	die "[tmpl:$H->{_Template_Name}] Error: Could not find comic '$H->{Tag}'\n" unless exists($ch->{$H->{Tag}});
       }
-      # No matter how we got the tag, check that it is valid
-      die "Error: Could not find comic '$H->{Tag}' in template '$H->{_Template_Name}'\n" unless exists($ch->{$H->{Tag}});
     }
 };
 
