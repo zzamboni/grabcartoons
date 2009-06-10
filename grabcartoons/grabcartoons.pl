@@ -377,7 +377,7 @@ foreach $name (@ARGV) {
       open MOD, ">$fname"
 	or die "[$name] Error creating file $fname: $!\n";
       print MOD <<EOMODULE;
-\$COMIC{$C->{Tag}} = {
+\$COMIC{'$C->{Tag}'} = {
 			Title => '$C->{Title}',
 			Tag => '$C->{Tag}',
 			Template => '$C->{Template}',
