@@ -426,8 +426,9 @@ if ($allerrors) {
 # If an error occurs, returns undef.
 sub fetch_url {
     my $url=shift;
-    # If we are just producing a list of URLs, give a bogus error
-    return undef if $htmllist;
+    my $force=shift;
+    # If we are just producing a list of URLs, give a bogus error unless $force is specified
+    return undef if ($htmllist && !$force);
     vmsg("    Fetching $url... ");
     if ($GET_METHOD == 2) {
         my $ua=LWP::UserAgent->new;
