@@ -1,3 +1,7 @@
+2009-06-30  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/diesel_sweeties.pl: Updated for a new image URL format.
+
 2009-06-05  Diego Zamboni <diego@zzamboni.org>
 
         * Makefile: Improved test target by allowing to specify
