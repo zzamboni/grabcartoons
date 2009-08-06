@@ -1,3 +1,8 @@
+2009-08-00  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/sluggy_freelance.pl (get_url_sluggy_freelance): Slight
+	modification for their site upgrade.
+
 2009-07-20  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/diesel_sweeties.pl: Updated for a new image URL format.
