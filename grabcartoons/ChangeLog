@@ -1,3 +1,7 @@
+2009-08-31  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/penny_arcade.pl: Updated to a new image URL.
+
 2009-08-00  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/sluggy_freelance.pl (get_url_sluggy_freelance): Slight
