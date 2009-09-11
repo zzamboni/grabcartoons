@@ -1,3 +1,7 @@
+2009-09-11  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/pictures_for_sad_children.pl: Added new module.
+
 2009-08-31  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/penny_arcade.pl: Updated to a new image URL.
