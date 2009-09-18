@@ -309,7 +309,10 @@ foreach $name (@ARGV) {
     # hash it receives as argument, and that data will be available
     # for all other uses of the template in the current run.
     if (exists($TEMPLATE{$C->{Template}}->{_Init_Code})) {
-      $TEMPLATE{$C->{Template}}->{_Init_Code}->($TEMPLATE{$C->{Template}});
+      ($title,$err)=$TEMPLATE{$C->{Template}}->{_Init_Code}->($TEMPLATE{$C->{Template}});
+      if ($err) {
+	goto CHECKERROR;
+      }
       delete($TEMPLATE{$C->{Template}}->{_Init_Code});
     }
     # Next, merge the fields of the comic's hash with the template hash
@@ -326,7 +329,10 @@ foreach $name (@ARGV) {
     # and delete it from the merged snippet
     if ($tmpl{_Template_Code}) {
       delete($newC->{_Template_Code});
-      $tmpl{_Template_Code}->($newC);
+      ($title,$err)=$tmpl{_Template_Code}->($newC);
+      if ($err) {
+	goto CHECKERROR;
+      }
     }
     # Replace $C with the merged snippet
     $C=$newC;
@@ -342,6 +348,7 @@ foreach $name (@ARGV) {
       next;
   }
   ($html, $title, $err)=get_comic($C);
+CHECKERROR:
   if ($err || !$html) {
     if ($mainurl) {
       error("[$name] Error fetching $name [$mainurl]: $err\n");

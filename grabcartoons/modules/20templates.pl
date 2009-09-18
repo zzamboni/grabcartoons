@@ -8,7 +8,7 @@ $TEMPLATE{'comics.com_big'} = {
     '_Init_Code' => sub { $H=shift;
       vmsg("  Initializing template '$H->{_Template_Name}'\n");
       # Get the list of comics from the website
-      die "Error fetching $H->{Base} to get list of comics\n" unless fetch_url($H->{Base});
+      return ($H->{_Template_Name}, "Error fetching $H->{Base} to get list of comics") unless fetch_url($H->{Base});
       while (get_line()) {
 	if (/CMC\.Comics\s+=\s+(.*);\s*$/) {
 	  $comics=$1;
@@ -18,7 +18,7 @@ $TEMPLATE{'comics.com_big'} = {
 	  $comics =~ s/\[\{/{/g;
 	  $comics =~ s/\}\]/}/g;
 	  eval '$H->{_Comics}='.$comics;
-	  die "Internal error in template '$H->{_Template_Name}': $@\n" if $@;
+	  return ($H->{_Template_Name}, "Internal error in template '$H->{_Template_Name}': $@") if $@;
 	  $ch=$H->{_Comics};
 	  foreach $k (keys(%$ch)) {
 	    # We don't need the long descriptions
@@ -28,10 +28,10 @@ $TEMPLATE{'comics.com_big'} = {
 	    delete($ch->{$k});
 	  }
 	  vmsg("    Got comics list from comics.com\n");
-	  return;
+	  return ($H->{_Template_Name}, undef);
 	}
       }
-      die "Could not find the list of comics for template '$H->{_Template_Name}' in $H->{Base}\n";
+      return($H->{_Template_Name}, "Could not find the list of comics for template '$H->{_Template_Name}' in $H->{Base}");
     },
     '_Template_Code' => sub { $H=shift;
       # Make sure we have a valid tag
@@ -72,7 +72,7 @@ $TEMPLATE{'comics.com_big'} = {
 	}
       }
       # No matter how we got the tag, check that it is valid
-      die "Error: Could not find comic '$H->{Tag}' in template '$H->{_Template_Name}'\n" unless exists($ch->{$H->{Tag}});
+      return($H->{Title}||$H->{_Template_Name}, "Error: Could not find comic '$H->{Tag}' in template '$H->{_Template_Name}'") unless exists($ch->{$H->{Tag}});
     }
 };
 
