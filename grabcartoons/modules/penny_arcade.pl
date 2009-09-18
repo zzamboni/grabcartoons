@@ -2,7 +2,6 @@ $COMIC{penny_arcade} = {
 			Title => 'Penny Arcade',
 			Base => 'http://www.penny-arcade.com',
 			Page => '{Base}/comic',
-			Regex => qr@src="(/images/\d{4}/\d{8}(.)?\.(gif|jpg))"@i,
-			TitleRegex => qr@<div id="comicheader">(.+)</div>@i,
-			Prepend => '{Base}',
+			Regex => qr@src="(http://art.penny-arcade.com/photos/[^\"]*?\.(gif|jpg))"@i,
+                        TitleRegex => qr@<title>Penny Arcade! -\s+(.+)</title>@i,
 		       };

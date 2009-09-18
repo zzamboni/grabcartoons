@@ -8,6 +8,7 @@ eval 'exec perl -x $0 ${1+"$@"}' # -*-perl-*-
 
 use FindBin;
 use Getopt::Long;
+use File::Path;
 
 use Env qw(HOME GRABCARTOONS_DIRS);
 
@@ -46,6 +47,9 @@ $XTRN_CMD="$XTRN_PROG -q -O- $USER_AGENT";
 # Verbosity flag
 $verbose=0;
 
+# Where to write generated modules
+$genout="$HOME/.grabcartoons/modules";
+
 # End config section
 ######################################################################
 
@@ -64,6 +68,11 @@ Usage: $0 [ options ] [ comic_id ...]
     --help     or -h   print this message.
     --notitles or -t   do not show comic titles (for those that have them)
     --templates        produce a list of defined templates
+    --genmodules       for any template specifications (template:comic),
+                       write a snippet to <comictag>.pl in the directory
+                       specified by --genout.
+    --genout <dir>     output directory for generated comics
+                       (default: $genout).
 
 By default, it will produce a page with the given comics on stdout.
 
@@ -81,6 +90,7 @@ $output=undef;
 $notitles=0;
 $random=0;
 $allerrors="";
+$genmodules=0;
 
 # Process options
 GetOptions(
@@ -93,6 +103,8 @@ GetOptions(
 	   'notitles|t'=> \$notitles,
 	   'templates' => \$listoftemplates,
 	   'random=i'  => \$random,
+	   'genmodules'=> \$genmodules,
+	   'genout=s'  => \$genout,
            'version|V' =>
                 sub {
                     print "$versiontext\n";
@@ -129,6 +141,30 @@ elsif ($GET_METHOD == 2) {
     eval 'use LWP::UserAgent';
 }
 
+# If --genmodules is requested, check that --genout is a directory
+# or can be created as one
+if ($genmodules) {
+  vmsg("The --genmodules option was specified, checking output directory '$genout'\n");
+  if (-e $genout) {
+    if (-d $genout) {
+      vmsg("  Good. $genout is an existing directory.\n");
+    }
+    else {
+      die "Error: specified output directory '$genout' exists but is not a directory.\n";
+    }
+  }
+  else {
+    # Try to create it
+    vmsg("  Directory does not exist - creating...");
+    if (mkpath($genout)) {
+      vmsg(" success!\n");
+    }
+    else {
+      vmsg(" failure.\n");
+      die "Error: could not create output directory '$genout': $!\n";
+    }
+  }
+}
 # Eliminate duplicates in @MODULE_DIRS (in most cases Bin and RealBin
 # will be the same)
 %mod_seen=();
@@ -302,12 +338,16 @@ foreach $name (@ARGV) {
       error("[$name] Internal Error: the requested template '$C->{Template}' does not exist.\n");
       next;
     }
-    # If _Init_Code exists, execute it with the template snippet as
-    # argument, and delete it afterward. This is meant to allow the
-    # template to execute one-time initialization code (e.g. get list
-    # of comics from the web site). The code can store any data in the
-    # hash it receives as argument, and that data will be available
-    # for all other uses of the template in the current run.
+    # If _Init_Code exists, execute it with the template snippet AND
+    # the (still unmerged) comic snippet as arguments, and delete it
+    # afterward only if the function returns a true value. This is
+    # meant to allow the template to execute one-time initialization
+    # code (e.g. get list of comics from the web site). The
+    # conditional deletion allows initialization to be deferred
+    # depending on the specifics of the comic snippet, for
+    # example. The code can store any data in the hash it receives as
+    # argument, and that data will be available for all other uses of
+    # the template in the current run.
     if (exists($TEMPLATE{$C->{Template}}->{_Init_Code})) {
       ($title,$err)=$TEMPLATE{$C->{Template}}->{_Init_Code}->($TEMPLATE{$C->{Template}});
       if ($err) {
@@ -336,6 +376,21 @@ foreach $name (@ARGV) {
     }
     # Replace $C with the merged snippet
     $C=$newC;
+    # If requested, write out the new module
+    if ($genmodules) {
+      my $fname="$genout/$C->{Tag}.pl";
+      vmsg("[$name] Writing module to $fname\n");
+      open MOD, ">$fname"
+	or die "[$name] Error creating file $fname: $!\n";
+      print MOD <<EOMODULE;
+\$COMIC{'$C->{Tag}'} = {
+			Title => '$C->{Title}',
+			Tag => '$C->{Tag}',
+			Template => '$C->{Template}',
+		       };
+EOMODULE
+      close MOD;
+    }
   }
 
   # replace variable references
@@ -378,8 +433,9 @@ if ($allerrors) {
 # If an error occurs, returns undef.
 sub fetch_url {
     my $url=shift;
-    # If we are just producing a list of URLs, give a bogus error
-    return undef if $htmllist;
+    my $force=shift;
+    # If we are just producing a list of URLs, give a bogus error unless $force is specified
+    return undef if ($htmllist && !$force);
     vmsg("    Fetching $url... ");
     if ($GET_METHOD == 2) {
         my $ua=LWP::UserAgent->new;
