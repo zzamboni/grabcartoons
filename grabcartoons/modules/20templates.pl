@@ -9,7 +9,7 @@ $TEMPLATE{'comics.com_big'} = {
       my $H=shift; my $C=shift;
       # If the comic already has a tag, skip the initialization, since we trust the tag is correct
       if ($C->{Tag}) {
-	vmsg("  [tmpl:$H->{_Template_Name}] Skipping initialization for now, commic already has a tag (".$C->{Tag}.")\n");
+	vmsg("  [tmpl:$H->{_Template_Name}] Skipping initialization for now, comic already has a tag (".$C->{Tag}.")\n");
 	return undef;
       }
       vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
