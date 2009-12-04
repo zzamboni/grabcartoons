@@ -1,3 +1,14 @@
+2009-12-04  Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/rose_is_rose.pl: switched to small format, and changed the
+	small template.
+
+	* modules/achewood.pl: Attempted a fix for changing URL.  Problem is
+	that sometimes the URL is relative and other times it is absolute.
+	Current change has been working for over a week.
+
+	* modules/little_gamers.pl: Updated to new hosting site.
+
 2009-09-11  Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/pictures_for_sad_children.pl: Added new module.

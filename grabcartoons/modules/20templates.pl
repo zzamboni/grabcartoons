@@ -89,7 +89,7 @@ my %tmp=%{$TEMPLATE{'comics.com_big'}}; # Need the temp var to duplicate the has
 $TEMPLATE{'comics.com_small'} = \%tmp;
 $TEMPLATE{'comics.com_small'}->{'_Template_Name'} = 'comics.com_small';
 $TEMPLATE{'comics.com_small'}->{'_Template_Description'} = "Comics hosted at comics.com, smaller version";
-$TEMPLATE{'comics.com_small'}->{'Regex'} = qr(img src="(http://assets\.comics\.com/dyn/str_strip/.*?\.full\.(gif|png|jpg))");
+$TEMPLATE{'comics.com_small'}->{'Regex'} = qr(img src="(http://.*\.com/dyn/str_strip/.*?\.full\.(gif|png|jpg))");
 
 # Template for gocomics.com
 $TEMPLATE{'gocomics.com'} = {
