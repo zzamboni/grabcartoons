@@ -1,39 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-	<title>zzamboni/grabcartoons @ GitHub</title>
-	
-	<style type="text/css">
-		body {
-  		margin-top: 1.0em;
-  		background-color: #e9fafc;
-		  font-family: "Helvetica,Arial,FreeSans";
-  		color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-		h1 { font-size: 3.8em; color: #160503; margin-bottom: 3px; }
-		h1 .small { font-size: 0.4em; }
-		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #160503; }
-    h3 { text-align: center; color: #160503; }
-    a { color: #160503; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-		pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-	</style>
-	
-</head>
-
-<body>
+---
+layout: default
+title: grabcartoons
+---
   <a href="http://github.com/zzamboni/grabcartoons"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
 
   <div id="container">
@@ -49,18 +17,36 @@
       <span class="small">by <a href="http://github.com/zzamboni">zzamboni</a></span></h1>
 
     <div class="description">
-      GrabCartoons is a comic-summarizing utility. It is modular, and it is very easy to write modules for new comics.  
+      Get your daily fix of the funnies.  
     </div>
 
-    <p>While we fully migrate the web page to github, you can find the full description here: <a href="http://grabcartoons.sourceforge.net/">http://grabcartoons.sourceforge.net/</a></p><h2>Authors</h2>
-<p>Diego Zamboni<br/>Benjamin Kuperman<br/>      </p>
-<h2>Contact</h2>
-<p>Diego Zamboni<br/>      </p>
+<p>GrabCartoons is a comic-summarizing utility. It is modular, and it
+is very easy to write modules for new comics.</p>
 
+<p>You can see a sample of grabcartoons output <a
+href="cartoons-sample.html">here</a>.</p>
+
+<p>Here's the list of comics for which we currently have modules:</p>
+
+<div class='colwrapper'>
+{% include lom.html %}
+</div>
+
+<h2>Contributions</h2>
+
+<p>If you write any new modules, please share them with us! You can
+post them at
+the <a href="http://github.com/zzamboni/grabcartoons/issues">issue
+tracker</a>, and we will add them to a future release.</p>
+
+<h2>Authors</h2>
+<p><a href="http://github.com/zzamboni/">Diego Zamboni</a><br/>
+<a href="http://github.com/kuperman/">Benjamin Kuperman</a><br/>
+</p>
 
     <h2>Download</h2>
     <p>
-      You can download this project in either
+      You can download the latest source code for this project in either
       <a href="http://github.com/zzamboni/grabcartoons/zipball/master">zip</a> or
       <a href="http://github.com/zzamboni/grabcartoons/tarball/master">tar</a> formats.
     </p>
@@ -74,15 +60,3 @@
     </div>
 
   </div>
-
-  <script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-697520-3");
-pageTracker._trackPageview();
-} catch(err) {}</script>
-</body>
-</html>
