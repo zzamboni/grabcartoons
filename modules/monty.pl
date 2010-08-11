@@ -1,4 +1,4 @@
 $COMIC{monty} = {
     'Title' => 'Monty',
-    'Template' => 'comics.com_big',
+    'Template' => 'comics.com_small',
 };

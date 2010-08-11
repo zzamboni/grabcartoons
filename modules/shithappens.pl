@@ -1,6 +1,6 @@
 $COMIC{shithappens} = {
 			     Title => 'Shit Happens',
-			     Page => 'http://www.ruthe.de/frontend/',
-			     Regex => qr(img\s+src="(cartoons/.*?\.jpg)")i,
+			     Page => 'http://www.ruthe.de/',
+			     Regex => qr(img\s+src="(cartoons/.*?\.(jpg|png|gif|jpeg))")i,
 			     Prepend => '{Page}',
 			    };
