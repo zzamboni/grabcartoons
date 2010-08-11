@@ -1,4 +1,4 @@
 $COMIC{pearls} = {
     'Title' => 'Pearls before Swine',
-    'Template' => 'comics.com_big',
+    'Template' => 'comics.com_small',
 };

@@ -1,7 +1,7 @@
 $COMIC{ctrlaltdel} = {
 		Title => 'Ctrl+Alt+Del',
-		Base => 'http://www.ctrlaltdel-online.com/',
-		Page => '{Base}comic.php',
-		Regex => qr!img +src="(/comics.*?)"!i,
-		Prepend => '{Base}',
+		Base => 'http://www.cad-comic.com/cad/',
+                Page => '{Base}',
+		Regex => qr!src="(http://cdn.cad-comic.com/comics.*?)"!i,
+                #Prepend => '{Base}',
 	       };
