@@ -30,9 +30,10 @@ $GET_METHOD=0;
 # include the full path.
 $XTRN_PROG="wget";
 $USER_AGENT=""; # uncomment the following line if you have problems
-#$USER_AGENT=" -U \"Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/521.25 (KHTML, like Gecko) Safari/521.24\"";
+#$USER_AGENT="Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/521.25 (KHTML, like Gecko) Safari/521.24";
+$USER_AGENT_CMD = $USER_AGENT ? qq(-U "$USER_AGENT") : "" ;
 # TODO - add in other user-agent strings if needed
-$XTRN_CMD="$XTRN_PROG -q -O- $USER_AGENT";
+$XTRN_CMD="$XTRN_PROG -q -O- $USER_AGENT_CMD";
 
 # Where to load cartoon modules from
 @MODULE_DIRS=("$FindBin::Bin/modules",
@@ -439,10 +440,11 @@ sub fetch_url {
     vmsg("    Fetching $url... ");
     if ($GET_METHOD == 2) {
         my $ua=LWP::UserAgent->new;
+	$ua->agent( $USERAGENT );
         my $req=new HTTP::Request('GET',$url);
         my $resp=$ua->request($req);
         if ($resp->is_error) {
-            $err="Could not retrieve $url";
+            $err="Could not retrieve $url: " . $resp->status_line ;
 	    error("$err\n");
             return undef;
         }
