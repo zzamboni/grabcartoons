@@ -1,0 +1,3 @@
+Templates defined:
+	comics.com	Comics hosted at comics.com
+	gocomics.com	Comics hosted at gocomics.com

@@ -5,16 +5,16 @@ title: grabcartoons
   <a href="http://github.com/zzamboni/grabcartoons"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
 
   <div id="container">
-
+{% capture version %}{% include version.txt %}{% endcapture %}
     <div class="download">
-      <a href="http://github.com/zzamboni/grabcartoons/zipball/v2.5">
+      <a href="http://github.com/zzamboni/grabcartoons/zipball/v{{ version }}">
         <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/zzamboni/grabcartoons/tarball/v2.5">
+      <a href="http://github.com/zzamboni/grabcartoons/tarball/v{{ version }}">
         <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
     </div>
 
     <h1><a href="http://github.com/zzamboni/grabcartoons">grabcartoons</a>
-	<span class="small"> v2.5</span></h1> 
+	<span class="small"> v{{ version }}</span></h1> 
 
     <div class="description">
       Grab your fix of the funnies.  
@@ -26,11 +26,24 @@ is very easy to write modules for new comics.</p>
 <p>You can see a sample of grabcartoons output <a
 href="cartoons-sample.html">here</a>.</p>
 
+<h2>Available modules</h2>
+
 <p>Here's the list of comics for which we currently have modules:</p>
 
 <div class='colwrapper'>
 {% include lom.html %}
 </div>
+
+<p>Grabcartoons also includes <i>templates</i> which define generic
+methods for fetching any comic from a given site. At the moment we
+have the following templates:</p>
+<pre>$ grabcartoons.pl --templates
+{% include templates.txt %}</pre>
+
+<h2>Usage</h2>
+
+<pre>$ grabcartoons.pl -h
+{% include usage.txt %}</pre>
 
 <h2>Contributions</h2>
 

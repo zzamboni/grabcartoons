@@ -1,0 +1,26 @@
+GrabCartoons version 2.6
+Usage: ./grabcartoons.pl [ options ] [ comic_id ...]
+    --all      or -a   generate a page with all the known comics on stdout.
+    --list     or -l   produce a list of the known comic_id's on stdout.
+    --htmllist         produce HTML list of known comic_id's on stdout.
+    --file     or -f   read list of comics from specified file.
+    --random n         select n comics at random (they will be output after
+                       any other comics requested)
+    --write    or -w   write output to specified file instead of stdout.
+    --version  or -V   print version number
+    --verbose  or -v   be verbose
+    --help     or -h   print this message.
+    --notitles or -t   do not show comic titles (for those that have them)
+    --templates        produce a list of defined templates
+    --genmodules       for any template specifications (template:comictag),
+                       write a snippet to comictag.pl in the directory
+                       specified by --genout.
+    --genout dir       output directory for generated comics.
+
+By default, it will produce a page with the given comics on stdout.
+
+comic_id can be:
+  - Any of the predefined modules (e.g. sinfest, adam_at_home)
+  - Of the form 'template:comic title', including quotes if the title has
+    spaces (e.g. 'gocomis.com:Citizen Dog', comics.com:Frazz). This will
+    generate on the fly a module for the given comic.
