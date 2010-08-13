@@ -1,3 +1,13 @@
+2010-08-13    Diego Zamboni <diego@zzamboni.org>
+
+	* grabcartoons.pl (fetch_url): Added proper setting of the
+	$USEAGENT string when using LWP::UserAgent to fetch pages.
+	* modules/fifth_wave.pl: Removed module for The Fifth Wave, which
+	is no longer available at the gocomics.com site. At
+	http://www.the5thwave.com/ it seems to be only an archive of
+	cartoons, without new updates.
+
+
 2010-02-06  Benjamin Kuperman <kuperman@users.sourceforge.net>
 	
 	* modules/nedroid.pl: Added new module.
