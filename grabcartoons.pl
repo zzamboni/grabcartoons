@@ -3,7 +3,7 @@ eval 'exec perl -x $0 ${1+"$@"}' # -*-perl-*-
 #!perl -w
 #
 # Grab daily cartoons from their web sites.
-# Diego Zamboni, Oct 28, 1998.
+# http://zzamboni.org/grabcartoons/
 #
 
 use FindBin;
