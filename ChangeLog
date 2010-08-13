@@ -1,5 +1,15 @@
 2010-08-13    Diego Zamboni <diego@zzamboni.org>
 
+	* Version 2.6
+	* modules/20templates.pl: Removed comics.com_big module, renames
+	comics.com_small to comics.com, since two sizes are no longer
+	available on comics.com.
+	* modules/savage_chickens.pl: Fixed Savage Chickens module, was
+	fetching unwanted content from the page.
+
+2010-08-13    Diego Zamboni <diego@zzamboni.org>
+
+	* Version 2.5
 	* grabcartoons.pl (fetch_url): Added proper setting of the
 	$USEAGENT string when using LWP::UserAgent to fetch pages.
 	* modules/fifth_wave.pl: Removed module for The Fifth Wave, which
