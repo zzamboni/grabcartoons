@@ -14,7 +14,7 @@ $TEMPLATE{'comics.com_big'} = {
       }
       vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
       # Get the list of comics from the website
-      return ($H->{_Template_Name}, "Error fetching $H->{Base} to get list of comics") unless fetch_url($H->{Base});
+      return ($H->{_Template_Name}, "Error fetching $H->{Base} to get list of comics") unless fetch_url($H->{Base}, 1);
       while (get_line()) {
 	if (/CMC\.Comics\s+=\s+(.*);\s*$/) {
 	  $comics=$1;

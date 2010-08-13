@@ -350,7 +350,7 @@ foreach $name (@ARGV) {
     # argument, and that data will be available for all other uses of
     # the template in the current run.
     if (exists($TEMPLATE{$C->{Template}}->{_Init_Code})) {
-      ($title,$err)=$TEMPLATE{$C->{Template}}->{_Init_Code}->($TEMPLATE{$C->{Template}});
+      ($title,$err)=$TEMPLATE{$C->{Template}}->{_Init_Code}->($TEMPLATE{$C->{Template}}, $C);
       if ($err) {
 	goto CHECKERROR;
       }
