@@ -12,7 +12,7 @@ use File::Path;
 
 use Env qw(HOME GRABCARTOONS_DIRS);
 
-$VERSION="2.5";
+$VERSION="2.6";
 
 Getopt::Long::Configure ("bundling");
 
