@@ -69,18 +69,18 @@ Usage: $0 [ options ] [ comic_id ...]
     --help     or -h   print this message.
     --notitles or -t   do not show comic titles (for those that have them)
     --templates        produce a list of defined templates
-    --genmodules       for any template specifications (template:comic),
-                       write a snippet to <comictag>.pl in the directory
+    --genmodules       for any template specifications (template:comictag),
+                       write a snippet to comictag.pl in the directory
                        specified by --genout.
-    --genout <dir>     output directory for generated comics
-                       (default: $genout).
+    --genout dir       output directory for generated comics.
+                       (default: $genout)
 
 By default, it will produce a page with the given comics on stdout.
 
 comic_id can be:
   - Any of the predefined modules (e.g. sinfest, adam_at_home)
   - Of the form 'template:comic title', including quotes if the title has
-    spaces (e.g. 'gocomis.com:Citizen Dog', comics.com_big:Frazz). This will
+    spaces (e.g. 'gocomis.com:Citizen Dog', comics.com:Frazz). This will
     generate on the fly a module for the given comic.
 ";
 $doall=0;
