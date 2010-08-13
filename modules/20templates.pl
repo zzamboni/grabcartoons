@@ -1,10 +1,10 @@
 # Templates for comics.com strips, in both large and small formats.
-$TEMPLATE{'comics.com_big'} = {
-    '_Template_Name' => 'comics.com_big',
-    '_Template_Description' => "Comics hosted at comics.com, big version",
+$TEMPLATE{'comics.com'} = {
+    '_Template_Name' => 'comics.com',
+    '_Template_Description' => "Comics hosted at comics.com",
     'Base' => 'http://comics.com',
     'Page' => '{Base}/{Tag}/',
-    'Regex' => qr(a href="(http://assets\.comics\.com/dyn/str_strip/.*?\.zoom\.(gif|png|jpg))"),
+    'Regex' => qr(img src="(http://.*\.com/dyn/str_strip/.*?\.full\.(gif|png|jpg))"),
     '_Init_Code' => sub {
       my $H=shift; my $C=shift;
       # If the comic already has a tag, skip the initialization, since we trust the tag is correct
@@ -83,13 +83,6 @@ $TEMPLATE{'comics.com_big'} = {
       return($H->{Title}||$H->{_Template_Name}, "Error: Could not find comic '$H->{Tag}' in template '$H->{_Template_Name}'") unless exists($ch->{$H->{Tag}});
     }
 };
-
-# This is the same, we just change the description and the regex
-my %tmp=%{$TEMPLATE{'comics.com_big'}}; # Need the temp var to duplicate the hash and not just copy the hash ref
-$TEMPLATE{'comics.com_small'} = \%tmp;
-$TEMPLATE{'comics.com_small'}->{'_Template_Name'} = 'comics.com_small';
-$TEMPLATE{'comics.com_small'}->{'_Template_Description'} = "Comics hosted at comics.com, smaller version";
-$TEMPLATE{'comics.com_small'}->{'Regex'} = qr(img src="(http://.*\.com/dyn/str_strip/.*?\.full\.(gif|png|jpg))");
 
 # Template for gocomics.com
 $TEMPLATE{'gocomics.com'} = {
