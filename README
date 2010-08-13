@@ -1,6 +1,6 @@
 grabcartoons
 ------------
-Web page: http://grabcartoons.sourceforge.net/
+Web page: http://zzamboni.org/grabcartoons/
 
 This is the program I use for viewing comics on the web. It's not as
 sophisticated as many of the other nice programs out there (check
@@ -192,18 +192,21 @@ variable.
 The easiest way is probably to take one of the existing modules (for
 example, xkcd.pl) and base yours on that.
 
-If you develop any new modules, please share them with me! You can
-post them to the "Feature Requests" tracker in the SF project page,
-and I will add them to a future release:
-http://sourceforge.net/tracker/?group_id=60063&atid=492936
+If you develop any new modules, please share them with me! You can either:
+
+a) Post them to the issue tracker in the github project page:
+   http://github.com/zzamboni/grabcartoons/issues
+b) Fork the project at github, add your modules, and send me a pull
+   request.
 
 Notes:
 ------
 
 I developed this program for personal use. If you have any problems,
-try looking at the code first. Feel free to email me with any
-questions, suggestions or code. I cannot promise any kind of support,
-but I would be happy to hear from you if you use grabcartoons.
+try looking at the code first. Feel free to post any questions,
+suggestions or code to the issue tracker. I cannot promise any kind of
+support, but I would be happy to hear from you if you use
+grabcartoons.
 
 Contributors:
 -------------
@@ -216,4 +219,5 @@ Module contributors: Nick Adams, Alain Brunet, Scott Baker, Yanick.
 
 Enjoy,
 --Diego Zamboni
-  zamboni@users.sourceforge.net
+  diego@zzamboni.org
+
