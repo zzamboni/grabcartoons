@@ -30,3 +30,13 @@ install:
 test:
 	./grabcartoons.pl $(V) "$(C)" > "$(OUT)"
 	open "$(OUT)"
+
+# Update the web pages branch. For developer use only
+updweb:
+	./grabcartoons.pl --htmllist > lom.html
+	./grabcartoons.pl --templates > templates.txt
+	./grabcartoons.pl --help > usage.txt
+	./grabcartoons.pl --version | sed 's/^GrabCartoons version //' > version.txt
+	git co gh-pages
+	mv lom.html templates.txt usage.txt version.txt _includes
+	@echo "### You are now in the gh-pages branch. Please review and commit changes ###"
