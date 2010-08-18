@@ -375,6 +375,8 @@ foreach $name (@ARGV) {
 	goto CHECKERROR;
       }
     }
+    # Determine the comic's tag if needed
+    find_and_validate_template_tag($newC);
     # Replace $C with the merged snippet
     $C=$newC;
     # If requested, write out the new module
@@ -523,6 +525,46 @@ sub _do_regex_replacements {
     }
   }
   return $s;
+}
+
+sub find_and_validate_template_tag {
+  $H=shift;
+  # If a tag was manually set, respect it
+  unless ($H->{Tag}) {
+    # Otherwise, try to derive it from the comic's title
+    my $title=lc($H->{Title});
+    # Make sure we have a valid tag
+    $ch=$H->{_Comics} || {};
+    vmsg("    [tmpl:$H->{_Template_Name}] Trying to find the tag for '$title'\n");
+    # First, see if the title is a valid tag already.
+    if ($ch->{$title}) {
+      # If so, store it as tag and replace the title with the appropriate comic name
+      $H->{Tag}=$title;
+      $H->{Title}=$ch->{$title};
+      vmsg("      [tmpl:$H->{_Template_Name}] Done - comic title was the tag\n");
+    } else {
+      # Second, search for the title in the comics we know
+      vmsg("      [tmpl:$H->{_Template_Name}] Looking for the comic's title '$title' in the list of comics\n");
+      my $tag=(grep { lc($ch->{$_}) =~ /$title/i } keys(%$ch))[0];
+      # If that doesn't work, try some blind normalization
+      if ($tag) {
+	vmsg("      [tmpl:$H->{_Template_Name}] Found the title in the list of comics\n");
+      } else {
+	vmsg("      [tmpl:$H->{_Template_Name}] Title not found in comics list - trying some normalization\n");
+	$tag=$title;
+	$tag=~s/\s+\&\s+/&/g; $tag=~s/\.//g; $tag=~s/'//g; $tag=~s/\s/_/g;
+      }
+      $H->{Tag} = $tag;
+      # Set the proper title if we can
+      if (exists($ch->{$tag})) {
+	$H->{Title} = $ch->{$tag};
+      }
+    }
+  }
+  # If we have a list of comics, check that the tag is valid
+  if ((scalar keys %$ch) && !exists($ch->{$H->{Tag}})) {
+    return($H->{Title}||$H->{_Template_Name}, "Error: Could not find comic '$H->{Tag}' in template '$H->{_Template_Name}'");
+  }
 }
 
 # Process a %COMIC snippet, passed as a hashref
