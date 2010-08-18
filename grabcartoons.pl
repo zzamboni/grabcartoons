@@ -57,9 +57,13 @@ $genout="$HOME/.grabcartoons/modules";
 $versiontext="GrabCartoons version $VERSION";
 $usage="$versiontext
 Usage: $0 [ options ] [ comic_id ...]
-    --all      or -a   generate a page with all the known comics on stdout.
-    --list     or -l   produce a list of the known comic_id's on stdout.
-    --htmllist         produce HTML list of known comic_id's on stdout.
+    --all       or -a  generate a page with all the known comics on stdout.
+    --list [t:] or -l  produce a list of the known comic_id's on stdout. If
+                       t: is given, the list of comics from the given template
+                       is produced.
+    --htmllist [t:]    produce HTML list of known comic_id's on stdout. If
+                       t: is given, the list of comics from the given template
+                       is produced.
     --file     or -f   read list of comics from specified file.
     --random n         select n comics at random (they will be output after
                        any other comics requested)
@@ -193,7 +197,7 @@ foreach $mdir (@MODULE_DIRS) {
 $lom="Comic IDs defined:\n\t".join("\n\t", sort @list_of_modules)."\n";
 $htmlhdr="";
 
-if ($dolist) {
+if ($dolist && !@ARGV) {
   print $lom;
   exit;
 }
@@ -204,7 +208,7 @@ if ($listoftemplates) {
 
 if ($htmllist) {
     # List defined modules, but in HTML
-    @ARGV=sort @list_of_modules;
+    @ARGV=sort @list_of_modules unless @ARGV;
 }
 
 if ($doall) {
@@ -231,7 +235,7 @@ my @normalized_comics=();
 vmsg("Normalizing list of requested comics...\n");
 foreach my $comic (@ARGV) {
   # If it's a template:comic pair, leave it alone, templates do their own normalization
-  if ($comic =~ /^.+:.+$/) {
+  if ($comic =~ /^.+:.*$/) {
     vmsg("  $comic is a template:comic pair, leaving unmodified.\n");
     push @normalized_comics, $comic;
     next;
@@ -301,7 +305,7 @@ if ($htmllist) {
     &print_header_htmllist($htmlhdr);
 }
 else {
-    &print_header;
+    &print_header unless $dolist;
 }
 
 # Finally, get the comics
@@ -310,7 +314,7 @@ foreach $name (@ARGV) {
   my ($templ, $comic)=split(/:/, $name, 2);
   # If the given name is of the form template:cartoon and the template
   # is valid, generate a $COMIC snippet on the fly
-  if ($templ && $comic) {
+  if (defined($templ) && defined($comic)) {
     if (defined($TEMPLATE{$templ})) {
       vmsg("  Generating module for '$comic' on the fly, using template '$templ'\n");
       $C={};
@@ -333,6 +337,7 @@ foreach $name (@ARGV) {
 
   undef($err);
   $title=undef;
+  @Clist=();
 
   if ($C->{Template}) {
     unless ($TEMPLATE{$C->{Template}}) {
@@ -356,69 +361,93 @@ foreach $name (@ARGV) {
       }
       delete($TEMPLATE{$C->{Template}}->{_Init_Code});
     }
-    # Next, merge the fields of the comic's hash with the template hash
-    my %tmpl=%{$TEMPLATE{$C->{Template}}};
-    my ($k,$v);
-    my $newC={};
-    while (($k,$v) = each(%tmpl)) {
-      $newC->{$k}=$v;
-    }
-    while (($k,$v) = each(%$C)) {
-      $newC->{$k}=$v;
-    }
-    # If _Template_Code exists, execute it with the merged snippet as argument,
-    # and delete it from the merged snippet
-    if ($tmpl{_Template_Code}) {
-      delete($newC->{_Template_Code});
-      ($title,$err)=$tmpl{_Template_Code}->($newC);
-      if ($err) {
+    # If Title is * or empty, then produce a list with all known comics in the template.
+    if ($C->{Title} eq '*' || $C->{Title} eq '') {
+      $loc=$TEMPLATE{$C->{Template}}->{_Comics};
+      if (scalar keys %$loc) {
+	vmsg("All comics requested for template $C->{Template}\n");
+	print "List of comic IDs known in template $C->{Template}:\n" if ($dolist);
+	foreach $comic (sort keys %$loc) {
+	  push @Clist, { Tag => $comic, Template => $C->{Template} };
+	  print "\t$comic ($loc->{$comic})\n" if $dolist;
+	}
+	exit if $dolist;
+      }
+      else {
+	($title, $err)=($C->{Title}, "I do not know the list of comics for template $C->{Template}");
 	goto CHECKERROR;
       }
     }
-    # Determine the comic's tag if needed
-    ($title,$err)=find_and_validate_template_tag($newC);
-    goto CHECKERROR if $err;
-    # Replace $C with the merged snippet
-    $C=$newC;
-    # If requested, write out the new module
-    if ($genmodules) {
-      my $fname="$genout/$C->{Tag}.pl";
-      vmsg("[$name] Writing module to $fname\n");
-      open MOD, ">$fname"
-	or die "[$name] Error creating file $fname: $!\n";
-      print MOD <<EOMODULE;
-\$COMIC{'$C->{Tag}'} = {
-			Title => '$C->{Title}',
-			Tag => '$C->{Tag}',
-			Template => '$C->{Template}',
+    else {
+      @Clist = ( $C );
+    }
+    foreach $C2 (@Clist) {
+    # Next, merge the fields of the comic's hash with the template hash
+      my %tmpl=%{$TEMPLATE{$C2->{Template}}};
+      my ($k,$v);
+      my %oldC=%$C2;
+      while (($k,$v) = each(%tmpl)) {
+	$C2->{$k}=$v;
+      }
+      while (($k,$v) = each(%oldC)) {
+	$C2->{$k}=$v;
+      }
+      # If _Template_Code exists, execute it with the merged snippet as argument,
+      # and delete it from the merged snippet
+      if ($tmpl{_Template_Code}) {
+	delete($C2->{_Template_Code});
+	($title,$err)=$tmpl{_Template_Code}->($C2);
+	if ($err) {
+	  goto CHECKERROR;
+	}
+      }
+      # Determine the comic's tag if needed
+      ($title,$err)=find_and_validate_template_tag($C2);
+      goto CHECKERROR if $err;
+      # If requested, write out the new module
+      if ($genmodules) {
+	my $fname="$genout/$C2->{Tag}.pl";
+	vmsg("[$name] Writing module to $fname\n");
+	open MOD, ">$fname"
+	  or die "[$name] Error creating file $fname: $!\n";
+	print MOD <<EOMODULE;
+\$COMIC{'$C2->{Tag}'} = {
+			Title => '$C2->{Title}',
+			Tag => '$C2->{Tag}',
+			Template => '$C2->{Template}',
 		       };
 EOMODULE
-      close MOD;
+	close MOD;
+      }
     }
   }
 
-  # replace variable references
-  for (keys(%$C)) {
-    $C->{$_}=_replace_vars($C->{$_}, $C);
-  }
-  $mainurl=$C->{Page};
-  if ($htmllist) {
-      &print_section_htmllist($name, $C->{Title}||$name, $mainurl);
+  @Clist = ( $C ) unless @Clist;
+
+  foreach $C3 (@Clist) {
+    # replace variable references
+    for (keys(%$C3)) {
+      $C3->{$_}=_replace_vars($C3->{$_}, $C3);
+    }
+    $mainurl=$C3->{Page};
+    if ($htmllist) {
+      &print_section_htmllist($name, $C3->{Title}||$name, $mainurl);
       next;
+    }
+    ($html, $title, $err)=get_comic($C3);
+    goto CHECKERROR if $err || !$html;
+    &print_section($title, undef, $html, $mainurl, $err);
   }
-  ($html, $title, $err)=get_comic($C);
-CHECKERROR:
-  if ($err || !$html) {
+ CHECKERROR:
+  if ($err || (!$html && !$htmllist)) {
     if ($mainurl) {
       error("[$name] Error fetching $name [$mainurl]: $err\n");
       $err="Error fetching <a href=\"$mainurl\">$name</a>: $err";
-    }
-    else {
+    } else {
       $err="Error getting the URL for $name: $err";
       error("[$name] $err\n");
     }
   }
-  &print_section($title, undef, $html, $mainurl, $err);
 }
 
 if ($htmllist) {
@@ -536,12 +565,12 @@ sub _do_regex_replacements {
 
 sub find_and_validate_template_tag {
   $H=shift;
+  # Make sure we have a valid tag
+  $ch=$H->{_Comics} || {};
   # If a tag was manually set, respect it
   unless ($H->{Tag}) {
     # Otherwise, try to derive it from the comic's title
     my $title=lc($H->{Title});
-    # Make sure we have a valid tag
-    $ch=$H->{_Comics} || {};
     vmsg("    [tmpl:$H->{_Template_Name}] Trying to find the tag for '$title'\n");
     # First, see if the title is a valid tag already.
     if ($ch->{$title}) {
@@ -562,12 +591,13 @@ sub find_and_validate_template_tag {
 	$tag=~s/\s+\&\s+/&/g; $tag=~s/\.//g; $tag=~s/'//g; $tag=~s/\s/_/g;
       }
       $H->{Tag} = $tag;
-      # Set the proper title if we can
-      if (exists($ch->{$tag})) {
-	$H->{Title} = $ch->{$tag};
-      }
     }
   }
+  # Set the proper title if we can
+  if (exists($ch->{$H->{Tag}})) {
+    $H->{Title} = $ch->{$H->{Tag}};
+  }
+
   # If we have a list of comics, check that the tag is valid
   if ((scalar keys %$ch) && !exists($ch->{$H->{Tag}})) {
     return($H->{Title}||$H->{_Template_Name}, "Could not find comic '$H->{Tag}' in template '$H->{_Template_Name}'");
