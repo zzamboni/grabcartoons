@@ -86,6 +86,10 @@ comic_id can be:
   - Of the form 'template:comic title', including quotes if the title has
     spaces (e.g. 'gocomis.com:Citizen Dog', comics.com:Frazz). This will
     generate on the fly a module for the given comic.
+  - Of the form 'template:*' or 'template:', which means \"all the comics
+    from the named template\". This can also be passed as argument to
+    the --list and --htmllist options to produce the listing from the
+    given template instead of from the built-in modules.
 ";
 $doall=0;
 $dolist=0;
