@@ -606,13 +606,13 @@ sub find_and_validate_template_tag {
 #            default InclusiveCapture == false.
 #     StaticURL => static image URL to return
 #     StaticHTML => static HTML snippet to return
-#     Function  => a function to call. It must return
-#           ($html, $title, $error)
+#     Function  => a function to call. It receives the commic snippet as
+#           argument, and must return ($html, $title, $error)
 #     NoShowTitle => if true, do not display the title of the comic
 #           (for those that always have it in the drawing)
 #     Template => if present, specified a template that will be used
 #           for this comic (e.g. for comics coming from a single
-#           sindicated site, so the mechanism is the same for all of them)
+#           syndicated site, so the mechanism is the same for all of them)
 #           Essentially the fields from the template and the $COMIC snippet
 #           are merged and then processed in the usual way.
 #           If the template contains a _Template_Code atribute, it is
@@ -631,7 +631,7 @@ sub get_comic {
 
   # Now see which method is specified for fetching the comic.
   if (defined($C{Function})) {
-    return $C{Function}->();
+    return $C{Function}->($C);
   }
   elsif (defined($C{StaticURL})) {
     #return (qq(<img border=0 src="$C{StaticURL}">), $title, undef);
