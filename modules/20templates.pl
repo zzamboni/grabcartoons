@@ -103,7 +103,33 @@ $TEMPLATE{'gocomics.com'} =
    'Base' => 'http://www.gocomics.com',
    'Page' => '{Base}/{Tag}/',
    'Regex' => qr(link rel=\"image_src\" href=\"(http://.*\.gocomics\.com/.*)\")i,
-   '_Template_Code' => sub { $H=shift; unless ($H->{Tag}) { my $tag=lc($H->{Title}); $tag=~s/\s//g; $H->{Tag} = $tag } },
+   '_Init_Code' => sub {
+     my $H=shift; my $C=shift;
+     # If the comic already has a tag, skip the initialization, since we trust the tag is correct
+     if ($C->{Tag}) {
+       vmsg("  [tmpl:$H->{_Template_Name}] Skipping initialization for now, comic already has a tag (".$C->{Tag}.")\n");
+       return undef;
+     }
+     vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
+     # Get the list of comics from the website
+     $listurl="$H->{Base}/features/";
+     return ($H->{_Template_Name}, "Error fetching $listurl to get list of comics") unless fetch_url($listurl, 1);
+     $H->{_Comics} = {};
+     $found = undef;
+     $inregion = undef;
+     while (get_line()) {
+       $inregion = 1 if m!class="az-list!;
+       $inregion = 0 if m!id="footer-wrapper"!;
+       if ($inregion && m!\<li\>\<a href="/(.+?)".*\>(.+)\</a\>!) {
+	 $tag = $1; $title = $2;
+	 $H->{_Comics}->{$tag} = $title;
+	 vmsg("  [tmpl:$H->{_Template_Name}] Found comic $title ($tag)\n");
+	 $found = 1;
+       }
+     }
+     vmsg("    Got comics list from $H->{_Template_Name}\n") if $found;
+     return $found ? ($H->{_Template_Name}, undef) : ($H->{_Template_Name}, "Could not find the list of comics for template '$H->{_Template_Name}' in $listurl");
+   },
   };
 
 # Template for arcamax.com
@@ -145,9 +171,9 @@ $TEMPLATE{'comicskingdom.com'} =
    '_Template_Name' => 'comicskingdom.com',
    '_Template_Description' => "Comics hosted at comicskingdom.com",
    'Base' => 'http://content.comicskingdom.net',
+   'Page' => 'http://newsok.com/entertainment/comics?feature_id={Tag}',
    'Function' => sub {
      my $C = shift;
-     $C->{Tag}=$C->{Title};
      use POSIX qw(strftime);
      $tomorrow  = strftime("%Y%m%d", localtime(time + 86400));
      $today     = strftime("%Y%m%d", localtime);
@@ -156,11 +182,43 @@ $TEMPLATE{'comicskingdom.com'} =
      # Try the three dates, to see which one is active
      foreach $d ($today, $tomorrow, $yesterday) {
        $url=sprintf($tmpl, $d);
-       if (fetch_url($url)) {
-	 return(qq(<a href="http://newsok.com/entertainment/comics?feature_id=$C->{Tag}"><img src="$url"/></a>),
-		$C->{Tag}, undef)
+       if (fetch_url($url, undef, 1)) {
+	 return(qq(<a href="$C->{Page}"><img src="$url"/></a>), $C->{Title}, undef)
        }
      }
      return(undef, $C->{Tag}, "Could not find image for $C->{Tag}");
+   },
+   '_Init_Code' => sub {
+     my $H=shift; my $C=shift;
+     # If the comic already has a tag, skip the initialization, since we trust the tag is correct
+     if ($C->{Tag}) {
+       vmsg("  [tmpl:$H->{_Template_Name}] Skipping initialization for now, comic already has a tag (".$C->{Tag}.")\n");
+       return undef;
+     }
+     vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
+     # Get the list of comics from the website
+     $listurl='http://v3.comicskingdom.net/service.php/portal?clientId=14&size=0';
+     return ($H->{_Template_Name}, "Error fetching $listurl to get list of comics") unless fetch_url($listurl, 1);
+     $page = get_fullpage();
+     # The page is HTML encoded in Javascript. We must decode it to more easily get the list of comics.
+     $page =~ s/%([0-9A-Fa-f]{2})/chr(hex($1))/eg;
+     set_lines(map { "$_\n" } split("\n", $page));
+     $H->{_Comics} = {};
+     $found = undef;
+     $inregion = undef;
+     while (get_line()) {
+       $inregion = 1 if m!modal for nav!i;
+       $inregion = 0 if m!build up modules!i;
+       if ($inregion) {
+	 if (m!href="\?feature_id=(.+?)" *\>(.+)\</a\>!) {
+	   $tag = $1; $title = $2;
+	   $H->{_Comics}->{$tag} = $title;
+	   vmsg("  [tmpl:$H->{_Template_Name}] Found comic $title ($tag)\n");
+	   $found = 1;
+	 }
+       }
+     }
+     vmsg("    Got comics list from $H->{_Template_Name}\n") if $found;
+     return $found ? ($H->{_Template_Name}, undef) : ($H->{_Template_Name}, "Could not find the list of comics for template '$H->{_Template_Name}' in $listurl");
    },
   };

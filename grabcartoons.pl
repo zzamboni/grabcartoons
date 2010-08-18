@@ -376,7 +376,8 @@ foreach $name (@ARGV) {
       }
     }
     # Determine the comic's tag if needed
-    find_and_validate_template_tag($newC);
+    ($title,$err)=find_and_validate_template_tag($newC);
+    goto CHECKERROR if $err;
     # Replace $C with the merged snippet
     $C=$newC;
     # If requested, write out the new module
@@ -437,6 +438,7 @@ if ($allerrors) {
 sub fetch_url {
     my $url=shift;
     my $force=shift;
+    my $quiet=shift;
     # If we are just producing a list of URLs, give a bogus error unless $force is specified
     return undef if ($htmllist && !$force);
     vmsg("    Fetching $url... ");
@@ -447,7 +449,7 @@ sub fetch_url {
         my $resp=$ua->request($req);
         if ($resp->is_error) {
             $err="Could not retrieve $url: " . $resp->status_line ;
-	    error("$err\n");
+	    error("$err\n") unless $quiet;
             return undef;
         }
         my $html=$resp->content;
@@ -459,7 +461,7 @@ sub fetch_url {
         my $cmd="$XTRN_CMD '$url'";
         open CMD, "$cmd |" or do {
             $err="Error executing '$cmd': $!";
-	    error("$err\n");
+	    error("$err\n") unless $quiet;
             return undef;
         };
         @LINES=<CMD>;
@@ -484,6 +486,11 @@ sub get_fullpage {
     my $r=join("\n", @LINES);
     @LINES=();
     return $r;
+}
+
+# Setting @LINES to any array, for easier fetching later
+sub set_lines {
+  @LINES = @_;
 }
 
 # Print a message if verbose flag is on
@@ -563,7 +570,7 @@ sub find_and_validate_template_tag {
   }
   # If we have a list of comics, check that the tag is valid
   if ((scalar keys %$ch) && !exists($ch->{$H->{Tag}})) {
-    return($H->{Title}||$H->{_Template_Name}, "Error: Could not find comic '$H->{Tag}' in template '$H->{_Template_Name}'");
+    return($H->{Title}||$H->{_Template_Name}, "Could not find comic '$H->{Tag}' in template '$H->{_Template_Name}'");
   }
 }
 
