@@ -34,7 +34,7 @@ test:
 # Update the web pages branch. For developer use only
 updweb:
 	./grabcartoons.pl --htmllist > lom.html
-	./grabcartoons.pl --templates > templates.txt
+	./grabcartoons.pl --templates | perl -pe 's!(\S+\.com)!<a href="http://$$1/">$$1</a>!' > templates.txt
 	./grabcartoons.pl --help | sed '/default: /d' > usage.txt
 	./grabcartoons.pl --version | sed 's/^GrabCartoons version //' > version.txt
 	git co gh-pages
