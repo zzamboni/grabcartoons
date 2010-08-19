@@ -64,11 +64,6 @@ $TEMPLATE{'comics.com'} =
    'Regex' => qr(img src="(http://.*\.com/dyn/str_strip/.*?\.full\.(gif|png|jpg))"),
    '_Init_Code' => sub {
      my $H=shift; my $C=shift;
-     # If the comic already has a tag, skip the initialization, since we trust the tag is correct
-     if ($C->{Tag}) {
-       vmsg("  [tmpl:$H->{_Template_Name}] Skipping initialization for now, comic already has a tag (".$C->{Tag}.")\n");
-       return undef;
-     }
      vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
      # Get the list of comics from the website
      return ($H->{_Template_Name}, "Error fetching $H->{Base} to get list of comics") unless fetch_url($H->{Base}, 1);
@@ -105,11 +100,6 @@ $TEMPLATE{'gocomics.com'} =
    'Regex' => qr(link rel=\"image_src\" href=\"(http://.*\.gocomics\.com/.*)\")i,
    '_Init_Code' => sub {
      my $H=shift; my $C=shift;
-     # If the comic already has a tag, skip the initialization, since we trust the tag is correct
-     if ($C->{Tag}) {
-       vmsg("  [tmpl:$H->{_Template_Name}] Skipping initialization for now, comic already has a tag (".$C->{Tag}.")\n");
-       return undef;
-     }
      vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
      # Get the list of comics from the website
      $listurl="$H->{Base}/features/";
@@ -142,11 +132,6 @@ $TEMPLATE{'arcamax.com'} =
    'Regex' => qr(img src=\"(http://www.arcamax.com/newspics/\d+/\d+/\d+.gif)\")i,
    '_Init_Code' => sub {
      my $H=shift; my $C=shift;
-     # If the comic already has a tag, skip the initialization, since we trust the tag is correct
-     if ($C->{Tag}) {
-       vmsg("  [tmpl:$H->{_Template_Name}] Skipping initialization for now, comic already has a tag (".$C->{Tag}.")\n");
-       return undef;
-     }
      vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
      # Get the list of comics from the website
      return ($H->{_Template_Name}, "Error fetching $H->{Base}/comics/ to get list of comics") unless fetch_url("$H->{Base}/comics/", 1);
@@ -186,15 +171,10 @@ $TEMPLATE{'comicskingdom.com'} =
 	 return(qq(<a href="$C->{Page}"><img src="$url"/></a>), $C->{Title}, undef)
        }
      }
-     return(undef, $C->{Tag}, "Could not find image for $C->{Tag}");
+     return(undef, $C->{Title}, "Could not find image for $C->{Title} ($C->{Tag})");
    },
    '_Init_Code' => sub {
      my $H=shift; my $C=shift;
-     # If the comic already has a tag, skip the initialization, since we trust the tag is correct
-     if ($C->{Tag}) {
-       vmsg("  [tmpl:$H->{_Template_Name}] Skipping initialization for now, comic already has a tag (".$C->{Tag}.")\n");
-       return undef;
-     }
      vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
      # Get the list of comics from the website
      $listurl='http://v3.comicskingdom.net/service.php/portal?clientId=14&size=0';
