@@ -1,3 +1,16 @@
+2010-08-19    Diego Zamboni <diego@zzamboni.org>
+
+	* Version 2.7
+	* modules/20templates.pl: Added templates for arcamax.com and
+	comicskingdom.com, thanks to Tony Cratz for the suggestions.
+	* grabcartoons.pl: It is now possible to request all the comics
+	from a given template by using template:* or template: as the
+	comic ID. This can also be passed to --list or --htmllist to
+	produce the list of comics from that template.
+	* grabcartoons.pl: Standardized the format of the comics list for
+	templates, and unified into the base code the finding and
+	validation of a comic's tag when using a template.
+
 2010-08-13    Diego Zamboni <diego@zzamboni.org>
 
 	* Version 2.6
