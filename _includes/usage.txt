@@ -1,8 +1,12 @@
-GrabCartoons version 2.6
+GrabCartoons version 2.7
 Usage: ./grabcartoons.pl [ options ] [ comic_id ...]
-    --all      or -a   generate a page with all the known comics on stdout.
-    --list     or -l   produce a list of the known comic_id's on stdout.
-    --htmllist         produce HTML list of known comic_id's on stdout.
+    --all       or -a  generate a page with all the known comics on stdout.
+    --list [t:] or -l  produce a list of the known comic_id's on stdout. If
+                       t: is given, the list of comics from the given template
+                       is produced.
+    --htmllist [t:]    produce HTML list of known comic_id's on stdout. If
+                       t: is given, the list of comics from the given template
+                       is produced.
     --file     or -f   read list of comics from specified file.
     --random n         select n comics at random (they will be output after
                        any other comics requested)
@@ -24,3 +28,7 @@ comic_id can be:
   - Of the form 'template:comic title', including quotes if the title has
     spaces (e.g. 'gocomis.com:Citizen Dog', comics.com:Frazz). This will
     generate on the fly a module for the given comic.
+  - Of the form 'template:*' or 'template:', which means "all the comics
+    from the named template". This can also be passed as argument to
+    the --list and --htmllist options to produce the listing from the
+    given template instead of from the built-in modules.

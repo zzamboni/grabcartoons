@@ -1,3 +1,5 @@
 Templates defined:
-	comics.com	Comics hosted at comics.com
-	gocomics.com	Comics hosted at gocomics.com
+	<a href="http://arcamax.com/">arcamax.com</a>	Comics hosted at arcamax.com
+	<a href="http://comics.com/">comics.com</a>	Comics hosted at comics.com
+	<a href="http://comicskingdom.com/">comicskingdom.com</a>	Comics hosted at comicskingdom.com
+	<a href="http://gocomics.com/">gocomics.com</a>	Comics hosted at gocomics.com

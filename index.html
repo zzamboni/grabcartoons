@@ -34,21 +34,29 @@ href="cartoons-sample.html">here</a>.</p>
 {% include lom.html %}
 </div>
 <p>&nbsp;</p>
-<p>Grabcartoons also includes <i>templates</i> which define generic
-methods for fetching any comic from a given site. At the moment we
-have the following templates:</p>
+<p>Grabcartoons also includes <i>templates</i> that allow you to fetch
+any comic from a given site. At the moment we have the following
+templates:</p>
 <pre>$ grabcartoons.pl --templates
 {% include templates.txt %}</pre>
+<p>To fetch a comic using a module, simply use <i>template:comic</i> as
+the specification in the command line. <i>name</i> can be any unique
+part of the title of the comic you want.</p>
 
 <h2>Usage</h2>
 
+<p>Basic usage example:</p>
+<pre>$ grabcartoons.pl sinfest xkcd savage_chickens gocomics.com:gasoline > output.html</pre>
+And then open <tt>output.html</tt> in your web browser.
+
+<p>Full set of options:</p>
 <pre>$ grabcartoons.pl -h
 {% include usage.txt %}</pre>
 
 <h2>Contributions</h2>
 
-<p>If you write any new modules, please share them with us! You can
-post them at
+<p>If you write any new modules, or have any suggestions, please share
+them with us! You can post them at
 the <a href="http://github.com/zzamboni/grabcartoons/issues">issue
 tracker</a>, and we will add them to a future release. Or just fork
 the code
