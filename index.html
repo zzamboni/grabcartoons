@@ -1,24 +1,21 @@
 ---
-layout: default
+layout: posterous
+subtitle: zzamboni.org
 title: grabcartoons
+posttitle: grabcartoons
+forkme: 1
+githuburl: http://github.com/zzamboni/grabcartoons
 ---
-  <a href="http://github.com/zzamboni/grabcartoons"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+{% capture version %}{% include version.txt %}{% endcapture %}
 
   <div id="container">
-{% capture version %}{% include version.txt %}{% endcapture %}
     <div class="download">
+      <p align="center">Download version {{ version}}</p>
       <a href="http://github.com/zzamboni/grabcartoons/zipball/v{{ version }}">
         <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
       <a href="http://github.com/zzamboni/grabcartoons/tarball/v{{ version }}">
         <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
       <br/><div align="center"><a href="http://github.com/zzamboni/grabcartoons/blob/master/ChangeLog">(ChangeLog)</a></div>
-    </div>
-
-    <h1><a href="http://github.com/zzamboni/grabcartoons">grabcartoons</a>
-	<span class="small"> v{{ version }}</span></h1> 
-
-    <div class="description">
-      Grab your fix of the funnies.  
     </div>
 
 <p>GrabCartoons is a comic-summarizing utility. It is modular, and it
