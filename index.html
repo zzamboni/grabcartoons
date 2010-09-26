@@ -1,16 +1,17 @@
 ---
-layout: posterous
+layout: paramaibo
 subtitle: zzamboni.org
 title: grabcartoons
 posttitle: grabcartoons
 forkme: 1
 githuburl: http://github.com/zzamboni/grabcartoons
+nosidebar: 1
 ---
 {% capture version %}{% include version.txt %}{% endcapture %}
 
   <div id="container">
     <div class="download">
-      <p align="center">Download version {{ version}}</p>
+      <p align="center"><b>Download version {{ version}}</b></p>
       <a href="http://github.com/zzamboni/grabcartoons/zipball/v{{ version }}">
         <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
       <a href="http://github.com/zzamboni/grabcartoons/tarball/v{{ version }}">
@@ -50,7 +51,7 @@ And then open <tt>output.html</tt> in your web browser.
 <p>Full set of options:</p>
 <pre>$ grabcartoons.pl -h
 {% include usage.txt %}</pre>
-
+<br/>
 <h2>Contributions</h2>
 
 <p>If you write any new modules, or have any suggestions, please share
