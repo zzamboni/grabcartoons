@@ -2,7 +2,8 @@
 <html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-
+{% if page.accent %}{% assign accent = page.accent %}{% else %}{% assign accent = '#0080C3' %}{% endif %}
+{% if page.sidebar == null %}{% assign sidebar = true %}{% else %}{% assign sidebar = page.sidebar %}{% endif %}
 <title>{{ page.title }}</title>
     <link href="http://blog.zzamboni.org/images/favicon.png" rel="icon" type="image/x-png" />
 <style type="text/css">
@@ -71,7 +72,7 @@ body {
     font-size: 12px;
 }
 a {
-    color: #0080C3;
+    color: {{ accent }};
     text-decoration: none;
 }
 a:hover {
@@ -101,7 +102,7 @@ a.reverse:hover {
 }
 
 .header {
-    background: #0080C3;
+    background: {{ accent }};
     color: #fff;
     overflow: visible;
     z-index: 10;
@@ -140,7 +141,7 @@ h2 {
 }
 
 h2 a {
-    color: #0080C3;
+    color: {{ accent }};
     text-decoration: none;
 }
 
@@ -177,7 +178,7 @@ h4 {
 
 #posts {
     float: left;
-    width: {% if page.nosidebar %}910px{% else %}680px{% endif %};
+    width: {% if sidebar %}680px{% else %}910px{% endif %};
 }
 
 
@@ -205,13 +206,13 @@ h4 {
 }
 
 .date a:hover {
-    color: #0080C3;
+    color: {{ accent }};
 }
 
 .post {
     float: right;
     position: relative;
-    width: {% if page.nosidebar %}730px{% else %}500px{% endif %};
+    width: {% if sidebar %}500px{% else %}730px{% endif %};
 }
 
 .post p, .post div {
@@ -253,7 +254,7 @@ h4 {
 }
 
 .infobar .posted,.infobar .comments-name {
-    color: #0080C3;
+    color: {{ accent }};
 }
 
 .infobar a.timestamp,.infobar .comments-quantity {
@@ -388,8 +389,8 @@ p.private-post {
 }
 
 .pagination a {
-    background: #0080C3;
-    border: solid 1px #0080C3;
+    background: {{ accent }};
+    border: solid 1px {{ accent }};
     color: #fff;
     display: inline-block;
     display: -moz-inline-box;
@@ -418,9 +419,6 @@ p.private-post {
     float: right;
     width: 230px;
     margin-top: 30px;
-{% if page.nosidebar %}
-   visibility: hidden;
-{% endif %}   
 }
 
 .sidebar-block {
@@ -428,7 +426,7 @@ p.private-post {
 }
 
 h5 {
-    color: #0080C3;
+    color: {{ accent }};
     font-size: 11px;
     font-weight: bold;
     padding-bottom: 3px;
@@ -449,7 +447,7 @@ h5 {
 }
 
 .tag li,#more-tags-listing li,.taglist li {
-    color: #0080C3;
+    color: {{ accent }};
     font-size: 10px;
     list-style: none;
     margin: 0;
@@ -473,7 +471,7 @@ h5 {
 }
 
 a.more-tags {
-    color: #0080C3 !important;
+    color: {{ accent }} !important;
     font-size: 10px !important;
     text-decoration: none;
 }
@@ -593,7 +591,7 @@ border: 0;
 
 <body>    
 {% if page.forkme %}
-  <a href="{{ page.githuburl }}"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  <a href="{{ page.forkme }}"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
 {% endif %}
     <div class="header header_text" style="z-index: 10 !important;">
         <div class="content">
@@ -669,7 +667,7 @@ border: 0;
     </div><!-- /#posts -->
 
     
-        
+{% if sidebar %}
         <div id="sidebar">
             
                 
@@ -691,6 +689,7 @@ border: 0;
             
           
         </div><!-- /#sidebar -->
+{% endif %}
     <div class="clear"></div>
 </div><!-- /.container -->
 
