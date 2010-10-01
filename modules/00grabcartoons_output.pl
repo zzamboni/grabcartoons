@@ -38,7 +38,7 @@ sub print_section {
   # Fix URLs for ampersands
   $mainurl =~ s/&(?!amp;)/&amp;/gi if $mainurl;
       $url =~ s/&(?!amp;)/&amp;/gi if $url;
-     $html =~ s/&(?!amp;)/&amp;/gi if $html;
+#     $html =~ s/&(?!amp;)/&amp;/gi if $html;
   # handle non-displaying titles
   my $style="";
   if ($name =~ /^nt\|(.*)/) {
