@@ -505,6 +505,11 @@ sub fetch_url {
 	error("$err\n");
         return undef;
     }
+      my @matches=grep(/http-equiv="refresh"/i, @LINES);
+      if (@matches && $matches[0] =~ /content="\d+;url=(.*?)"/i) {
+	my $newurl=$1;
+	return fetch_url($newurl, $force, $quiet);
+      }
     vmsg("success.\n");
     return 1;
 }

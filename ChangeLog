@@ -1,3 +1,11 @@
+2010-10-01    Diego Zamboni <diego@zzamboni.org>
+
+	* modules/extraordinary.pl: Added module for Extra Ordinary
+	  (http://exocomics.com/)
+	* grabcartoons.pl (fetch_url): Added code to follow META refresh
+	  tags automatically (this was needed to make the new
+	  "extraordinary" module simpler).
+
 2010-08-19    Diego Zamboni <diego@zzamboni.org>
 
 	* Version 2.7
@@ -31,7 +39,7 @@
 	cartoons, without new updates.
 
 2010-02-06  Benjamin Kuperman <kuperman@users.sourceforge.net>
-	
+
 	* modules/nedroid.pl: Added new module.
 
 2010-01-11  Benjamin Kuperman <kuperman@users.sourceforge.net>
