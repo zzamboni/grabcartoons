@@ -468,10 +468,18 @@ if ($allerrors) {
 
 # Get a URL, split in lines and store them for later fetching.
 # If an error occurs, returns undef.
+# Allows generalized redirection using the $redirect_* parameters.
+# By default it follows the standard redirection using the META REFRESH
+# tag, but can be used to redirect according to arbitrary pattern
+# matching (e.g. see the oatmeal.pl module)
 sub fetch_url {
     my $url=shift;
     my $force=shift;
     my $quiet=shift;
+    my $redirect_match=shift || 'http-equiv="refresh"';
+    my $redirect_urlcapture=shift || 'content="\d+;url=(.*?)"';
+    my $redirect_urlprepend=shift || '';
+    my $redirect_urlappend=shift || '';
     # If we are just producing a list of URLs, give a bogus error unless $force is specified
     return undef if ($htmllist && !$force);
     vmsg("    Fetching $url... ");
@@ -505,11 +513,13 @@ sub fetch_url {
 	error("$err\n");
         return undef;
     }
-      my @matches=grep(/http-equiv="refresh"/i, @LINES);
-      if (@matches && $matches[0] =~ /content="\d+;url=(.*?)"/i) {
-	my $newurl=$1;
-	return fetch_url($newurl, $force, $quiet);
+    if ($redirect_match) {
+      my @matches=grep(/$redirect_match/i, @LINES);
+      if (@matches && $matches[0] =~ /$redirect_urlcapture/i) {
+	my $newurl=$redirect_urlprepend . $1 . $redirect_urlappend;
+	return fetch_url($newurl, $force, $quiet, $redirect_match, $redirect_urlcapture, $redirect_urlprepend);
       }
+    }
     vmsg("success.\n");
     return 1;
 }
@@ -650,6 +660,24 @@ sub find_and_validate_template_tag {
 #     InclusiveCapture => true/false value that specifies whether the lines
 #            that match Start/EndRegex should be returned in the output. By
 #            default InclusiveCapture == false.
+#     RedirectMatch
+#     RedirectURLCapture
+#     RedirectURLAppend
+#     RedirectURLPrepend
+#           These parameters control generalized redirection
+#           support. By default, these parameters are set so that
+#           standard redirection using the META REFRESH tag is
+#           followed, but can be set to redirect on arbitrary
+#           patterns. This is how it works: if the RedirectMatch regex
+#           matches on any line of the page, then the
+#           RedirectURLCapture pattern is applied to the same line,
+#           and should contain one capture group which returns the new
+#           URL to use. If RedirectURLAppend/Prepend are specified,
+#           these strings are concatenated with the result of the
+#           capture group before using it as the new URL. The patterns
+#           are passed along when fetching the new page, so that
+#           multiple redirects using the same parameters are
+#           supported.
 #     StaticURL => static image URL to return
 #     StaticHTML => static HTML snippet to return
 #     Function  => a function to call. It receives the commic snippet as
@@ -703,7 +731,7 @@ sub get_comic {
     }
 
     # Finally, we get to fetching the page
-    fetch_url($C{Page})
+    fetch_url($C{Page},undef,undef,$C{RedirectMatch}, $C{RedirectURLCapture}, $C{RedirectURLPrepend}, $C{RedirectURLAppend})
       or return (undef, $C{Title}, $err || "Error fetching page");
     my $output="";
     while (get_line()) {

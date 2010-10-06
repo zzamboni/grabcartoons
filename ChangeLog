@@ -1,3 +1,13 @@
+2010-10-06    Diego Zamboni <diego@zzamboni.org>
+
+	* grabcartoons.pl: Modified redirection support to make it
+	  general, now redirection can be done based on arbitrary pattern
+	  matching. By default the standard META REFRESH redirection is
+	  supported. The redirection parameters can be specified in the
+	  comic snippets using the new RedirectURLMatch,
+	  RedirectURLCapture, RedirectURLPrepend and RedirectURLAppend
+	  parameters. 
+
 2010-10-01    Diego Zamboni <diego@zzamboni.org>
 
 	* modules/extraordinary.pl: Added module for Extra Ordinary
