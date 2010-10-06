@@ -1,12 +1,14 @@
 2010-10-06    Diego Zamboni <diego@zzamboni.org>
 
+	* modules/oatmeal.pl: Added module for The Oatmeal comics
+	  (http://theoatmeal.com/comics/).
 	* grabcartoons.pl: Modified redirection support to make it
 	  general, now redirection can be done based on arbitrary pattern
 	  matching. By default the standard META REFRESH redirection is
 	  supported. The redirection parameters can be specified in the
 	  comic snippets using the new RedirectURLMatch,
 	  RedirectURLCapture, RedirectURLPrepend and RedirectURLAppend
-	  parameters. 
+	  parameters.
 	* grabcartoons.pl: Added new MultipleMatches parameter, which
 	  allows capturing multiple lines in the page using regular
 	  expressions.
@@ -56,7 +58,7 @@
 	* modules/nedroid.pl: Added new module.
 
 2010-01-11  Benjamin Kuperman <kuperman@users.sourceforge.net>
-	
+
 	* modules/unshelved.pl: Added new module.
 
 2009-12-04  Benjamin Kuperman <kuperman@users.sourceforge.net>
