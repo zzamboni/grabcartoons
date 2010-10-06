@@ -7,6 +7,9 @@
 	  comic snippets using the new RedirectURLMatch,
 	  RedirectURLCapture, RedirectURLPrepend and RedirectURLAppend
 	  parameters. 
+	* grabcartoons.pl: Added new MultipleMatches parameter, which
+	  allows capturing multiple lines in the page using regular
+	  expressions.
 
 2010-10-01    Diego Zamboni <diego@zzamboni.org>
 

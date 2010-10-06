@@ -630,6 +630,12 @@ sub find_and_validate_template_tag {
 #     Page    => URL where to get it
 #     Regex   => regex to obtain image, must put the image in $1
 #                   (the first parenthesized group)
+#     MultipleMatches => if true, then all matches of Regex will be
+#                returned, concatenated, after doing any changes
+#                specified by SubstOnRegexResult or Prepend/Append
+#                on each element. If MultipleMatches is in effect,
+#                then the result of $1 + SubstOnRegexResult + Prepend/Append
+#                is expected to be an HTML snippet, not just an image URL.
 #     ExtraImgAttrsRegex => regular expression to obtain additional
 #                attributes of the comic's <img> tag. It has to 
 #                match on the same line that Regex matches. If not
@@ -734,6 +740,7 @@ sub get_comic {
     fetch_url($C{Page},undef,undef,$C{RedirectMatch}, $C{RedirectURLCapture}, $C{RedirectURLPrepend}, $C{RedirectURLAppend})
       or return (undef, $C{Title}, $err || "Error fetching page");
     my $output="";
+    my @out=();
     while (get_line()) {
       unless($notitles) {
 	if ($C{TitleRegex} && /$C{TitleRegex}/) {
@@ -752,8 +759,12 @@ sub get_comic {
 	if (exists($C{ExtraImgAttrsRegex}) && /$C{ExtraImgAttrsRegex}/) {
 	    $extraattrs=$1 if $1;
 	}
-	#return (qq(<img border=0 src="$url">), $title, undef);
-        return (qq(<img src="$url" $extraattrs>), $title, undef);
+	if ($C{MultipleMatches}) {
+	  push @out, $url;
+	}
+	else {
+	  return (qq(<img src="$url" $extraattrs>), $title, undef);
+	}
       }
       elsif ($C{StartRegex} && /$C{StartRegex}/) {
 	$output.=$_ if $C{InclusiveCapture};
@@ -768,6 +779,9 @@ sub get_comic {
       } elsif ($incapture) {
 	$output.=$_;
       }
+    }
+    if ($C{MultipleMatches} && @out) {
+      return (join("",@out), $title, undef);
     }
     return (undef, $C{Title}, "Could not find image in $C{Title}'s page");
   }
