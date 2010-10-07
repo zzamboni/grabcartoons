@@ -587,11 +587,11 @@ a.color-button:hover{text-decoration:none;background:#B91818;background:-webkit-
   </div><!-- /.header -->
 
   <ul class="navigation">
-    <li><a href="http://blog.zzamboni.org/" class="">blog</a></li>
-    <li><a href="http://posterous.zzamboni.org/" class="">zznippets</a></li>
-    <li><a href="http://zzamboni.org/code.html" class="">code</a></li>
-    <li><a href="http://blog.zzamboni.org/tag/cfengine" class="">cfengine</a></li>
-    <li><a href="http://zzamboni.org/about.html" class="">about</a></li>
+    <li><a href="http://blog.zzamboni.org/" class="{% if page.navsection == 'blog' %}current{% endif %}">blog</a></li>
+    <li><a href="http://posterous.zzamboni.org/" class="{% if page.navsection == 'zznippets' %}current{% endif %}">zznippets</a></li>
+    <li><a href="http://zzamboni.org/code.html" class="{% if page.navsection == 'code' %}current{% endif %}">code</a></li>
+    <li><a href="http://blog.zzamboni.org/tag/cfengine" class="{% if page.navsection == 'cfengine' %}current{% endif %}">cfengine</a></li>
+    <li><a href="http://zzamboni.org/about.html" class="{% if page.navsection == 'about' %}current{% endif %}">about</a></li>
   </ul>
 
   
