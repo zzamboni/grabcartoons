@@ -480,6 +480,7 @@ sub fetch_url {
     my $redirect_urlcapture=shift || 'content="\d+;url=(.*?)"';
     my $redirect_urlprepend=shift || '';
     my $redirect_urlappend=shift || '';
+    my $multiple_redirects=shift;
     # If we are just producing a list of URLs, give a bogus error unless $force is specified
     return undef if ($htmllist && !$force);
     vmsg("    Fetching $url... ");
@@ -517,7 +518,12 @@ sub fetch_url {
       my @matches=grep(/$redirect_match/i, @LINES);
       if (@matches && $matches[0] =~ /$redirect_urlcapture/i) {
 	my $newurl=$redirect_urlprepend . $1 . $redirect_urlappend;
-	return fetch_url($newurl, $force, $quiet, $redirect_match, $redirect_urlcapture, $redirect_urlprepend);
+	if ($multiple_redirects) {
+	    return fetch_url($newurl, $force, $quiet, $redirect_match, $redirect_urlcapture, $redirect_urlprepend, $multiple_redirects);
+	}
+	else {
+	    return fetch_url($newurl, $force, $quiet)
+	}
       }
     }
     vmsg("success.\n");
@@ -670,6 +676,7 @@ sub find_and_validate_template_tag {
 #     RedirectURLCapture
 #     RedirectURLAppend
 #     RedirectURLPrepend
+#     MultipleRedirects
 #           These parameters control generalized redirection
 #           support. By default, these parameters are set so that
 #           standard redirection using the META REFRESH tag is
@@ -680,8 +687,10 @@ sub find_and_validate_template_tag {
 #           and should contain one capture group which returns the new
 #           URL to use. If RedirectURLAppend/Prepend are specified,
 #           these strings are concatenated with the result of the
-#           capture group before using it as the new URL. The patterns
-#           are passed along when fetching the new page, so that
+#           capture group before using it as the new URL. By default
+#           the patterns are passed NOT along when fetching the new page,
+#           to prevent infinite redirection. This behavior can be
+#           modified by setting MultipleRedirects to a true value, so that
 #           multiple redirects using the same parameters are
 #           supported.
 #     StaticURL => static image URL to return
@@ -737,7 +746,7 @@ sub get_comic {
     }
 
     # Finally, we get to fetching the page
-    fetch_url($C{Page},undef,undef,$C{RedirectMatch}, $C{RedirectURLCapture}, $C{RedirectURLPrepend}, $C{RedirectURLAppend})
+    fetch_url($C{Page},undef,undef,$C{RedirectMatch}, $C{RedirectURLCapture}, $C{RedirectURLPrepend}, $C{RedirectURLAppend}, $C{MultipleRedirects})
       or return (undef, $C{Title}, $err || "Error fetching page");
     my $output="";
     my @out=();
