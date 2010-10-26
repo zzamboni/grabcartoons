@@ -1,3 +1,10 @@
+2010-10-26    Diego Zamboni <diego@zzamboni.org>
+
+	* modules/oatmeal.pl: Support comics both from the blog and from
+		  the comics page.
+	* grabcartoons.pl: Disallow multiple redirections unless
+		  MultipleRedirects is defined in the comic snippet.
+
 2010-10-06    Diego Zamboni <diego@zzamboni.org>
 
 	* modules/oatmeal.pl: Added module for The Oatmeal comics

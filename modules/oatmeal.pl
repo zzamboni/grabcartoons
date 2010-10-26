@@ -3,10 +3,11 @@
 # comic and concatenate them.
 $COMIC{oatmeal} = {
 		   Title => 'The Oatmeal',
-		   Page => 'http://theoatmeal.com/comics/',
-		   RedirectMatch => 'href="/comics/',
-		   RedirectURLCapture => 'href="/comics/(.*?)"',
-		   RedirectURLPrepend => '{Page}',
+		   Base => 'http://theoatmeal.com',
+		   Page => '{Base}/comics/',
+		   RedirectMatch => 'href="/(?:comics|blog)/',
+		   RedirectURLCapture => 'href="(/(?:comics|blog)/.*?)"',
+		   RedirectURLPrepend => '{Base}',
 		   Regex => qr((\<img src=".*/theoatmeal-img/comics/.*?".*?/>)),
 		   MultipleMatches => 1,
 		   Append => "<br/>",
