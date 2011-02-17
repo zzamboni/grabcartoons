@@ -5,5 +5,5 @@ $COMIC{achewood} = {
                     'Regex' => qr!img src="([^"]*comic.php[^"]*)" title=!,
 		    'ExtraImgAttrsRegex' => qr!img src="[^"]*comic.php[^"]*" (title="[^"]*")!,
 		    'NoShowTitle' => 1,
-                    #'Prepend' => '{Page}',
+                    'Prepend' => '{Page}',
                    };
