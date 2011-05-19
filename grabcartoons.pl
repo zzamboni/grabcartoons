@@ -439,8 +439,8 @@ EOMODULE
       next;
     }
     ($html, $title, $err)=get_comic($C3);
-    goto CHECKERROR if $err || !$html;
     &print_section($title, undef, $html, $mainurl, $err);
+    goto CHECKERROR if $err || !$html;
   }
  CHECKERROR:
   if ($err || (!$html && !$htmllist)) {
