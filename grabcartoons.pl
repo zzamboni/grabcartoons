@@ -636,6 +636,12 @@ sub find_and_validate_template_tag {
 #     Page    => URL where to get it
 #     Regex   => regex to obtain image, must put the image in $1
 #                   (the first parenthesized group)
+#     LinkRelImageSrc => if true, the image URL will be automatically
+#                obtained from the first <link rel="image_src"> element in
+#                the page. This is increasingly being used by web comics
+#                to ease sharing on Facebook and other sites. If this
+#                flag is specified no Regex or other method needs to be
+#                specified.
 #     MultipleMatches => if true, then all matches of Regex will be
 #                returned, concatenated, after doing any changes
 #                specified by SubstOnRegexResult or Prepend/Append
@@ -737,12 +743,15 @@ sub get_comic {
     }
     my $startend = defined($C{StartRegex});
     # otherwise we expect a Regex attribute
-    if (!$startend && !defined($C{Regex})) {
-      return (undef, $C{Title}, "Internal Error: The comic definition has a Page attribute but no Regex attribute.\n");
+    if (!$startend && !defined($C{Regex}) && !defined($C{LinkRelImageSrc})) {
+      return (undef, $C{Title}, "Internal Error: The comic definition has a Page attribute but no Regex or LinkRelImageSrc attribute.\n");
     }
     # but we cannot have both Regex and Start/EndRegex
-    if ($startend && defined($C{Regex})) {
-      return (undef, $C{Title}, "Internal Error: The comic definition has both Regex and Start/EndRegex attributes.\n");
+    if (($startend && defined($C{Regex})) || ($startend && $C{LinkRelImageSrc}) || (defined($C{Regex}) && $C{LinkRelImageSrc})) {
+      return (undef, $C{Title}, "Internal Error: The comic definition can have only one of Regex, Start/EndRegex or LinkRelImageSrc attributes.\n");
+    }
+    if ($C{LinkRelImageSrc}) {
+      $C{Regex} = qr(link rel=\"image_src\".* href=\"(http://.+?)\")i;
     }
 
     # Finally, we get to fetching the page
