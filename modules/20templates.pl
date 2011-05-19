@@ -97,7 +97,7 @@ $TEMPLATE{'gocomics.com'} =
    '_Template_Description' => "Comics hosted at gocomics.com",
    'Base' => 'http://www.gocomics.com',
    'Page' => '{Base}/{Tag}/',
-   'Regex' => qr(link rel=\"image_src\" href=\"(http://.*\.gocomics\.com/.*)\")i,
+   'Regex' => qr(link rel=\"image_src\" href=\"(http://.+?)\")i,
    '_Init_Code' => sub {
      my $H=shift; my $C=shift;
      vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
@@ -110,7 +110,7 @@ $TEMPLATE{'gocomics.com'} =
      while (get_line()) {
        $inregion = 1 if m!class="az-list!;
        $inregion = 0 if m!id="footer-wrapper"!;
-       if ($inregion && m!\<li\>\<a href="/(.+?)".*\>(.+)\</a\>!) {
+       if ($inregion && m!\<a href="/(.+?)".*\>(.+)\</a\>!) {
 	 $tag = $1; $title = $2;
 	 $H->{_Comics}->{$tag} = $title;
 	 vmsg("  [tmpl:$H->{_Template_Name}] Found comic $title ($tag)\n");
