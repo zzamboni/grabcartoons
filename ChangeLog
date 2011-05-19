@@ -1,4 +1,16 @@
-2010-10-26    Diego Zamboni <diego@zzamboni.org>
+2011-05-19    Diego Zamboni <diego@zzamboni.org>
+
+	* Fixed a bunch of modules for changes in their corresponding
+	  pages.
+
+	* Added LinkRelImageSrc attribut for comic definitions. If
+	  defined with a non-zero value, it will automatically
+	  fetch the image URL from the first <link rel="image_src">
+	  element found on the page. This element is increasingly
+	  used because it is used by Facebook and other sites to
+	  know which image to show when a URL is shared or posted.
+
+2010-10-26    
 
 	* modules/oatmeal.pl: Support comics both from the blog and from
 		  the comics page.
