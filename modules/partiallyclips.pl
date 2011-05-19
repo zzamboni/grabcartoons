@@ -1,7 +1,7 @@
 $COMIC{partiallyclips} = {
 			  Title => 'PartiallyClips',
 			  Base => 'http://www.partiallyclips.com',
-			  Page => '{Base}/index.php?b=1',
+			  Page => '{Base}/',
                           StartRegex => qr(\<div id="comic"\>),
                           EndRegex => qr(\<div class="clear"\>),
 			  'NoShowTitle' => 1,
