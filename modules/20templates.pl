@@ -54,42 +54,6 @@ the user-given comic title to determine the correct tag for the comic
 
 =cut
 
-# Templates for comics.com strips
-$TEMPLATE{'comics.com'} =
-  {
-   '_Template_Name' => 'comics.com',
-   '_Template_Description' => "Comics hosted at comics.com",
-   'Base' => 'http://comics.com',
-   'Page' => '{Base}/{Tag}/',
-   'Regex' => qr(img src="(http://.*\.com/dyn/str_strip/.*?\.full\.(gif|png|jpg))"),
-   '_Init_Code' => sub {
-     my $H=shift; my $C=shift;
-     vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
-     # Get the list of comics from the website
-     return ($H->{_Template_Name}, "Error fetching $H->{Base} to get list of comics") unless fetch_url($H->{Base}, 1);
-     while (get_line()) {
-       if (/CMC\.Comics\s+=\s+(.*);\s*$/) {
-	 $comics=$1;
-	 # $comics is a Javascript data structure - convert it to Perl, store it in the hash and sanitize it a bit
-	 $comics =~ s/"Description":".*?","/"/g;
-	 $comics =~ s/":/"=>/g;
-	 $comics =~ s/\[\{/{/g;
-	 $comics =~ s/\}\]/}/g;
-	 eval '$ch='.$comics;
-	 return ($H->{_Template_Name}, "Internal error in template '$H->{_Template_Name}': $@") if $@;
-	 $H->{_Comics}={};
-	 foreach $k (keys(%$ch)) {
-	   # Copy just the information we need
-	   $H->{_Comics}->{$ch->{$k}->{URL}}=$ch->{$k}->{Comic};
-	 }
-	 vmsg("    Got comics list from comics.com\n");
-	 return ($H->{_Template_Name}, undef);
-       }
-     }
-     return($H->{_Template_Name}, "Could not find the list of comics for template '$H->{_Template_Name}' in $H->{Base}");
-   }
-  };
-
 # Template for gocomics.com
 $TEMPLATE{'gocomics.com'} =
   {
@@ -121,6 +85,11 @@ $TEMPLATE{'gocomics.com'} =
      return $found ? ($H->{_Template_Name}, undef) : ($H->{_Template_Name}, "Could not find the list of comics for template '$H->{_Template_Name}' in $listurl");
    },
   };
+
+# Template for comics.com, which has merged with gocomics.com
+$TEMPLATE{'comics.com'} = $TEMPLATE{'gocomics.com'};
+$TEMPLATE{'_Template_Name'} = 'comics.com';
+$TEMPLATE{'_Template_Description'} = "Comics hosted at comics.com, which has now merged with gocomics.com";
 
 # Template for arcamax.com
 $TEMPLATE{'arcamax.com'} = 
