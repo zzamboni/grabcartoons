@@ -88,8 +88,6 @@ $TEMPLATE{'gocomics.com'} =
 
 # Template for comics.com, which has merged with gocomics.com
 $TEMPLATE{'comics.com'} = $TEMPLATE{'gocomics.com'};
-$TEMPLATE{'_Template_Name'} = 'comics.com';
-$TEMPLATE{'_Template_Description'} = "Comics hosted at comics.com, which has now merged with gocomics.com";
 
 # Template for arcamax.com
 $TEMPLATE{'arcamax.com'} = 
@@ -98,7 +96,8 @@ $TEMPLATE{'arcamax.com'} =
    '_Template_Description' => "Comics hosted at arcamax.com",
    'Base' => 'http://www.arcamax.com',
    'Page' => '{Base}/{Tag}/',
-   'Regex' => qr(img src=\"(http://www.arcamax.com/newspics/\d+/\d+/\d+.gif)\")i,
+   'Regex' => qr(img src=\"(/newspics/\d+/\d+/\d+.gif)\")i,
+   'Prepend' => '{Base}',
    '_Init_Code' => sub {
      my $H=shift; my $C=shift;
      vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
@@ -107,7 +106,7 @@ $TEMPLATE{'arcamax.com'} =
      $H->{_Comics} = {};
      $found = undef;
      while (get_line()) {
-       if (m!class="sc-list" href="/(.+?)".*\>(.+?)\</a\>!) {
+       if (m!<li><b><a href="/(.+?)/".*\>(.+?)\</a\>!) {
 	 $tag = $1; $title = $2;
 	 $H->{_Comics}->{$tag} = $title;
 	 vmsg("  [tmpl:$H->{_Template_Name}] Found comic $title ($tag)\n");

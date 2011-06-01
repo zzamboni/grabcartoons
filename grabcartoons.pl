@@ -606,7 +606,7 @@ sub find_and_validate_template_tag {
     } else {
       # Second, search for the title in the comics we know
       vmsg("      [tmpl:$H->{_Template_Name}] Looking for the comic's title '$title' in the list of comics\n");
-      my $tag=(grep { lc($ch->{$_}) =~ /$title/i } keys(%$ch))[0];
+      my $tag=(grep { $_ =~ /$title/i || $ch->{$_} =~ /$title/i } keys(%$ch))[0];
       # If that doesn't work, try some blind normalization
       if ($tag) {
 	vmsg("      [tmpl:$H->{_Template_Name}] Found the title in the list of comics\n");
