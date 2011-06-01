@@ -1,5 +1,13 @@
 2011-06-01    Diego Zamboni <diego@zzamboni.org>
 
+	* Version 2.8.1
+
+	* Bug fix release, there was a bug in the handling of page-region
+	  capture that was leading to capturing the full page under
+	  certain circumstances.
+
+2011-06-01    Diego Zamboni <diego@zzamboni.org>
+
 	* Version 2.8
 	
 	* Fixed several modules whose pages had changed.
