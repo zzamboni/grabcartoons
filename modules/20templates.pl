@@ -158,7 +158,7 @@ $TEMPLATE{'comicskingdom.com'} =
        $inregion = 1 if m!modal for nav!i;
        $inregion = 0 if m!build up modules!i;
        if ($inregion) {
-	 if (m!href="\?feature_id=(.+?)" *\>(.+)\</a\>!) {
+	 if (m!href=".*\?feature_id=(.+?)" *\>(.+)\</a\>!) {
 	   $tag = $1; $title = $2;
 	   $H->{_Comics}->{$tag} = $title;
 	   vmsg("  [tmpl:$H->{_Template_Name}] Found comic $title ($tag)\n");

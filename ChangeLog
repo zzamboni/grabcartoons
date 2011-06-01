@@ -1,3 +1,17 @@
+2011-06-01    Diego Zamboni <diego@zzamboni.org>
+
+	* Version 2.8
+	
+	* Fixed several modules whose pages had changed.
+
+	* Modified comics.com template to now be the same as gocomics.com,
+	  since both sites have merged:
+	  http://blogs.gocomics.com/2011/05/gocomics-and-comicscom-to-combine-forces.html.
+
+	* Added the ability to specify both Regex and Start/EndRegex in a
+	  comic definition. When this happens, Regex is only searched for
+	  inside the area defined by Start/EndRegex.
+
 2011-05-19    Diego Zamboni <diego@zzamboni.org>
 
 	* Fixed a bunch of modules for changes in their corresponding
