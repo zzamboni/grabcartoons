@@ -127,10 +127,23 @@ $COMIC{adam_at_home}={
 
 The key used for the %COMIC hash is the "short name" of the comic, and the
 valid fields in the hash are:
+
     Title   => title of the comic
     Page    => URL where to get it
     Regex   => regex to obtain image, must put the image in $1
                   (the first parenthesized group)
+    LinkRelImageSrc => if true, the image URL will be automatically
+               obtained from the first <link rel="image_src"> element in
+               the page. This is increasingly being used by web comics
+               to ease sharing on Facebook and other sites. If this
+               flag is specified no Regex or other method needs to be
+               specified.
+    MultipleMatches => if true, then all matches of Regex will be
+               returned, concatenated, after doing any changes
+               specified by SubstOnRegexResult or Prepend/Append
+               on each element. If MultipleMatches is in effect,
+               then the result of $1 + SubstOnRegexResult + Prepend/Append
+               is expected to be an HTML snippet, not just an image URL.
     ExtraImgAttrsRegex => regular expression to obtain additional
                attributes of the comic's <img> tag. It has to 
                match on the same line that Regex matches. If not
@@ -157,19 +170,43 @@ valid fields in the hash are:
            and last lines to capture. The matching lines are included in
            the output if InclusiveCapture == 1, and not included
            if InclusiveCapture == 0 (the default).
-           These two field must always be included together.
+           If EndRegex is not specified, everything from StartRegex to
+           the end of the page is captured.
+           If Regex is also specified, it is only matched for inside the
+           region defined by StartRegex/EndRegex
     InclusiveCapture => true/false value that specifies whether the lines
            that match Start/EndRegex should be returned in the output. By
            default InclusiveCapture == false.
+    RedirectMatch
+    RedirectURLCapture
+    RedirectURLAppend
+    RedirectURLPrepend
+    MultipleRedirects
+          These parameters control generalized redirection
+          support. By default, these parameters are set so that
+          standard redirection using the META REFRESH tag is
+          followed, but can be set to redirect on arbitrary
+          patterns. This is how it works: if the RedirectMatch regex
+          matches on any line of the page, then the
+          RedirectURLCapture pattern is applied to the same line,
+          and should contain one capture group which returns the new
+          URL to use. If RedirectURLAppend/Prepend are specified,
+          these strings are concatenated with the result of the
+          capture group before using it as the new URL. By default
+          the patterns are passed NOT along when fetching the new page,
+          to prevent infinite redirection. This behavior can be
+          modified by setting MultipleRedirects to a true value, so that
+          multiple redirects using the same parameters are
+          supported.
     StaticURL => static image URL to return
     StaticHTML => static HTML snippet to return
-    Function  => a function to call. It must return
-          ($html, $title, $error)
+    Function  => a function to call. It receives the commic snippet as
+          argument, and must return ($html, $title, $error)
     NoShowTitle => if true, do not display the title of the comic
           (for those that always have it in the drawing)
     Template => if present, specified a template that will be used
           for this comic (e.g. for comics coming from a single
-          sindicated site, so the mechanism is the same for all of them)
+          syndicated site, so the mechanism is the same for all of them)
           Essentially the fields from the template and the $COMIC snippet
           are merged and then processed in the usual way.
           If the template contains a _Template_Code atribute, it is
