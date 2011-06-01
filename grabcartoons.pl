@@ -762,6 +762,7 @@ sub get_comic {
       or return (undef, $C{Title}, $err || "Error fetching page");
     my $output="";
     my @out=();
+    my $incapture=0;
     while (get_line()) {
       unless($notitles) {
 	if ($C{TitleRegex} && /$C{TitleRegex}/) {
@@ -806,7 +807,10 @@ sub get_comic {
 	$output.=$_;
       }
     }
-    if ($incapture) {
+    # Return the captured area if we captured until the end of the page
+    # AND Regex was not defined (if it was, this means it never matched,
+    # so we fall through to return an error below)
+    if ($incapture && !defined($C{Regex})) {
       $output = _do_regex_replacements($output, $C);
       $output.=$C{Append} if $C{Append};
       $output=$C{Prepend}.$output if $C{Prepend};
