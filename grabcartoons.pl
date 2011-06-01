@@ -674,7 +674,10 @@ sub find_and_validate_template_tag {
 #            and last lines to capture. The matching lines are included in
 #            the output if InclusiveCapture == 1, and not included
 #            if InclusiveCapture == 0 (the default).
-#            These two field must always be included together.
+#            If EndRegex is not specified, everything from StartRegex to
+#            the end of the page is captured.
+#            If Regex is also specified, it is only matched for inside the
+#            region defined by StartRegex/EndRegex
 #     InclusiveCapture => true/false value that specifies whether the lines
 #            that match Start/EndRegex should be returned in the output. By
 #            default InclusiveCapture == false.
@@ -738,8 +741,8 @@ sub get_comic {
   elsif (defined($C{Page})) {
     # Some sanity checks first...
     # If any of Start/EndRegex is defined, the other must also be
-    if ( ($C{StartRegex} && !$C{EndRegex}) || (!$C{StartRegex} && $C{EndRegex}) ) {
-      return (undef, $C{Title}, "Internal Error: The comic definition has one of Start/EndRegex but not the other.\n");
+    if ( !$C{StartRegex} && $C{EndRegex} ) {
+      return (undef, $C{Title}, "Internal Error: The comic definition has EndRegex but no StartRegex.\n");
     }
     my $startend = defined($C{StartRegex});
     # otherwise we expect a Regex attribute
@@ -747,8 +750,8 @@ sub get_comic {
       return (undef, $C{Title}, "Internal Error: The comic definition has a Page attribute but no Regex or LinkRelImageSrc attribute.\n");
     }
     # but we cannot have both Regex and Start/EndRegex
-    if (($startend && defined($C{Regex})) || ($startend && $C{LinkRelImageSrc}) || (defined($C{Regex}) && $C{LinkRelImageSrc})) {
-      return (undef, $C{Title}, "Internal Error: The comic definition can have only one of Regex, Start/EndRegex or LinkRelImageSrc attributes.\n");
+    if ( ($startend && $C{LinkRelImageSrc}) || (defined($C{Regex}) && $C{LinkRelImageSrc})) {
+      return (undef, $C{Title}, "Internal Error: The comic definition can have only one of Regex/Start/EndRegex or LinkRelImageSrc attributes.\n");
     }
     if ($C{LinkRelImageSrc}) {
       $C{Regex} = qr(link rel=\"image_src\".* href=\"(http://.+?)\")i;
@@ -766,6 +769,9 @@ sub get_comic {
 	}
       }
       if ($C{Regex} && /$C{Regex}/) {
+	# Skip if StartRegex was also specified and we are not in the "capture" zone
+	next if $startend && !$incapture;
+
 	my $url=$1;
 	return (undef, $C{Title}, 
 		"Regular expression $C{Regex} matches, but did not return a match group")
@@ -787,16 +793,24 @@ sub get_comic {
       elsif ($C{StartRegex} && /$C{StartRegex}/) {
 	$output.=$_ if $C{InclusiveCapture};
 	$incapture=1;
-      } elsif ($incapture && /$C{EndRegex}/) {
+      } elsif ($incapture && defined($C{EndRegex}) && /$C{EndRegex}/) {
 	$output.=$_ if $C{InclusiveCapture};
 	$incapture = 0;
-	$output = _do_regex_replacements($output, $C);
-	$output.=$C{Append} if $C{Append};
-	$output=$C{Prepend}.$output if $C{Prepend};
-	return ($output, $title, undef);
+	if (!$C{Regex}) {
+	  $output = _do_regex_replacements($output, $C);
+	  $output.=$C{Append} if $C{Append};
+	  $output=$C{Prepend}.$output if $C{Prepend};
+	  return ($output, $title, undef);
+	}
       } elsif ($incapture) {
 	$output.=$_;
       }
+    }
+    if ($incapture) {
+      $output = _do_regex_replacements($output, $C);
+      $output.=$C{Append} if $C{Append};
+      $output=$C{Prepend}.$output if $C{Prepend};
+      return ($output, $title, undef);
     }
     if ($C{MultipleMatches} && @out) {
       return (join("",@out), $title, undef);
