@@ -1,3 +1,9 @@
+2011-08-02    Diego Zamboni <diego@zzamboni.org>
+
+	* Version 2.8.2
+	
+	* modules/20templates.pl: Fixed gocomics.com module.
+
 2011-06-01    Diego Zamboni <diego@zzamboni.org>
 
 	* Version 2.8.1

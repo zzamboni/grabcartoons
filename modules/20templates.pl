@@ -61,7 +61,7 @@ $TEMPLATE{'gocomics.com'} =
    '_Template_Description' => "Comics hosted at gocomics.com",
    'Base' => 'http://www.gocomics.com',
    'Page' => '{Base}/{Tag}/',
-   'LinkRelImageSrc' => 1,
+   'Regex' => qr(class="strip".*?src="([^"]+)"),
    '_Init_Code' => sub {
      my $H=shift; my $C=shift;
      vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
