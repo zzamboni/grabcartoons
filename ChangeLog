@@ -1,5 +1,8 @@
 2011-08-26  Diego Zamboni  <diego@zzamboni.org>
 
+	* modules/eightbit.pl: Removed module because comic is no longer
+	being updated.
+	
 	* modules/errantstory.pl: Added module for
 	http://www.errantstory.com/, contributed by Arne Meyer.
 
