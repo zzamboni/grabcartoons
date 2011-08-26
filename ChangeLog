@@ -1,5 +1,7 @@
 2011-08-26  Diego Zamboni  <diego@zzamboni.org>
 
+	* Version 2.8.3: some cleanup and two new modules.
+	
 	* modules/eightbit.pl: Removed module because comic is no longer
 	being updated.
 	
