@@ -1,5 +1,8 @@
 2011-08-26  Diego Zamboni  <diego@zzamboni.org>
 
+	* modules/errantstory.pl: Added module for
+	http://www.errantstory.com/, contributed by Arne Meyer.
+
 	* modules/gws.pl: Added module for http://www.girlswithslingshots.com/
 
 2011-08-02    Diego Zamboni <diego@zzamboni.org>
