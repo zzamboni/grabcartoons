@@ -14,8 +14,35 @@ sub print_header {
       body { color: black; background-color: white; }
       a img { border-width: 0; }
       address { font-size: small; font-style: normal; }
+
+    .caption { display: none; font-size:x-large; }
+    \@media screen and (max-device-width: 480px) { img{width:100%;} p.caption { display:inline; } }
+    \@media screen and (min-device-width: 768px) and (max-device-width: 1024px) { img{ width:100%;} p.caption { display:inline; } }
+
     -->
     </style>
+
+    <!-- script to display title tag fields on mobile devices -->
+    <script type="text/javascript">
+        window.onload = showTitleText;
+        function showTitleText() {
+            var imgTags;
+            imgTags = document.getElementsByTagName("img");
+            for(var i = 0; i < imgTags.length; i++)
+                if (imgTags[i].title != "")  {
+                    var parent =  imgTags[i].parentNode.parentNode;
+                    var newText = document.createElement('p');
+                    newText.innerHTML = "<br>"+imgTags[i].title;
+                    newText.style.backgroundColor="#ffffaa";
+                    newText.style.color="#000000";
+                    newText.className="caption";
+                    newText.style.padding="3px";
+                    parent.appendChild(newText);
+                }  
+        }
+    </script>
+
+
   </head>
 
   <body>

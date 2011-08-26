@@ -782,8 +782,13 @@ sub get_comic {
 	$url=$C{Prepend}.$url if $C{Prepend};
 	$extraattrs=qq(alt="Today's $C{Title} comic");
 	if (exists($C{ExtraImgAttrsRegex}) && /$C{ExtraImgAttrsRegex}/) {
-	    $extraattrs=$1 if $1;
-	}
+            $tmp = $1;
+            if ($tmp !~ m/alt=/i) {
+                $extraattrs="$extraattrs $tmp";
+            } else {
+                $extraattrs = $tmp;
+            }
+        }
 	if ($C{MultipleMatches}) {
 	  push @out, $url;
 	}
