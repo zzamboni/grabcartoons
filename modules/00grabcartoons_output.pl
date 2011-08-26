@@ -15,9 +15,10 @@ sub print_header {
       a img { border-width: 0; }
       address { font-size: small; font-style: normal; }
 
-    .caption { display: none; font-size:x-large; }
-    \@media screen and (max-device-width: 480px) { img{width:100%;} p.caption { display:inline; } }
-    \@media screen and (min-device-width: 768px) and (max-device-width: 1024px) { img{ width:100%;} p.caption { display:inline; } }
+      /* Styling for captions on mobile devices */
+     .caption { display: none; font-size:x-large; padding: 3px; }
+     \@media screen and (max-device-width: 480px) { img{width:100%;} p.caption { display:inline; } }
+     \@media screen and (min-device-width: 768px) and (max-device-width: 1024px) { img{ width:100%;} p.caption { display:inline; } }
 
     -->
     </style>
@@ -36,7 +37,6 @@ sub print_header {
                     newText.style.backgroundColor="#ffffaa";
                     newText.style.color="#000000";
                     newText.className="caption";
-                    newText.style.padding="3px";
                     parent.appendChild(newText);
                 }  
         }
