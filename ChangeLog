@@ -1,5 +1,7 @@
 2012-02-28  Diego Zamboni  <diego@zzamboni.org>
 
+	* Version 2.8.4: several new modules and fixes.
+
 	* modules/betterbooktitles.pl: Added module for
 	http://betterbooktitles.com/, contributed by
 	@QustionsMarcus. Closes #4.
