@@ -1,5 +1,9 @@
 2012-02-28  Diego Zamboni  <diego@zzamboni.org>
 
+	* modules/danscartoons.pl: Added module for
+	http://www.danscartoons.com/, contributed by
+	@QustionsMarcus. Closes issue #6.
+
 	* modules/pVp.pl: Fixed pvP module for new page layout.
 
 	* modules/sci-ence.pl: Added module for http://sci-ence.org/
