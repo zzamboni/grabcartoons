@@ -1,5 +1,9 @@
 2012-02-28  Diego Zamboni  <diego@zzamboni.org>
 
+	* modules/betterbooktitles.pl: Added module for
+	http://betterbooktitles.com/, contributed by
+	@QustionsMarcus. Closes #4.
+
 	* modules/abstrusegoose.pl: Added module for
 	http://abstrusegoose.com/, contributed by @QustionsMarcus. Closes #5.
 
