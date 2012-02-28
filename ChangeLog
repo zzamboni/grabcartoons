@@ -1,3 +1,8 @@
+2012-02-28  Diego Zamboni  <diego@zzamboni.org>
+
+	* modules/the_zombie_hunters.pl: Added module for
+	http://www.thezombiehunters.com/
+
 2011-08-26  Diego Zamboni  <diego@zzamboni.org>
 
 	* Version 2.8.3: some cleanup and two new modules.
