@@ -1,5 +1,8 @@
 2012-02-28  Diego Zamboni  <diego@zzamboni.org>
 
+	* modules/abstrusegoose.pl: Added module for
+	http://abstrusegoose.com/, contributed by @QustionsMarcus. Closes #5.
+
 	* modules/danscartoons.pl: Added module for
 	http://www.danscartoons.com/, contributed by
 	@QustionsMarcus. Closes issue #6.
