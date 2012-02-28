@@ -1,8 +1,7 @@
 $COMIC{pvp} = {
 	       Title => 'pVp',
-	       Page => 'http://www.pvponline.com/',
-               #Regex => qr!src=['"]({Page}comics/pvp\d+\.gif)['"]!,
-               StartRegex => qr(\<div id="comic"\>),
-               EndRegex => qr(\</div\>),
-               #TitleRegex => qr!src=['"]{Page}comics/pvp\d+\.gif['"].*title="(.*)"!,
+	       Base => 'http://www.pvponline.com/',
+               Page => '{Base}comic',
+               Regex => qr!src="(.*/img/comic/pvp\d+\.jpg)"!,
+               TitleRegex => qr!<h2 id="headingArchive">(.*)</h2>!i,
 	      };
