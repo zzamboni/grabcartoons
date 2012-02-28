@@ -1,5 +1,7 @@
 2012-02-28  Diego Zamboni  <diego@zzamboni.org>
 
+	* modules/sci-ence.pl: Added module for http://sci-ence.org/
+
 	* modules/the_zombie_hunters.pl: Added module for
 	http://www.thezombiehunters.com/
 
