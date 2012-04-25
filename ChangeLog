@@ -1,3 +1,10 @@
+2012-04-25  Diego Zamboni  <diego@zzamboni.org>
+
+	* modules/zenpencils.pl: Added module for http://zenpencils.com/
+
+	* modules/hijinksensue.pl: Added module for
+	http://hijinksensue.com/
+
 2012-02-28  Diego Zamboni  <diego@zzamboni.org>
 
 	* Version 2.8.4: several new modules and fixes.
