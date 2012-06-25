@@ -1,3 +1,8 @@
+2012-06-25  Diego Zamboni  <diego@zzamboni.org>
+
+	* modules/savage_chickens.pl: Updated module for the move to
+	gocomics.com.
+
 2012-04-25  Diego Zamboni  <diego@zzamboni.org>
 
 	* modules/zenpencils.pl: Added module for http://zenpencils.com/
