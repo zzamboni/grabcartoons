@@ -35,10 +35,10 @@
 2011-08-26  Diego Zamboni  <diego@zzamboni.org>
 
 	* Version 2.8.3: some cleanup and two new modules.
-	
+
 	* modules/eightbit.pl: Removed module because comic is no longer
 	being updated.
-	
+
 	* modules/errantstory.pl: Added module for
 	http://www.errantstory.com/, contributed by Arne Meyer.
 
@@ -47,7 +47,7 @@
 2011-08-02    Diego Zamboni <diego@zzamboni.org>
 
 	* Version 2.8.2
-	
+
 	* modules/20templates.pl: Fixed gocomics.com module.
 
 2011-06-01    Diego Zamboni <diego@zzamboni.org>
@@ -61,7 +61,7 @@
 2011-06-01    Diego Zamboni <diego@zzamboni.org>
 
 	* Version 2.8
-	
+
 	* Fixed several modules whose pages had changed.
 
 	* Modified comics.com template to now be the same as gocomics.com,
@@ -84,7 +84,7 @@
 	  used because it is used by Facebook and other sites to
 	  know which image to show when a URL is shared or posted.
 
-2010-10-26    
+2010-10-26    Diego Zamboni <diego@zzamboni.org>
 
 	* modules/oatmeal.pl: Support comics both from the blog and from
 		  the comics page.
