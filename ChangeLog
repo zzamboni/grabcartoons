@@ -1,3 +1,8 @@
+2012-07-22: Benjamin Kuperman <kuperman@users.sourceforge.net>
+
+	* modules/pictures_for_sad_children.pl: Updated module to support the
+	images being hosted on tumblr and being of various types.
+
 2012-06-25  Diego Zamboni  <diego@zzamboni.org>
 
 	* modules/savage_chickens.pl: Updated module for the move to
