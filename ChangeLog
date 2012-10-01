@@ -1,3 +1,14 @@
+2012-10-01: Benjamin Kuperman <kuperman@acm.org>
+    
+	* modules/little_gamers.pl: Minor tweak for new img URL style.
+
+	* modules/multiverse.pl:  Added module for "Scenes from a Multiverse"
+	http://amultiverse.com/
+
+2012-09-06: Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/choppingblock.pl: Switch to keenspot for hosting.
+
 2012-07-22: Benjamin Kuperman <kuperman@users.sourceforge.net>
 
 	* modules/pictures_for_sad_children.pl: Updated module to support the
