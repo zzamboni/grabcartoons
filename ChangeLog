@@ -1,3 +1,8 @@
+2012-12-19: Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/three_panel_soul.pl: Added module for "Three Panel Soul"
+	http://threepanelsoul.com/
+
 2012-10-03: Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/unshelved.pl: They appear to have dropped the file extension
