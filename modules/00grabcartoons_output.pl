@@ -61,7 +61,9 @@ EOF
 }
 
 sub print_section {
-  my ($name, $url, $html, $mainurl, $err)=@_;
+  my ($name, $url, $html, $mainurl, $err, $skiplink)=@_;
+  my $cname = $name;
+  $cname =~ s/\W/_/g;
   # Fix URLs for ampersands
   $mainurl =~ s/&(?!amp;)/&amp;/gi if $mainurl;
       $url =~ s/&(?!amp;)/&amp;/gi if $url;
@@ -79,12 +81,14 @@ sub print_section {
   }
   else {
     $mainurl=$url if !$mainurl;
+    print qq(<a href="#skip_$cname">Skip this comic.</a><br>\n) if $skiplink;
     if ($html) {
       print "<a href=\"$mainurl\">$html</a>\n";
     }
     else {
       print "<a href=\"$mainurl\"><img src=\"$url\" alt=\"Today's $name cartoon\"></a>\n";
     }
+    print qq(<br><a name="skip_$cname"> </a>) if $skiplink;
   }
   print "</p>\n\n";
 }

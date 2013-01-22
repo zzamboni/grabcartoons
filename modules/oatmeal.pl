@@ -11,5 +11,6 @@ $COMIC{oatmeal} = {
 		   Regex => qr((\<img src=".*/theoatmeal-img/comics/.*?".*?/>)),
 		   MultipleMatches => 1,
 		   Append => "<br/>",
+                   SkipLink => 1,
 		  };
 

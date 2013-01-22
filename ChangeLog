@@ -1,3 +1,8 @@
+2013-01-20  Diego Zamboni  <diego@zzamboni.org>
+
+	* modules/cowandboy.pl: Added module for http://www.cowandboy.com,
+	contributed by @robertatinreachtechdotnet.
+
 2012-12-21: Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/gws.pl: Updating module to work with new website layout.
