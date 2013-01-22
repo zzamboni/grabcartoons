@@ -439,7 +439,7 @@ EOMODULE
       next;
     }
     ($html, $title, $err)=get_comic($C3);
-    &print_section($title, undef, $html, $mainurl, $err);
+    &print_section($title, undef, $html, $mainurl, $err, $C3->{SkipLink});
     goto CHECKERROR if $err || !$html;
   }
  CHECKERROR:
@@ -716,6 +716,9 @@ sub find_and_validate_template_tag {
 #           If the template contains a _Template_Code atribute, it is
 #           executed on the merged snippet before processing it.
 #           Templates are defined in modules/20templates.pl.
+#     SkipLink => if true, a "Skip this comic" link is generated before
+#           the image, that redirects to right after it. Useful for
+#           very long comics.
 #
 # Precedence (from higher to lower) is Function, StaticURL, StaticHTML,
 # StartRegex/EndRegex and Regex.
