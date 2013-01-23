@@ -15,6 +15,9 @@ sub print_header {
       a img { border-width: 0; }
       address { font-size: small; font-style: normal; }
 
+      div#footer,
+      div.comicdiv { border-top: thin solid black; }
+
       /* Styling for captions on mobile devices */
      .caption { display: none; font-size:x-large; padding: 3px; }
      \@media screen and (max-device-width: 480px) { img{width:100%;} p.caption { display:inline; } }
@@ -46,15 +49,19 @@ sub print_header {
   </head>
 
   <body>
+  <div id="header">
     <h1>Daily Comics - $today</h1>
+  </div><!-- header -->
+
 EOF
 }
 
 sub print_footer {
   print <<EOF;
 
-<hr>
+<div id="footer">
 <address>This page was created by <a href="http://zzamboni.org/grabcartoons/">grabcartoons $VERSION</a>.</address>
+</div><!-- footer -->
   </body>
 </html>
 EOF
@@ -74,7 +81,8 @@ sub print_section {
     $name = $1;
     $style = " style=\"display:none;\"";
   }
-  print "<hr>\n<h2$style>$name</h2>\n\n";
+  print "<div class=\"comicdiv\" id=\"div_$cname\">\n";
+  print "<h2$style>$name</h2>\n\n";
   print "<p>\n";
   if ($err) {
     print "<em>$err</em>\n\n";
@@ -90,7 +98,8 @@ sub print_section {
     }
     print qq(<br><a name="skip_$cname"> </a>) if $skiplink;
   }
-  print "</p>\n\n";
+  print "</p>\n";
+  print "</div><!-- div_$cname -->\n\n";
 }
 
 1;
