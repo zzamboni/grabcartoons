@@ -445,7 +445,7 @@ EOMODULE
  CHECKERROR:
   if ($err || (!$html && !$htmllist)) {
     if ($mainurl) {
-      error("[$name] Error fetching $name [$mainurl]: $err\n");
+      error("[$name] Error fetching $name [ $mainurl ]: $err\n");
       $err="Error fetching <a href=\"$mainurl\">$name</a>: $err";
     } else {
       $err="Error getting the URL for $name: $err";
@@ -490,7 +490,7 @@ sub fetch_url {
         my $req=new HTTP::Request('GET',$url);
         my $resp=$ua->request($req);
         if ($resp->is_error) {
-            $err="Could not retrieve $url: " . $resp->status_line ;
+            $err="Could not retrieve $url : " . $resp->status_line ;
 	    error("$err\n") unless $quiet;
             return undef;
         }
