@@ -214,6 +214,7 @@ foreach $mdir (@MODULE_DIRS) {
             foreach (@cssfiles) {
                 $filename = "$mdir/$_";
                 open(FILE, "<",  $filename) or die "Error opening CSS file $filename: $!\n";
+                $OUTPUTCSS = $OUTPUTCSS . "/* $filename */\n";
                 $OUTPUTCSS = $OUTPUTCSS . join('', <FILE>);
             }
         }
@@ -236,6 +237,7 @@ foreach $mdir (@MODULE_DIRS) {
             foreach (@jsfiles) {
                 $filename = "$mdir/$_";
                 open(FILE, "<",  $filename) or die "Error opening js file $filename: $!\n";
+                $OUTPUTJS = $OUTPUTJS . "/* $filename */\n";
                 $OUTPUTJS = $OUTPUTJS . join('', <FILE>);
             }
         }
