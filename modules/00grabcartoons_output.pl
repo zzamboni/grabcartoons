@@ -51,28 +51,31 @@ sub print_section {
       $url =~ s/&(?!amp;)/&amp;/gi if $url;
 #     $html =~ s/&(?!amp;)/&amp;/gi if $html;
   # handle non-displaying titles
-  my $style="";
+  my $extradivclass="";
   if ($name =~ /^nt\|(.*)/) {
     $name = $1;
-    $style = " style=\"display:none;\"";
+    $extradivclass.=" notitle";
   }
-  print "<div class=\"comicdiv\" id=\"div_$cname\">\n";
-  print "<h2$style>$name</h2>\n\n";
-  print "<h3><a href=\"#\" class=\"divtoggle\">Click to expand</a></h3>\n";
-  print "<p>\n";
+  # handle large non-updating comics
+  $extradivclass.=" skiplink" if $skiplink;
+  # print the comic
+  print "<div class=\"comicdiv$extradivclass\" id=\"div_$cname\">\n";
+  print "<h2 class=\"comictitle\">$name</h2>\n\n";
+  print "<h3 class=\"divtoggle\"><a href=\"#\">Click to expand $name</a></h3>\n";
+  print "<p class=\"comic\">\n";
   if ($err) {
-    print "<em>$err</em>\n\n";
+    print "<em class=\"comicerror\">$err</em>\n\n";
   }
   else {
     $mainurl=$url if !$mainurl;
-    print qq(<a href="#skip_$cname">Skip this comic.</a><br>\n) if $skiplink;
+    print qq(<a href="#skip_$cname" class="skipstart">Skip this comic.</a>\n);
     if ($html) {
       print "<a href=\"$mainurl\">$html</a>\n";
     }
     else {
       print "<a href=\"$mainurl\"><img src=\"$url\" alt=\"Today's $name cartoon\"></a>\n";
     }
-    print qq(<br><a name="skip_$cname"> </a>) if $skiplink;
+    print qq(<br id="skip_$cname" class="skiptarget">);
   }
   print "</p>\n";
   print "</div><!-- div_$cname -->\n\n";
