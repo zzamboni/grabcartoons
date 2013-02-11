@@ -61,7 +61,7 @@ sub print_section {
   # print the comic
   print "<div class=\"comicdiv$extradivclass\" id=\"div_$cname\">\n";
   print "<h2 class=\"comictitle\">$name</h2>\n\n";
-  print "<h3 class=\"divtoggle\"><a href=\"#\">Click to expand $name</a></h3>\n";
+  print "<h3 class=\"divtoggle\">Click to squash $name</h3>\n";
   print "<p class=\"comic\">\n";
   if ($err) {
     print "<em class=\"comicerror\">$err</em>\n\n";

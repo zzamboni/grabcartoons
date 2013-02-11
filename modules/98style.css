@@ -4,7 +4,7 @@
 
         div#footer,
         div.comicdiv { border-top: thin solid black; }
-        div.comicdiv { height: 500; overflow: hidden; }
+        div.squished { max-height: 300px; overflow: hidden; }
         div.comicdiv p { margin: 0; }
         div.comicdiv p.comic { margin: 1em 0; }
 
