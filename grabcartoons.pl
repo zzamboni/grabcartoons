@@ -211,12 +211,10 @@ foreach $mdir (@MODULE_DIRS) {
         closedir MDIR;
         foreach (@cssfiles) {
             vmsg("$_ ");
-            foreach (@cssfiles) {
-                $filename = "$mdir/$_";
-                open(FILE, "<",  $filename) or die "Error opening CSS file $filename: $!\n";
-                $OUTPUTCSS = $OUTPUTCSS . "/* $filename */\n";
-                $OUTPUTCSS = $OUTPUTCSS . join('', <FILE>);
-            }
+            $filename = "$mdir/$_";
+            open(FILE, "<",  $filename) or die "Error opening CSS file $filename: $!\n";
+            $OUTPUTCSS = $OUTPUTCSS . "/* $filename */\n";
+            $OUTPUTCSS = $OUTPUTCSS . join('', <FILE>);
         }
         vmsg("\n");
     }
@@ -234,12 +232,10 @@ foreach $mdir (@MODULE_DIRS) {
         closedir MDIR;
         foreach (@jsfiles) {
             vmsg("$_ ");
-            foreach (@jsfiles) {
-                $filename = "$mdir/$_";
-                open(FILE, "<",  $filename) or die "Error opening js file $filename: $!\n";
-                $OUTPUTJS = $OUTPUTJS . "/* $filename */\n";
-                $OUTPUTJS = $OUTPUTJS . join('', <FILE>);
-            }
+            $filename = "$mdir/$_";
+            open(FILE, "<",  $filename) or die "Error opening js file $filename: $!\n";
+            $OUTPUTJS = $OUTPUTJS . "/* $filename */\n";
+            $OUTPUTJS = $OUTPUTJS . join('', <FILE>);
         }
         vmsg("\n");
     }
