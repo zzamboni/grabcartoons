@@ -75,7 +75,7 @@ sub print_section {
     else {
       print "<a href=\"$mainurl\"><img src=\"$url\" alt=\"Today's $name cartoon\"></a>\n";
     }
-    print qq(<br id="skip_$cname" class="skiptarget">);
+    print qq(<span id="skip_$cname" class="skiptarget"></span>);
   }
   print "</p>\n";
   print "</div><!-- div_$cname -->\n\n";
