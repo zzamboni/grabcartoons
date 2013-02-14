@@ -1,3 +1,18 @@
+2013-02-14  Benjamin Kuperman <kuperman@acm.org>
+	* modules/00grabcartoons_output.pl modules/01style.css
+	modules/02script.js: causing CSS and JavaScript to be included from
+	external files.  Adds in some basic utility functions to JS.
+
+	* modules/00grabcartoons_output.pl: Annotating every comic with div
+	tags and unique id per comic.  Also adding in components to skip over
+	comics and squish them.
+
+	* modules/90title.css modules/90title.js: Allows the alt title text to
+	be displayed on all platforms by clicking a link.
+
+	* modlues/91squish.css modules/91squish.js: Allows a user to click the
+	title of a comic to hide all but the start of the comic.
+
 2013-02-06  Benjamin Kuperman <kuperman@acm.org>
 	* modules/gws.pl: Update to a new comic URL host.
 
