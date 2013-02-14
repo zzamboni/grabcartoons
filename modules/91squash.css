@@ -1,3 +1,4 @@
 
         div.squished { max-height: 300px; overflow: hidden; }
+        div.squished .comic .skipstart { display: none; }
 
