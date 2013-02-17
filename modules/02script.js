@@ -54,9 +54,8 @@ function classToggle( target, className ) {
 
 /* set a cookie */
 function setCookie(c_name,value) {
-    var exdays = null;
     var exdate=new Date("Dec 31, 2037 23:59:59 GMT");
-    var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+    var c_value=escape(value) + "; expires="+exdate.toUTCString();
     document.cookie=c_name + "=" + c_value;
 }
 
