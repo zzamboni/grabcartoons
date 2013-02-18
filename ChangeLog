@@ -3,6 +3,8 @@
 	* modules/wondermark.pl: Updates to get alt text and different image
 	formats.  Contributed by @robertatinreachtechdotnet. Closes #8
 
+	* modules/joy_of_tech.pl: Updates to a new base URL.
+
 2013-02-06  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/gws.pl: Update to a new comic URL host.
