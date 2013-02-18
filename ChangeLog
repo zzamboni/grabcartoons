@@ -1,4 +1,10 @@
+2013-02-18  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/wondermark.pl: Updates to get alt text and different image
+	formats.  Contributed by @robertatinreachtechdotnet. Closes #8
+
 2013-02-06  Benjamin Kuperman <kuperman@acm.org>
+
 	* modules/gws.pl: Update to a new comic URL host.
 
 2013-01-20  Diego Zamboni  <diego@zzamboni.org>
@@ -21,7 +27,7 @@
 	from current comic images.
 
 2012-10-01: Benjamin Kuperman <kuperman@acm.org>
-    
+
 	* modules/little_gamers.pl: Minor tweak for new img URL style.
 
 	* modules/multiverse.pl:  Added module for "Scenes from a Multiverse"
