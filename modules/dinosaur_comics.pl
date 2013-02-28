@@ -4,5 +4,6 @@ $COMIC{dinosaur_comics} = {
                       Page => '{Base}/index.php',
                      Regex => qr!img\s+src\s*=\s*\"([^"]*?/comics/[^"]*?\.(?:png|gif|jpg|jpeg))\"[^<>]*class=\"comic\"!i,
         ExtraImgAttrsRegex => qr!img\s+src\s*=\s*\"(?:[^"]*?/comics/[^"]*?\.(?:png|gif|jpg|jpeg))\"[^<>]*class=\"comic\"[^<>]*(title=".*?")!i,
+                TitleRegex => qr@<span class="rss-title">([^<]*?)</span>@i,
     };
 
