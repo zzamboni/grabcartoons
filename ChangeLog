@@ -7,6 +7,8 @@
 
 	* modules/extraordinary.pl: Update URL, capture multiline img tag.
 
+	* modules/joy_of_tech.pl: Change image regexp.
+
 2013-02-28  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/dinosaur_comics.pl : Added module for "Dinosaur Comics"
