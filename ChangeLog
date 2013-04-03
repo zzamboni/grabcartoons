@@ -3,6 +3,8 @@
 	* modules/whatsnormalanyway.pl: Added a module for "What's Normal
 	Anyway?" http://whatsnormalanyway.net/
 
+	* modules/cowandboy.pl: Quick fix for possibly new layout.
+
 2013-02-28  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/dinosaur_comics.pl : Added module for "Dinosaur Comics"
