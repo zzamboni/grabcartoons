@@ -1,3 +1,7 @@
+2013-07-27  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/joy_of_tech.pl: Adjust to new layout, add alt text.
+
 2013-04-03  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/whatsnormalanyway.pl: Added a module for "What's Normal
