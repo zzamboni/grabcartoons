@@ -1,3 +1,7 @@
+2013-08-05  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/smbc.pl: Change image regexp to support multiple types.
+
 2013-08-01  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/jspowerhour.pl: Added a module for "Junior Scientist Power
