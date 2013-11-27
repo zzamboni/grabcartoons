@@ -1,0 +1,18 @@
+
+        body { color: black; background-color: white; }
+        a img { border-width: 0; }
+        address { font-size: small; font-style: normal; }
+
+        div#footer,
+        div.comicdiv { border-top: thin solid black; }
+        div.comicdiv p { margin: 0; }
+        div.comicdiv p.comic { margin: 1em 0; }
+
+        /* rules for skiplink comics */
+        h3.divtoggle { margin: 0; }
+        .skipstart { display: none; }
+        .skipstart { padding: 1em 0; }
+        div.skiplink .skipstart {display: block;}
+        .skiptarget { }
+
+

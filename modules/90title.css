@@ -1,0 +1,12 @@
+
+        /* rules for no title comics */
+        h2.comictitle { margin-bottom: 0; }
+        .divtoggle { display: none; }
+        div.notitle .comictitle { display: none; }
+        div.notitle .divtoggle { display: block; }
+
+        /* Styling for captions on mobile devices */
+        .caption { display: none; font-size:x-large; padding: 3px; }
+        @media screen and (max-device-width: 480px) { img{width:100%;} p.caption { display:inline; } }
+        @media screen and (min-device-width: 768px) and (max-device-width: 1024px) { img{ width:100%;} p.caption { display:inline; } }
+

@@ -11,50 +11,32 @@ sub print_header {
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <style type="text/css">
     <!--
-      body { color: black; background-color: white; }
-      a img { border-width: 0; }
-      address { font-size: small; font-style: normal; }
-
-      /* Styling for captions on mobile devices */
-     .caption { display: none; font-size:x-large; padding: 3px; }
-     \@media screen and (max-device-width: 480px) { img{width:100%;} p.caption { display:inline; } }
-     \@media screen and (min-device-width: 768px) and (max-device-width: 1024px) { img{ width:100%;} p.caption { display:inline; } }
-
+$OUTPUTCSS
     -->
     </style>
 
     <!-- script to display title tag fields on mobile devices -->
     <script type="text/javascript">
-        window.onload = showTitleText;
-        function showTitleText() {
-            var imgTags;
-            imgTags = document.getElementsByTagName("img");
-            for(var i = 0; i < imgTags.length; i++)
-                if (imgTags[i].title != "")  {
-                    var parent =  imgTags[i].parentNode.parentNode;
-                    var newText = document.createElement('p');
-                    newText.innerHTML = "<br>"+imgTags[i].title;
-                    newText.style.backgroundColor="#ffffaa";
-                    newText.style.color="#000000";
-                    newText.className="caption";
-                    parent.appendChild(newText);
-                }  
-        }
+$OUTPUTJS
     </script>
 
 
   </head>
 
   <body>
+  <div id="header">
     <h1>Daily Comics - $today</h1>
+  </div><!-- header -->
+
 EOF
 }
 
 sub print_footer {
   print <<EOF;
 
-<hr>
+<div id="footer">
 <address>This page was created by <a href="http://zzamboni.org/grabcartoons/">grabcartoons $VERSION</a>.</address>
+</div><!-- footer -->
   </body>
 </html>
 EOF
@@ -69,28 +51,34 @@ sub print_section {
       $url =~ s/&(?!amp;)/&amp;/gi if $url;
 #     $html =~ s/&(?!amp;)/&amp;/gi if $html;
   # handle non-displaying titles
-  my $style="";
+  my $extradivclass="";
   if ($name =~ /^nt\|(.*)/) {
     $name = $1;
-    $style = " style=\"display:none;\"";
+    $extradivclass.=" notitle";
   }
-  print "<hr>\n<h2$style>$name</h2>\n\n";
-  print "<p>\n";
+  # handle large non-updating comics
+  $extradivclass.=" skiplink" if $skiplink;
+  # print the comic
+  print "<div class=\"comicdiv$extradivclass\" id=\"div_$cname\">\n";
+  print "<h2 class=\"comictitle\">$name</h2>\n\n";
+  print "<h3 class=\"divtoggle\">Click to squash $name</h3>\n";
+  print "<p class=\"comic\">\n";
   if ($err) {
-    print "<em>$err</em>\n\n";
+    print "<em class=\"comicerror\">$err</em>\n\n";
   }
   else {
     $mainurl=$url if !$mainurl;
-    print qq(<a href="#skip_$cname">Skip this comic.</a><br>\n) if $skiplink;
+    print qq(<a href="#skip_$cname" class="skipstart">Skip this comic.</a>\n);
     if ($html) {
       print "<a href=\"$mainurl\">$html</a>\n";
     }
     else {
       print "<a href=\"$mainurl\"><img src=\"$url\" alt=\"Today's $name cartoon\"></a>\n";
     }
-    print qq(<br><a name="skip_$cname"> </a>) if $skiplink;
+    print qq(<span id="skip_$cname" class="skiptarget"></span>);
   }
-  print "</p>\n\n";
+  print "</p>\n";
+  print "</div><!-- div_$cname -->\n\n";
 }
 
 1;

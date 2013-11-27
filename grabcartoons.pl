@@ -178,6 +178,7 @@ if ($genmodules) {
 # will be the same)
 %mod_seen=();
 @MODULE_DIRS = grep { ! $mod_seen{$_} ++ } @MODULE_DIRS;
+
 vmsg("Scanning module directories...\n");
 # Load modules
 foreach $mdir (@MODULE_DIRS) {
@@ -197,6 +198,48 @@ foreach $mdir (@MODULE_DIRS) {
 
 @list_of_modules=keys %COMIC;
 @list_of_templates=keys %TEMPLATE;
+
+# Scan for CSS files
+vmsg("Scanning for CSS files...\n");
+$OUTPUTCSS = "";
+foreach $mdir (@MODULE_DIRS) {
+    if (-d $mdir) {
+        vmsg("Loading CSS files in directory $mdir... ");
+        opendir MDIR, $mdir
+          or die "Error opening directory $mdir: $!\n";
+        @cssfiles=grep { /\.css$/ && -f "$mdir/$_" } readdir(MDIR);
+        closedir MDIR;
+        foreach (@cssfiles) {
+            vmsg("$_ ");
+            $filename = "$mdir/$_";
+            open(FILE, "<",  $filename) or die "Error opening CSS file $filename: $!\n";
+            $OUTPUTCSS = $OUTPUTCSS . "/* $filename */\n";
+            $OUTPUTCSS = $OUTPUTCSS . join('', <FILE>);
+        }
+        vmsg("\n");
+    }
+}
+
+# Scan for JavaScript files
+vmsg("Scanning for JavaScript files...\n");
+$OUTPUTJS = "";
+foreach $mdir (@MODULE_DIRS) {
+    if (-d $mdir) {
+        vmsg("Loading JS files in directory $mdir... ");
+        opendir MDIR, $mdir
+          or die "Error opening directory $mdir: $!\n";
+        @jsfiles=grep { /\.js$/ && -f "$mdir/$_" } readdir(MDIR);
+        closedir MDIR;
+        foreach (@jsfiles) {
+            vmsg("$_ ");
+            $filename = "$mdir/$_";
+            open(FILE, "<",  $filename) or die "Error opening js file $filename: $!\n";
+            $OUTPUTJS = $OUTPUTJS . "/* $filename */\n";
+            $OUTPUTJS = $OUTPUTJS . join('', <FILE>);
+        }
+        vmsg("\n");
+    }
+}
 
 $lom="Comic IDs defined:\n\t".join("\n\t", sort @list_of_modules)."\n";
 $htmlhdr="";
