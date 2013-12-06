@@ -1,5 +1,7 @@
 2013-12-05  Benjamin Kuperman <kuperman@acm.org>
 	
+	* module/goblins.pl: Changed to new URL and updated regex
+	
 	* module/kevin_and_kell.pl: Changed to new URL and updated regex
 	
 	* module/goats.pl: Changed to new URL and updated regex
