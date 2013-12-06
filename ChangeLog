@@ -1,4 +1,6 @@
 2013-12-05  Benjamin Kuperman <kuperman@acm.org>
+
+	* module/nodwick.pl: Changed to new URL and updated regex
 	
 	* module/ffn.pl: Changed to new URL and updated regex
 

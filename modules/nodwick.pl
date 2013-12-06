@@ -1,6 +1,6 @@
 $COMIC{nodwick} = {
     Title => 'Nodwick',
-    Page => 'http://nodwick.humor.gamespy.com/gamespyarchive',
-    Regex => qr(img src="http\://nodwick\.humor\.gamespy\.com/gamespyarchive/(strips/.*\.jpg)"),
+    Page => 'http://comic.nodwick.com/',
+    Regex => qr!img src="(?:http://comic.nodwick.com/)(wp-content/uploads/\d{4}/\d+/\d{4}-\d+-\d+.(?:jpg|jpeg|gif|png))"!i,
     Prepend => '{Page}/',
 };
