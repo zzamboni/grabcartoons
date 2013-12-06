@@ -1,4 +1,6 @@
 2013-12-05  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/alien_loves_predator.pl: Updated regex
 	
 	* module/goblins.pl: Changed to new URL and updated regex
 	
