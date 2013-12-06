@@ -1,5 +1,7 @@
 2013-12-05  Benjamin Kuperman <kuperman@acm.org>
 
+	* module/shermans-lagoon.pl: Changed to new URL and updated regex
+
 	* module/nodwick.pl: Changed to new URL and updated regex
 	
 	* module/ffn.pl: Changed to new URL and updated regex
