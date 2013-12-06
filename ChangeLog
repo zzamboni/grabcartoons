@@ -1,4 +1,6 @@
 2013-12-05  Benjamin Kuperman <kuperman@acm.org>
+	
+	* module/goats.pl: Changed to new URL and updated regex
 
 	* module/shermans-lagoon.pl: Changed to new URL and updated regex
 
