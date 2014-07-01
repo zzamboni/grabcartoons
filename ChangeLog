@@ -2,6 +2,12 @@
 
 	* module/redmeat.pl: Updated URL and image tag
 
+	* grabcartoons.pl 
+	  modules/00grabcartoons_output.pl
+	  modules/03includes.head: Added functionality to allow you to include
+	    arbitrary HTML in the header section.  Sample of adding a touch
+	    icon for use on iOS devices.
+
 2014-06-11  Benjamin Kuperman <kuperman@acm.org>
 
 	* module/sinfest.pl: Updated to new URL

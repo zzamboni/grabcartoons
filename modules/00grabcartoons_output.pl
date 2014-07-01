@@ -9,6 +9,7 @@ sub print_header {
   <head>
     <title>Daily Comics</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+$OUTPUTHEAD
     <style type="text/css">
     <!--
 $OUTPUTCSS

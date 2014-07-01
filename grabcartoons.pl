@@ -241,6 +241,27 @@ foreach $mdir (@MODULE_DIRS) {
     }
 }
 
+# Scan for Header include files
+vmsg("Scanning for Header include files...\n");
+$OUTPUTHEAD = "";
+foreach $mdir (@MODULE_DIRS) {
+    if (-d $mdir) {
+        vmsg("Loading *.head files in directory $mdir... ");
+        opendir MDIR, $mdir
+          or die "Error opening directory $mdir: $!\n";
+        @headfiles=grep { /\.head$/ && -f "$mdir/$_" } readdir(MDIR);
+        closedir MDIR;
+        foreach (@headfiles) {
+            vmsg("$_ ");
+            $filename = "$mdir/$_";
+            open(FILE, "<",  $filename) or die "Error opening head file $filename: $!\n";
+            $OUTPUTHEAD = $OUTPUTHEAD . "<!-- $filename -->\n";
+            $OUTPUTHEAD = $OUTPUTHEAD . join('', <FILE>);
+        }
+        vmsg("\n");
+    }
+}
+
 $lom="Comic IDs defined:\n\t".join("\n\t", sort @list_of_modules)."\n";
 $htmlhdr="";
 
