@@ -1,6 +1,7 @@
 $COMIC{zenpencils} = {
 		   Title => 'Zen Pencils',
 		   Page => 'http://zenpencils.com/',
-		   Regex => qr!class="comicpane".*img\s+src\s*=\s*\"(.*/comics/.*?)"!i,
-                   TitleRegex => qr!class="comicpane".*title="(.*?)"!i,
+                   StartRegex => '<div id="comic">',
+		   Regex => qr!img\s+src\s*=\s*"(.*?(?:gif|png|jpg))"!i,
+                   ExtraImgAttrsRegex => qr!(title=".*?")!i,
 		  };

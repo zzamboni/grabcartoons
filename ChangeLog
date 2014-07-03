@@ -1,3 +1,13 @@
+2014-07-03  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/cowandboy.pl: Updated regexp for multiple image types
+
+	* modules/hijinksensue.pl: New URL and fix ExtraImgAttrsRegex
+
+	* modules/wallyandosborne.pl: Updated URL (optional WWW prefix)
+
+	* modules/zenpencils.pl: Updated URL for image
+
 2014-07-02  Diego Zamboni  <diego@zzamboni.org>
 
 	* modules/sinfest.pl: Updated for new page format.
