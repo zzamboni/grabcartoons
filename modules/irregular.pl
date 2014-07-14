@@ -23,7 +23,7 @@ sub get_url_irregular {
       my $annote=0;
       while (get_line()) {
           if (/<div id="annotation"[^>]*>(.*)/i) {
-              $block .= "<div id=\"annotation\">$1";
+              $block .= "<div class=\"annotation\">$1";
               $annote=1;
               next;
               #$block .= "<a href=\"$irregbase\">";

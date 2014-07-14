@@ -2,6 +2,10 @@
 
 	* modules/jspowerhour.pl: Change to use function to grab annotation.
 
+	* module/01style.css
+	  module/irregular.pl: Fix irregular's annotation to be a class (was
+	  an id) and added styling for annotations in default CSS.
+
 2014-07-03  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/cowandboy.pl: Updated regexp for multiple image types

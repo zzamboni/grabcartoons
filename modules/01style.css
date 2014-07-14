@@ -6,7 +6,8 @@
         div#footer,
         div.comicdiv { border-top: thin solid black; }
         div.comicdiv p { margin: 0; }
-        div.comicdiv p.comic { margin: 1em 0; }
+        div.comicdiv p.comic,
+        div.comicdiv div.annotation p { margin: 1em 0; }
 
         /* rules for skiplink comics */
         h3.divtoggle { margin: 0; }
