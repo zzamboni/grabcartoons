@@ -1,3 +1,8 @@
+2014-07-30  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/the_trenches.pl: Add new module for "The Trenches"
+	http://trenchescomic.com
+
 2014-07-14  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/jspowerhour.pl: Change to use function to grab annotation.
