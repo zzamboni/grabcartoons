@@ -1,3 +1,8 @@
+2014-08-22  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/robot_hugs.pl: Add new module for "Robot Hugs"
+	http://www.robot-hugs.com
+
 2014-07-30  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/the_trenches.pl: Add new module for "The Trenches"
