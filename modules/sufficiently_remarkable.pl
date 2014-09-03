@@ -1,5 +1,5 @@
 $COMIC{sufficiently_remarkable} = {
-    Title => 'Sufficiently Rermarkable',
+    Title => 'Sufficiently Remarkable',
     Base => 'http://sufficientlyremarkable.com',
     Page => '{Base}/',
     StartRegex => qr(\<div class="comic"\>),
