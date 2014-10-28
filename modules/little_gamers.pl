@@ -1,7 +1,7 @@
 $COMIC{little_gamers} = {
 			 Title => 'Little Gamers',
 			 Page => 'http://www.little-gamers.com/',
-			 Regex => qr/img[^>]*src="(http:\/\/((pimp|www|upload)\.)?little-gamers.(com|eoo.se)\/comics\/\d+(-\d+)*.(gif|jpg|jpeg|png))" alt=".*"/i,
-                         'ExtraImgAttrsRegex' => qr!img[^>]*src="[^"]*/comics/\d+[^"]*" alt="[^"]*" (title="[^"]*")!,
+			 Regex => qr/img[^>]*id="comic"[^>]*src="(http:\/\/((?:pimp|www|upload)\.)?little-gamers.(com|eoo.se)\/comics\/[^"]*.(?:gif|jpg|jpeg|png))"/i,
+                         'ExtraImgAttrsRegex' => qr!(title="[^"]*")!,
 			 Prepend => '',
 			};
