@@ -30,8 +30,8 @@ $GET_METHOD=0;
 # This program must be in your path, otherwise change $XTRN_PROG to
 # include the full path.
 $XTRN_PROG="wget";
-$USER_AGENT=""; # uncomment the following line if you have problems
-#$USER_AGENT="Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/521.25 (KHTML, like Gecko) Safari/521.24";
+#$USER_AGENT=""; # uncomment the following line if you have problems
+$USER_AGENT="Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/521.25 (KHTML, like Gecko) Safari/521.24";
 $USER_AGENT_CMD = $USER_AGENT ? qq(-U "$USER_AGENT") : "" ;
 # TODO - add in other user-agent strings if needed
 $XTRN_CMD="$XTRN_PROG -q -O- $USER_AGENT_CMD";
