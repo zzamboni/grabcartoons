@@ -1,3 +1,7 @@
+2015-03-23  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/smbc.pl: Change image regexp, capture title.
+
 2015-02-17  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/asofterworld.pl: Update to new page layout
