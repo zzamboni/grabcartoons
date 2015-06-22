@@ -9,6 +9,8 @@
         div.comicdiv p.comic,
         div.comicdiv div.annotation p { margin: 1em 0; }
 
+        div.comicdiv p.comic img { max-width: 100%; }
+
         /* rules for skiplink comics */
         h3.divtoggle { margin: 0; }
         .skipstart { display: none; }
