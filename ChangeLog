@@ -1,3 +1,7 @@
+2015-06-22  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/agirlandherfed.pl: New module for "A Girl and Her Fed"
+
 2015-03-31  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/xkcd.pl: Change image, title, and caption capture.
