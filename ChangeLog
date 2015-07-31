@@ -1,3 +1,8 @@
+2015-07-31  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/lighter_than_heir.pl: New module for "Lighter than Heir"
+	http://lighterthanheir.com/
+
 2015-07-13  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/joy_of_tech.pl: Negative lookbehind for banner ad image.
