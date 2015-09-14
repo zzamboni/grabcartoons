@@ -1,3 +1,9 @@
+2015-09-14  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/bloom-county.pl 
+	  modules/bloom-county-old.pl: Created modules for the new (and old)
+	  Bloom County comics.
+
 2015-07-31  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/lighter_than_heir.pl: New module for "Lighter than Heir"
