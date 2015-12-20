@@ -1,3 +1,7 @@
+2015-12-20  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/penny_arcade.pl: Allow for comic via https
+
 2015-10-27  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/lighter_than_heir.pl

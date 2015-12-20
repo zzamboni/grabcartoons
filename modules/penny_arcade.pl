@@ -3,6 +3,6 @@ $COMIC{penny_arcade} = {
 			Base => 'http://www.penny-arcade.com',
 			Page => '{Base}/comic',
                         #Regex => qr@src="(http://art.penny-arcade.com/photos/[^\"]*?\.(gif|jpg))"@i,
-			Regex => qr@src="(http://[^/]*penny-arcade[^/]*/photos/[^\"]*?\.(gif|jpg))"@i,
-                        TitleRegex => qr@<title>Penny Arcade! -\s+(.+)</title>@i,
+			Regex => qr@src="(http(s)?://[^/]*penny-arcade[^/]*/photos/[^\"]*?\.(gif|jpg))"@i,
+                        TitleRegex => qr@<title>Penny Arcade - Comic -\s+(.+)</title>@i,
 		       };
