@@ -1,3 +1,7 @@
+2016-03-22  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/multiverse.pl: Tweak to try and handle newlines in img tag
+
 2016-03-14  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/smbc.pl: Tweak regex to allow for possible numeric suffixes
