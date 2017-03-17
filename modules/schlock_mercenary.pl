@@ -6,7 +6,7 @@ $COMIC{schlock_mercenary} = {
     StartRegex => qr(\<div class="strip-image-wrapper"),
     EndRegex => qr(\</div\>|\<!--AIO_END--\>),
     SubstOnRegexResult => [ 
-        [ qr(.*\<div class="strip-image-wrapper">), '', 1 ],
+        [ qr(.*\<div class="strip-image-wrapper"[^>]*>), '', 1 ],
         [ qr(\<\/div\>.*), '', 1 ],
         [ qr(src="/strip), 'src="{Base}strip', 1 ],
     ],
