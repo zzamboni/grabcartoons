@@ -2,6 +2,12 @@
 
 	* modules/schlock_mercenary.pl: Update to new page layout
 
+2016-10-26  Diego Zamboni  <diego@zzamboni.org>
+
+	* modules/ctrlaltdel.pl: Fixed image URL.
+
+	* modules/danscartoons.pl: Fixed page URL.
+
 2016-06-02  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/penny_arcade.pl: Update to https and new image URL
