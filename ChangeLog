@@ -1,3 +1,7 @@
+2017-09-02  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/20templates.pl: update for gocomics.com changes
+
 2017-04-10  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/diesel_sweeties.pl: Minor tweak to get comic

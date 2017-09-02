@@ -61,24 +61,35 @@ $TEMPLATE{'gocomics.com'} =
    '_Template_Description' => "Comics hosted at gocomics.com",
    'Base' => 'http://www.gocomics.com',
    'Page' => '{Base}/{Tag}/',
-   'Regex' => qr(class="strip".*?src="([^"]+)"),
+   #'Regex' => qr(class="strip".*?src="([^"]+)"),
+   'Regex' => qr(picture.*item-comic-image.*?src="([^"]+)"),
    '_Init_Code' => sub {
      my $H=shift; my $C=shift;
      vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
      # Get the list of comics from the website
-     $listurl="$H->{Base}/features/";
+     $listurl="$H->{Base}/comics/a-to-z/";
      return ($H->{_Template_Name}, "Error fetching $listurl to get list of comics") unless fetch_url($listurl, 1);
      $H->{_Comics} = {};
      $found = undef;
      $inregion = undef;
+     $tag = undef;
+     $title = undef;
      while (get_line()) {
-       $inregion = 1 if m!class="az-list!;
-       $inregion = 0 if m!id="footer-wrapper"!;
-       if ($inregion && m!\<a href="/(.+?)".*\>(.+)\</a\>!) {
-	 $tag = $1; $title = $2;
-	 $H->{_Comics}->{$tag} = $title;
-	 vmsg("  [tmpl:$H->{_Template_Name}] Found comic $title ($tag)\n");
-	 $found = 1;
+       $inregion = 1 if m!amu-media-item-link!;
+       $inregion = 0 if m!</div>!;
+       if ($inregion) {
+           #print("DEBUG: >$_<\n");
+           if (m!\<a [^>]*amu-media-item-link[^>]*href="/(.+?)"!) {
+               $tag = $1;
+           }elsif (m!media-heading[^>]*\>(.+?)\<!) {
+               $title = $1;
+           }
+           if ($tag && $title) {
+               $H->{_Comics}->{$tag} = $title;
+               vmsg("  [tmpl:$H->{_Template_Name}] Found comic $title ($tag)\n");
+               $found = 1;
+               $tag = undef; $title = undef;
+           }
        }
      }
      vmsg("    Got comics list from $H->{_Template_Name}\n") if $found;
