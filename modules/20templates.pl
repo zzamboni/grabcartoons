@@ -61,8 +61,7 @@ $TEMPLATE{'gocomics.com'} =
    '_Template_Description' => "Comics hosted at gocomics.com",
    'Base' => 'http://www.gocomics.com',
    'Page' => '{Base}/{Tag}/',
-   #'Regex' => qr(class="strip".*?src="([^"]+)"),
-   'Regex' => qr(picture.*item-comic-image.*?src="([^"]+)"),
+   'Regex' => qr(data-image="([^"]+)"),
    '_Init_Code' => sub {
      my $H=shift; my $C=shift;
      vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
@@ -76,7 +75,7 @@ $TEMPLATE{'gocomics.com'} =
      $title = undef;
      while (get_line()) {
        $inregion = 1 if m!amu-media-item-link!;
-       $inregion = 0 if m!</div>!;
+       $inregion = 0 if m!^</div>!;
        if ($inregion) {
            #print("DEBUG: >$_<\n");
            if (m!\<a [^>]*amu-media-item-link[^>]*href="/(.+?)"!) {
