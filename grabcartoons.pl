@@ -39,12 +39,12 @@ $XTRN_CMD="$XTRN_PROG -q -O- $USER_AGENT_CMD";
 # Where to load cartoon modules from
 @MODULE_DIRS=("$FindBin::Bin/modules",
               "$FindBin::RealBin/modules",
-	      "$FindBin::Bin/../lib/grabcartoons/modules",
-	      "$FindBin::RealBin/../lib/grabcartoons/modules",
-	      "$HOME/.grabcartoons/modules",
-	      "$HOME/.grabcartoons",
-	      @GRABCARTOONS_DIRS,
-	     );
+              "$FindBin::Bin/../lib/grabcartoons/modules",
+              "$FindBin::RealBin/../lib/grabcartoons/modules",
+              "$HOME/.grabcartoons/modules",
+              "$HOME/.grabcartoons",
+              @GRABCARTOONS_DIRS,
+             );
 
 # Verbosity flag
 $verbose=0;
@@ -110,45 +110,42 @@ GetOptions(
            'f|file=s'  => \$file,
            'w|write=s' => \$output,
            'verbose|v' => \$verbose,
-	   'notitles|t'=> \$notitles,
-	   'templates' => \$listoftemplates,
-	   'random=i'  => \$random,
-	   'genmodules'=> \$genmodules,
-	   'genout=s'  => \$genout,
+           'notitles|t'=> \$notitles,
+           'templates' => \$listoftemplates,
+           'random=i'  => \$random,
+           'genmodules'=> \$genmodules,
+           'genout=s'  => \$genout,
            'version|V' =>
-                sub {
-                    print "$versiontext\n";
-                    exit;
-                },
+           sub {
+             print "$versiontext\n";
+             exit;
+           },
            'help|h' =>
-                sub {
-                    print $usage;
-                    exit;
-                },
+           sub {
+             print $usage;
+             exit;
+           },
           );
 
 # Check get method
 if ($GET_METHOD == 0) {
-    vmsg("Determining which method to use for grabbing URLs...\n");
-    eval 'use LWP::UserAgent';
-    if ($@) {
-        vmsg("Couldn't find LWP::UserAgent, trying $XTRN_PROG...\n");
-        if (system("$XTRN_PROG --help >/dev/null 2>/dev/null") == 0) {
-            $GET_METHOD=1;
-            vmsg("Using $XTRN_PROG.\n");
-        }
-        else {
-            die "Error: I couldn't find LWP::UserAgent nor $XTRN_PROG\n";
-        }
+  vmsg("Determining which method to use for grabbing URLs...\n");
+  eval 'use LWP::UserAgent';
+  if ($@) {
+    vmsg("Couldn't find LWP::UserAgent, trying $XTRN_PROG...\n");
+    if (system("$XTRN_PROG --help >/dev/null 2>/dev/null") == 0) {
+      $GET_METHOD=1;
+      vmsg("Using $XTRN_PROG.\n");
+    } else {
+      die "Error: I couldn't find LWP::UserAgent nor $XTRN_PROG\n";
     }
-    else {
-        $GET_METHOD=2;
-        vmsg("Found LWP::UserAgent.\n");
-    }
-}
-elsif ($GET_METHOD == 2) {
-    vmsg("Loading LWP::UserAgent...\n");
-    eval 'use LWP::UserAgent';
+  } else {
+    $GET_METHOD=2;
+    vmsg("Found LWP::UserAgent.\n");
+  }
+} elsif ($GET_METHOD == 2) {
+  vmsg("Loading LWP::UserAgent...\n");
+  eval 'use LWP::UserAgent';
 }
 
 # If --genmodules is requested, check that --genout is a directory
@@ -158,18 +155,15 @@ if ($genmodules) {
   if (-e $genout) {
     if (-d $genout) {
       vmsg("  Good. $genout is an existing directory.\n");
-    }
-    else {
+    } else {
       die "Error: specified output directory '$genout' exists but is not a directory.\n";
     }
-  }
-  else {
+  } else {
     # Try to create it
     vmsg("  Directory does not exist - creating...");
     if (mkpath($genout)) {
       vmsg(" success!\n");
-    }
-    else {
+    } else {
       vmsg(" failure.\n");
       die "Error: could not create output directory '$genout': $!\n";
     }
@@ -183,18 +177,18 @@ if ($genmodules) {
 vmsg("Scanning module directories...\n");
 # Load modules
 foreach $mdir (@MODULE_DIRS) {
-    if (-d $mdir) {
-        vmsg("Loading modules in directory $mdir... ");
-        opendir MDIR, $mdir
-          or die "Error opening directory $mdir: $!\n";
-        @mods=grep { /\.pl$/ && -f "$mdir/$_" } readdir(MDIR);
-        closedir MDIR;
-        foreach (@mods) {
-            vmsg("$_ ");
-            require "$mdir/$_";
-        }
-        vmsg("\n");
+  if (-d $mdir) {
+    vmsg("Loading modules in directory $mdir... ");
+    opendir MDIR, $mdir
+      or die "Error opening directory $mdir: $!\n";
+    @mods=grep { /\.pl$/ && -f "$mdir/$_" } readdir(MDIR);
+    closedir MDIR;
+    foreach (@mods) {
+      vmsg("$_ ");
+      require "$mdir/$_";
     }
+    vmsg("\n");
+  }
 }
 
 @list_of_modules=keys %COMIC;
@@ -204,63 +198,63 @@ foreach $mdir (@MODULE_DIRS) {
 vmsg("Scanning for CSS files...\n");
 $OUTPUTCSS = "";
 foreach $mdir (@MODULE_DIRS) {
-    if (-d $mdir) {
-        vmsg("Loading CSS files in directory $mdir... ");
-        opendir MDIR, $mdir
-          or die "Error opening directory $mdir: $!\n";
-        @cssfiles=grep { /\.css$/ && -f "$mdir/$_" } readdir(MDIR);
-        closedir MDIR;
-        foreach (@cssfiles) {
-            vmsg("$_ ");
-            $filename = "$mdir/$_";
-            open(FILE, "<",  $filename) or die "Error opening CSS file $filename: $!\n";
-            $OUTPUTCSS = $OUTPUTCSS . "/* $filename */\n";
-            $OUTPUTCSS = $OUTPUTCSS . join('', <FILE>);
-        }
-        vmsg("\n");
+  if (-d $mdir) {
+    vmsg("Loading CSS files in directory $mdir... ");
+    opendir MDIR, $mdir
+      or die "Error opening directory $mdir: $!\n";
+    @cssfiles=grep { /\.css$/ && -f "$mdir/$_" } readdir(MDIR);
+    closedir MDIR;
+    foreach (@cssfiles) {
+      vmsg("$_ ");
+      $filename = "$mdir/$_";
+      open(FILE, "<",  $filename) or die "Error opening CSS file $filename: $!\n";
+      $OUTPUTCSS = $OUTPUTCSS . "/* $filename */\n";
+      $OUTPUTCSS = $OUTPUTCSS . join('', <FILE>);
     }
+    vmsg("\n");
+  }
 }
 
 # Scan for JavaScript files
 vmsg("Scanning for JavaScript files...\n");
 $OUTPUTJS = "";
 foreach $mdir (@MODULE_DIRS) {
-    if (-d $mdir) {
-        vmsg("Loading JS files in directory $mdir... ");
-        opendir MDIR, $mdir
-          or die "Error opening directory $mdir: $!\n";
-        @jsfiles=grep { /\.js$/ && -f "$mdir/$_" } readdir(MDIR);
-        closedir MDIR;
-        foreach (@jsfiles) {
-            vmsg("$_ ");
-            $filename = "$mdir/$_";
-            open(FILE, "<",  $filename) or die "Error opening js file $filename: $!\n";
-            $OUTPUTJS = $OUTPUTJS . "/* $filename */\n";
-            $OUTPUTJS = $OUTPUTJS . join('', <FILE>);
-        }
-        vmsg("\n");
+  if (-d $mdir) {
+    vmsg("Loading JS files in directory $mdir... ");
+    opendir MDIR, $mdir
+      or die "Error opening directory $mdir: $!\n";
+    @jsfiles=grep { /\.js$/ && -f "$mdir/$_" } readdir(MDIR);
+    closedir MDIR;
+    foreach (@jsfiles) {
+      vmsg("$_ ");
+      $filename = "$mdir/$_";
+      open(FILE, "<",  $filename) or die "Error opening js file $filename: $!\n";
+      $OUTPUTJS = $OUTPUTJS . "/* $filename */\n";
+      $OUTPUTJS = $OUTPUTJS . join('', <FILE>);
     }
+    vmsg("\n");
+  }
 }
 
 # Scan for Header include files
 vmsg("Scanning for Header include files...\n");
 $OUTPUTHEAD = "";
 foreach $mdir (@MODULE_DIRS) {
-    if (-d $mdir) {
-        vmsg("Loading *.head files in directory $mdir... ");
-        opendir MDIR, $mdir
-          or die "Error opening directory $mdir: $!\n";
-        @headfiles=grep { /\.head$/ && -f "$mdir/$_" } readdir(MDIR);
-        closedir MDIR;
-        foreach (@headfiles) {
-            vmsg("$_ ");
-            $filename = "$mdir/$_";
-            open(FILE, "<",  $filename) or die "Error opening head file $filename: $!\n";
-            $OUTPUTHEAD = $OUTPUTHEAD . "<!-- $filename -->\n";
-            $OUTPUTHEAD = $OUTPUTHEAD . join('', <FILE>);
-        }
-        vmsg("\n");
+  if (-d $mdir) {
+    vmsg("Loading *.head files in directory $mdir... ");
+    opendir MDIR, $mdir
+      or die "Error opening directory $mdir: $!\n";
+    @headfiles=grep { /\.head$/ && -f "$mdir/$_" } readdir(MDIR);
+    closedir MDIR;
+    foreach (@headfiles) {
+      vmsg("$_ ");
+      $filename = "$mdir/$_";
+      open(FILE, "<",  $filename) or die "Error opening head file $filename: $!\n";
+      $OUTPUTHEAD = $OUTPUTHEAD . "<!-- $filename -->\n";
+      $OUTPUTHEAD = $OUTPUTHEAD . join('', <FILE>);
     }
+    vmsg("\n");
+  }
 }
 
 $lom="Comic IDs defined:\n\t".join("\n\t", sort @list_of_modules)."\n";
@@ -276,26 +270,25 @@ if ($listoftemplates) {
 }
 
 if ($htmllist) {
-    # List defined modules, but in HTML
-    @ARGV=sort @list_of_modules unless @ARGV;
+  # List defined modules, but in HTML
+  @ARGV=sort @list_of_modules unless @ARGV;
 }
 
 if ($doall) {
-    # Generate all cartoons
-    @ARGV=sort @list_of_modules;
+  # Generate all cartoons
+  @ARGV=sort @list_of_modules;
 }
 
 # Read the comics from a file if desired
-if( $file )
-{
-    open COMICS, $file or die "can't open $file: $!\n";
-    @ARGV = <COMICS>;
-    close COMICS;
-    # we allow comments and spaces
-    s/^\s+// for @ARGV;
-    s/\s+$// for @ARGV;
-    s/\s+/_/g for @ARGV;
-    @ARGV = grep !/^#/, @ARGV;
+if ( $file ) {
+  open COMICS, $file or die "can't open $file: $!\n";
+  @ARGV = <COMICS>;
+  close COMICS;
+  # we allow comments and spaces
+  s/^\s+// for @ARGV;
+  s/\s+$// for @ARGV;
+  s/\s+/_/g for @ARGV;
+  @ARGV = grep !/^#/, @ARGV;
 }
 
 # Normalize before random selection, otherwise we might
@@ -331,8 +324,7 @@ foreach my $comic (@ARGV) {
     vmsg("  $comic found as tag $tag\n");
     push @normalized_comics, $tag;
     next;
-  }
-  else {
+  } else {
     error("[$comic] Error: I do not know '$comic' - skipping it\n");
     next;
   }
@@ -359,22 +351,20 @@ if ($random) {
 }
 
 if (!@ARGV) {
-    print $usage;
-    exit;
+  print $usage;
+  exit;
 }
 
 # output to a file if desired
-if( $output )
-{
-    open STDOUT, ">$output" or die "can't write to file $output: $!\n";
+if ( $output ) {
+  open STDOUT, ">$output" or die "can't write to file $output: $!\n";
 }
 
 
 if ($htmllist) {
-    &print_header_htmllist($htmlhdr);
-}
-else {
-    &print_header unless $dolist;
+  &print_header_htmllist($htmlhdr);
+} else {
+  &print_header unless $dolist;
 }
 
 # Finally, get the comics
@@ -389,13 +379,11 @@ foreach $name (@ARGV) {
       $C={};
       $C->{Title} = $comic;
       $C->{Template} = $templ;
-    }
-    else {
+    } else {
       error("[$name] Error: I do not know template '$templ'\n");
       next;
     }
-  }
-  else {
+  } else {
     vmsg("  Getting $name.\n");
     if (!exists($COMIC{$name})) {
       error("[$name] Error: I do not know '$name'\n");
@@ -426,7 +414,7 @@ foreach $name (@ARGV) {
     if (exists($TEMPLATE{$C->{Template}}->{_Init_Code})) {
       ($title,$err)=$TEMPLATE{$C->{Template}}->{_Init_Code}->($TEMPLATE{$C->{Template}}, $C);
       if ($err) {
-	goto CHECKERROR;
+        goto CHECKERROR;
       }
       delete($TEMPLATE{$C->{Template}}->{_Init_Code});
     }
@@ -434,59 +422,57 @@ foreach $name (@ARGV) {
     if ($C->{Title} eq '*' || $C->{Title} eq '') {
       $loc=$TEMPLATE{$C->{Template}}->{_Comics};
       if (scalar keys %$loc) {
-	vmsg("All comics requested for template $C->{Template}\n");
-	print "List of comic IDs known in template $C->{Template}:\n" if ($dolist);
-	foreach $comic (sort keys %$loc) {
-	  push @Clist, { Tag => $comic, Template => $C->{Template} };
-	  print "\t$comic ($loc->{$comic})\n" if $dolist;
-	}
-	exit if $dolist;
+        vmsg("All comics requested for template $C->{Template}\n");
+        print "List of comic IDs known in template $C->{Template}:\n" if ($dolist);
+        foreach $comic (sort keys %$loc) {
+          push @Clist, { Tag => $comic, Template => $C->{Template} };
+          print "\t$comic ($loc->{$comic})\n" if $dolist;
+        }
+        exit if $dolist;
+      } else {
+        ($title, $err)=($C->{Title}, "I do not know the list of comics for template $C->{Template}");
+        goto CHECKERROR;
       }
-      else {
-	($title, $err)=($C->{Title}, "I do not know the list of comics for template $C->{Template}");
-	goto CHECKERROR;
-      }
-    }
-    else {
+    } else {
       @Clist = ( $C );
     }
     foreach $C2 (@Clist) {
-    # Next, merge the fields of the comic's hash with the template hash
+      # Next, merge the fields of the comic's hash with the template hash
       my %tmpl=%{$TEMPLATE{$C2->{Template}}};
       my ($k,$v);
       my %oldC=%$C2;
       while (($k,$v) = each(%tmpl)) {
-	$C2->{$k}=$v;
+        $C2->{$k}=$v;
       }
       while (($k,$v) = each(%oldC)) {
-	$C2->{$k}=$v;
+        $C2->{$k}=$v;
       }
       # If _Template_Code exists, execute it with the merged snippet as argument,
       # and delete it from the merged snippet
       if ($tmpl{_Template_Code}) {
-	delete($C2->{_Template_Code});
-	($title,$err)=$tmpl{_Template_Code}->($C2);
-	if ($err) {
-	  goto CHECKERROR;
-	}
+        delete($C2->{_Template_Code});
+        ($title,$err)=$tmpl{_Template_Code}->($C2);
+        if ($err) {
+          goto CHECKERROR;
+        }
       }
       # Determine the comic's tag if needed
       ($title,$err)=find_and_validate_template_tag($C2);
       goto CHECKERROR if $err;
       # If requested, write out the new module
       if ($genmodules) {
-	my $fname="$genout/$C2->{Tag}.pl";
-	vmsg("[$name] Writing module to $fname\n");
-	open MOD, ">$fname"
-	  or die "[$name] Error creating file $fname: $!\n";
-	print MOD <<EOMODULE;
+        my $fname="$genout/$C2->{Tag}.pl";
+        vmsg("[$name] Writing module to $fname\n");
+        open MOD, ">$fname"
+          or die "[$name] Error creating file $fname: $!\n";
+        print MOD <<EOMODULE;
 \$COMIC{'$C2->{Tag}'} = {
 			Title => '$C2->{Title}',
 			Tag => '$C2->{Tag}',
 			Template => '$C2->{Template}',
-		       };
+};
 EOMODULE
-	close MOD;
+        close MOD;
       }
     }
   }
@@ -520,15 +506,14 @@ EOMODULE
 }
 
 if ($htmllist) {
-    &print_footer_htmllist;
-}
-else {
-    &print_footer;
+  &print_footer_htmllist;
+} else {
+  &print_footer;
 }
 
 # Print any errors
 if ($allerrors) {
-    warn "The following errors occurred:\n$allerrors";
+  warn "The following errors occurred:\n$allerrors";
 }
 
 # Get a URL, split in lines and store them for later fetching.
@@ -538,73 +523,70 @@ if ($allerrors) {
 # tag, but can be used to redirect according to arbitrary pattern
 # matching (e.g. see the oatmeal.pl module)
 sub fetch_url {
-    my $url=shift;
-    my $force=shift;
-    my $quiet=shift;
-    my $redirect_match=shift || 'http-equiv="refresh"';
-    my $redirect_urlcapture=shift || 'content="\d+;url=(.*?)"';
-    my $redirect_urlprepend=shift || '';
-    my $redirect_urlappend=shift || '';
-    my $multiple_redirects=shift;
-    # If we are just producing a list of URLs, give a bogus error unless $force is specified
-    return undef if ($htmllist && !$force);
-    vmsg("    Fetching $url... ");
-    if ($GET_METHOD == 2) {
-        my $ua=LWP::UserAgent->new;
-	$ua->agent( $USER_AGENT );
-        my $req=new HTTP::Request('GET',$url);
-        my $resp=$ua->request($req);
-        if ($resp->is_error) {
-            $err="Could not retrieve $url : " . $resp->status_line ;
+  my $url=shift;
+  my $force=shift;
+  my $quiet=shift;
+  my $redirect_match=shift || 'http-equiv="refresh"';
+  my $redirect_urlcapture=shift || 'content="\d+;url=(.*?)"';
+  my $redirect_urlprepend=shift || '';
+  my $redirect_urlappend=shift || '';
+  my $multiple_redirects=shift;
+  # If we are just producing a list of URLs, give a bogus error unless $force is specified
+  return undef if ($htmllist && !$force);
+  vmsg("    Fetching $url... ");
+  if ($GET_METHOD == 2) {
+    my $ua=LWP::UserAgent->new;
+    $ua->agent( $USER_AGENT );
+    my $req=new HTTP::Request('GET',$url);
+    my $resp=$ua->request($req);
+    if ($resp->is_error) {
+      $err="Could not retrieve $url : " . $resp->status_line ;
 	    error("$err\n") unless $quiet;
-            return undef;
-        }
-        my $html=$resp->content;
-        # Split on lines and store
-        @LINES=split("\n", $html);
-        $_.="\n" foreach (@LINES);
+      return undef;
     }
-    elsif ($GET_METHOD == 1) {
-        my $cmd="$XTRN_CMD '$url'";
-        open CMD, "$cmd |" or do {
-            $err="Error executing '$cmd': $!";
+    my $html=$resp->content;
+    # Split on lines and store
+    @LINES=split("\n", $html);
+    $_.="\n" foreach (@LINES);
+  } elsif ($GET_METHOD == 1) {
+    my $cmd="$XTRN_CMD '$url'";
+    open CMD, "$cmd |" or do {
+      $err="Error executing '$cmd': $!";
 	    error("$err\n") unless $quiet;
-            return undef;
-        };
-        @LINES=<CMD>;
-        close CMD;
-    }
-    else {
-        $err="Internal error: Invalid value of GET_METHOD ($GET_METHOD)";
-	error("$err\n");
-        return undef;
-    }
-    if ($redirect_match) {
-      my @matches=grep(/$redirect_match/i, @LINES);
-      if (@matches && $matches[0] =~ /$redirect_urlcapture/i) {
-	my $newurl=$redirect_urlprepend . $1 . $redirect_urlappend;
-	if ($multiple_redirects) {
-	    return fetch_url($newurl, $force, $quiet, $redirect_match, $redirect_urlcapture, $redirect_urlprepend, $multiple_redirects);
-	}
-	else {
-	    return fetch_url($newurl, $force, $quiet)
-	}
+      return undef;
+    };
+    @LINES=<CMD>;
+    close CMD;
+  } else {
+    $err="Internal error: Invalid value of GET_METHOD ($GET_METHOD)";
+    error("$err\n");
+    return undef;
+  }
+  if ($redirect_match) {
+    my @matches=grep(/$redirect_match/i, @LINES);
+    if (@matches && $matches[0] =~ /$redirect_urlcapture/i) {
+      my $newurl=$redirect_urlprepend . $1 . $redirect_urlappend;
+      if ($multiple_redirects) {
+        return fetch_url($newurl, $force, $quiet, $redirect_match, $redirect_urlcapture, $redirect_urlprepend, $multiple_redirects);
+      } else {
+        return fetch_url($newurl, $force, $quiet)
       }
     }
-    vmsg("success.\n");
-    return 1;
+  }
+  vmsg("success.\n");
+  return 1;
 }
 
 # Get a line off the last url retrieved. Automatically stores it in $_
 sub get_line {
-    return $_=shift @LINES;
+  return $_=shift @LINES;
 }
 
 # Get the full page as a single string
 sub get_fullpage {
-    my $r=join("\n", @LINES);
-    @LINES=();
-    return $r;
+  my $r=join("\n", @LINES);
+  @LINES=();
+  return $r;
 }
 
 # Setting @LINES to any array, for easier fetching later
@@ -614,7 +596,7 @@ sub set_lines {
 
 # Print a message if verbose flag is on
 sub vmsg {
-    print STDERR @_ if $verbose;
+  print STDERR @_ if $verbose;
 }
 
 # Replace references of the form {Name} with the
@@ -628,7 +610,7 @@ sub _replace_vars {
     $didsomething=undef;
     for my $k (keys %v) {
       if ($str=~s/\{$k\}/$v{$k}/g) {
-	$didsomething=1;
+        $didsomething=1;
       }
     }
   } while ($didsomething);
@@ -644,9 +626,9 @@ sub _do_regex_replacements {
     foreach my $tuple (@{$C->{SubstOnRegexResult}}) {
       my $repl = _replace_vars($tuple->[1], $C);
       if ($tuple->[2]) {
-	$s =~ s!$tuple->[0]!$repl!g;
+        $s =~ s!$tuple->[0]!$repl!g;
       } else {
-	$s =~ s!$tuple->[0]!$repl!;
+        $s =~ s!$tuple->[0]!$repl!;
       }
     }
   }
@@ -674,11 +656,11 @@ sub find_and_validate_template_tag {
       my $tag=(grep { $_ =~ /$title/i || $ch->{$_} =~ /$title/i } keys(%$ch))[0];
       # If that doesn't work, try some blind normalization
       if ($tag) {
-	vmsg("      [tmpl:$H->{_Template_Name}] Found the title in the list of comics\n");
+        vmsg("      [tmpl:$H->{_Template_Name}] Found the title in the list of comics\n");
       } else {
-	vmsg("      [tmpl:$H->{_Template_Name}] Title not found in comics list - trying some normalization\n");
-	$tag=$title;
-	$tag=~s/\s+\&\s+/&/g; $tag=~s/\.//g; $tag=~s/'//g; $tag=~s/\s/_/g;
+        vmsg("      [tmpl:$H->{_Template_Name}] Title not found in comics list - trying some normalization\n");
+        $tag=$title;
+        $tag=~s/\s+\&\s+/&/g; $tag=~s/\.//g; $tag=~s/'//g; $tag=~s/\s/_/g;
       }
       $H->{Tag} = $tag;
     }
@@ -714,7 +696,7 @@ sub find_and_validate_template_tag {
 #                then the result of $1 + SubstOnRegexResult + Prepend/Append
 #                is expected to be an HTML snippet, not just an image URL.
 #     ExtraImgAttrsRegex => regular expression to obtain additional
-#                attributes of the comic's <img> tag. It has to 
+#                attributes of the comic's <img> tag. It has to
 #                match on the same line that Regex matches. If not
 #                specified, a generic text is used for the "alt"
 #                image attribute.
@@ -798,15 +780,12 @@ sub get_comic {
   # Now see which method is specified for fetching the comic.
   if (defined($C{Function})) {
     return $C{Function}->($C);
-  }
-  elsif (defined($C{StaticURL})) {
+  } elsif (defined($C{StaticURL})) {
     #return (qq(<img border=0 src="$C{StaticURL}">), $title, undef);
     return (qq(<img src="$C{StaticURL}" alt="Today's $C{Title} comic">), $title, undef);
-  }
-  elsif (defined($C{StaticHTML})) {
+  } elsif (defined($C{StaticHTML})) {
     return ($C{StaticHTML}, )
-  }
-  elsif (defined($C{Page})) {
+  } elsif (defined($C{Page})) {
     # Some sanity checks first...
     # If any of Start/EndRegex is defined, the other must also be
     if ( !$C{StartRegex} && $C{EndRegex} ) {
@@ -833,51 +812,49 @@ sub get_comic {
     my $incapture=0;
     while (get_line()) {
       unless($notitles) {
-	if ($C{TitleRegex} && /$C{TitleRegex}/) {
-	  $title.=" - $1" if $1;
-	}
+        if ($C{TitleRegex} && /$C{TitleRegex}/) {
+          $title.=" - $1" if $1;
+        }
       }
       if ($C{Regex} && /$C{Regex}/) {
-	# Skip if StartRegex was also specified and we are not in the "capture" zone
-	next if $startend && !$incapture;
+        # Skip if StartRegex was also specified and we are not in the "capture" zone
+        next if $startend && !$incapture;
 
-	my $url=$1;
-	return (undef, $C{Title}, 
-		"Regular expression $C{Regex} matches, but did not return a match group")
-	  unless $url;
-	$url = _do_regex_replacements($url, $C);
-	$url.=$C{Append} if $C{Append};
-	$url=$C{Prepend}.$url if $C{Prepend};
-	$extraattrs=qq(alt="Today's $C{Title} comic");
-	if (exists($C{ExtraImgAttrsRegex}) && /$C{ExtraImgAttrsRegex}/) {
-            $tmp = $1;
-            if ($tmp !~ m/alt=/i) {
-                $extraattrs="$extraattrs $tmp";
-            } else {
-                $extraattrs = $tmp;
-            }
+        my $url=$1;
+        return (undef, $C{Title},
+                "Regular expression $C{Regex} matches, but did not return a match group")
+          unless $url;
+        $url = _do_regex_replacements($url, $C);
+        $url.=$C{Append} if $C{Append};
+        $url=$C{Prepend}.$url if $C{Prepend};
+        $extraattrs=qq(alt="Today's $C{Title} comic");
+        if (exists($C{ExtraImgAttrsRegex}) && /$C{ExtraImgAttrsRegex}/) {
+          $tmp = $1;
+          if ($tmp !~ m/alt=/i) {
+            $extraattrs="$extraattrs $tmp";
+          } else {
+            $extraattrs = $tmp;
+          }
         }
-	if ($C{MultipleMatches}) {
-	  push @out, $url;
-	}
-	else {
-	  return (qq(<img src="$url" $extraattrs>), $title, undef);
-	}
-      }
-      elsif ($C{StartRegex} && /$C{StartRegex}/) {
-	$output.=$_ if $C{InclusiveCapture};
-	$incapture=1;
+        if ($C{MultipleMatches}) {
+          push @out, $url;
+        } else {
+          return (qq(<img src="$url" $extraattrs>), $title, undef);
+        }
+      } elsif ($C{StartRegex} && /$C{StartRegex}/) {
+        $output.=$_ if $C{InclusiveCapture};
+        $incapture=1;
       } elsif ($incapture && defined($C{EndRegex}) && /$C{EndRegex}/) {
-	$output.=$_ if $C{InclusiveCapture};
-	$incapture = 0;
-	if (!$C{Regex}) {
-	  $output = _do_regex_replacements($output, $C);
-	  $output.=$C{Append} if $C{Append};
-	  $output=$C{Prepend}.$output if $C{Prepend};
-	  return ($output, $title, undef);
-	}
+        $output.=$_ if $C{InclusiveCapture};
+        $incapture = 0;
+        if (!$C{Regex}) {
+          $output = _do_regex_replacements($output, $C);
+          $output.=$C{Append} if $C{Append};
+          $output=$C{Prepend}.$output if $C{Prepend};
+          return ($output, $title, undef);
+        }
       } elsif ($incapture) {
-	$output.=$_;
+        $output.=$_;
       }
     }
     # Return the captured area if we captured until the end of the page
@@ -898,7 +875,7 @@ sub get_comic {
 
 # Report and store errors
 sub error {
-    my $errstr=shift;
-    warn $errstr;
-    $allerrors.=$errstr;
+  my $errstr=shift;
+  warn $errstr;
+  $allerrors.=$errstr;
 }
