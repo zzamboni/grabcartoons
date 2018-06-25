@@ -1,3 +1,7 @@
+2018-06-21  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/questionable_content.pl: update image url
+
 2018-02-19  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/20templates.pl: update for gocomics.com changes
