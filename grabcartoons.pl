@@ -447,6 +447,9 @@ foreach $name (@ARGV) {
       while (($k,$v) = each(%oldC)) {
         $C2->{$k}=$v;
       }
+      # Determine the comic's tag if needed
+      ($title,$err)=find_and_validate_template_tag($C2);
+      goto CHECKERROR if $err;
       # If _Template_Code exists, execute it with the merged snippet as argument,
       # and delete it from the merged snippet
       if ($tmpl{_Template_Code}) {
@@ -456,9 +459,6 @@ foreach $name (@ARGV) {
           goto CHECKERROR;
         }
       }
-      # Determine the comic's tag if needed
-      ($title,$err)=find_and_validate_template_tag($C2);
-      goto CHECKERROR if $err;
       # If requested, write out the new module
       if ($genmodules) {
         my $fname="$genout/$C2->{Tag}.pl";

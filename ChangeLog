@@ -1,3 +1,9 @@
+2018-08-27  Benjamin Kuperman <kuperman@acm.org>
+
+	* grabcartoons.pl: Moving template tag lookup earlier
+
+	* modules/20templates.pl: update for gocomics.com changes
+
 2018-06-25  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/errantstory.pl: fix error due to enescaped '{'

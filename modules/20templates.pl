@@ -60,8 +60,13 @@ $TEMPLATE{'gocomics.com'} =
    '_Template_Name' => 'gocomics.com',
    '_Template_Description' => "Comics hosted at gocomics.com",
    'Base' => 'http://www.gocomics.com',
-   'Page' => '{Base}/{Tag}/',
+   # Temp value - should get fixed on lookup in _Template_Code
+   'Page' => '{Base}/{Tag}/'.strftime('%Y/%m/%d/', localtime),
    'Regex' => qr(data-image="([^"]+)"),
+   '_Template_Code' => sub {
+     my $H=shift;
+     $H->{Page} = "{Base}/$H->{_URLs}->{$H->{Tag}}";
+   },
    '_Init_Code' => sub {
      my $H=shift; my $C=shift;
      vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
@@ -69,25 +74,29 @@ $TEMPLATE{'gocomics.com'} =
      $listurl="$H->{Base}/comics/a-to-z/";
      return ($H->{_Template_Name}, "Error fetching $listurl to get list of comics") unless fetch_url($listurl, 1);
      $H->{_Comics} = {};
+     $H->{_URLs} = {};
      $found = undef;
      $inregion = undef;
      $tag = undef;
      $title = undef;
+     $url = undef;
      while (get_line()) {
-       $inregion = 1 if m!amu-media-item-link!;
+       $inregion = 1 if m!gc-blended-link--primary!;
        $inregion = 0 if m!^</div>!;
        if ($inregion) {
            #print("DEBUG: >$_<\n");
-           if (m!\<a [^>]*amu-media-item-link[^>]*href="/(.+?)"!) {
-               $tag = $1;
+           if (m!\<a [^>]*gc-blended-link--primary[^>]*href="/((.+?)(?:/.*?))"!) {
+               $tag = $2;
+               $url = $1;
            }elsif (m!media-heading[^>]*\>(.+?)\<!) {
                $title = $1;
            }
-           if ($tag && $title) {
+           if ($tag && $title && $url) {
                $H->{_Comics}->{$tag} = $title;
+               $H->{_URLs}->{$tag} = $url;
                vmsg("  [tmpl:$H->{_Template_Name}] Found comic $title ($tag)\n");
                $found = 1;
-               $tag = undef; $title = undef;
+               $tag = undef; $title = undef; $url = undef;
            }
        }
      }
