@@ -1,3 +1,11 @@
+2020-02-09  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/gws.pl: Fix for Girls With Slingshots
+
+	* modules/penny_arcade.pl: Fix for Penny Arcade
+
+	* modules/little_gamers.pl: Fix for Little Gamers
+
 2018-08-27  Benjamin Kuperman <kuperman@acm.org>
 
 	* grabcartoons.pl: Moving template tag lookup earlier
