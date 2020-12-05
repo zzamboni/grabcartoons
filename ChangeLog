@@ -1,3 +1,7 @@
+2020-12-05  Benjamin Kuperman <kuperman@acm.org>
+
+	* modules/robot_hugs.pl: Fix for Robot Hugs
+
 2020-02-09  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/gws.pl: Fix for Girls With Slingshots
