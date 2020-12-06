@@ -52,6 +52,10 @@ $verbose=0;
 # Where to write generated modules
 $genout="$HOME/.grabcartoons/modules";
 
+# Avoid CA errors in some versions of LWP, see
+# https://fastapi.metacpan.org/source/GAAS/libwww-perl-6.00/Changes
+$ENV{'PERL_LWP_SSL_VERIFY_HOSTNAME'} = "0";
+
 # End config section
 ######################################################################
 
