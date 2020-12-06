@@ -1,9 +1,9 @@
 $COMIC{dinosaur_comics} = {
-                     Title => 'Dinosaur Comics',
-                      Base => 'http://www.qwantz.com',
-                      Page => '{Base}/index.php',
-                     Regex => qr!img\s+src\s*=\s*\"([^"]*?/comics/[^"]*?\.(?:png|gif|jpg|jpeg))\"[^<>]*class=\"comic\"!i,
-        ExtraImgAttrsRegex => qr!img\s+src\s*=\s*\"(?:[^"]*?/comics/[^"]*?\.(?:png|gif|jpg|jpeg))\"[^<>]*class=\"comic\"[^<>]*(title=".*?")!i,
-                TitleRegex => qr@<span class="rss-title">([^<]*?)</span>@i,
-    };
-
+               Title => 'Dinosaur Comics',
+                Base => 'https://www.qwantz.com',
+                Page => '{Base}/index.php',
+               Regex => qr!img src="(comics/[^"]*?\.(?:png|gif|jpg|jpeg))" class="comic"!i,
+             Prepend => "{Base}/",
+  ExtraImgAttrsRegex => qr!img src="(comics/[^"]*?\.(?:png|gif|jpg|jpeg))" class="comic" (title=".*?")!i,
+          TitleRegex => qr@<span class="rss-title">([^<]*?)</span>@i,
+};

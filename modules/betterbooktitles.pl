@@ -1,5 +1,7 @@
 $COMIC{betterbooktitles} = {
     'Title' => 'Better Book Titles',
-    'Page'  => 'http://betterbooktitles.com',
-    'Regex' => qr!src="(http://\d+.media.tumblr.com/tumblr_.*.jpg)"!i,
+    'Page'  => 'https://betterbooktitles.com',
+    'RedirectMatch' => qr/class="post_title"/,
+    'RedirectURLCapture' => qr/href="(.*?)"/,
+    'Regex' => qr!id="cover".*src="(https://\d+.media.tumblr.com/.*.jpg)"!i,
 };
