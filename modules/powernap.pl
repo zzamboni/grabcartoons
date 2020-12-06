@@ -4,7 +4,8 @@ $COMIC{powernap} = {
     Page => '{Base}/',
     StartRegex => qr(tabla en blanco con comic aqui) ,
     EndRegex => qr(del comic),
-    InclusiveCapture => 1,
-    Regex => qr!(?:img src=")?(?:http://www.powernapcomic.com)?(.*?\.(gif|png|jpg|jpeg))"!i,
-    Prepend => '{Page}',
+    InclusiveCapture => 0,
+    Regex => qr!<img src="(.*)</td>!i,
+    #Regex => qr!(?:img src=")?(?:http://www.powernapcomic.com)?(.*?\.(gif|png|jpg|jpeg))"!i,
+    #Prepend => '{Page}',
 }
