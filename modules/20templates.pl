@@ -54,6 +54,8 @@ the user-given comic title to determine the correct tag for the comic
 
 =cut
 
+use POSIX qw(strftime);
+
 # Template for gocomics.com
 $TEMPLATE{'gocomics.com'} =
   {
@@ -136,35 +138,36 @@ $TEMPLATE{'arcamax.com'} =
      return $found ? ($H->{_Template_Name}, undef) : ($H->{_Template_Name}, "Could not find the list of comics for template '$H->{_Template_Name}' in $H->{Base}/comics/");
    }
   };
-
-# Template for arcamax.com
+ 
+# Template for comicskingdom.com
 $TEMPLATE{'comicskingdom.com'} =
   {
    '_Template_Name' => 'comicskingdom.com',
    '_Template_Description' => "Comics hosted at comicskingdom.com",
-   'Base' => 'http://content.comicskingdom.net',
-   'Page' => 'http://newsok.com/entertainment/comics?feature_id={Tag}',
-   'Function' => sub {
-     my $C = shift;
-     use POSIX qw(strftime);
-     $tomorrow  = strftime("%Y%m%d", localtime(time + 86400));
-     $today     = strftime("%Y%m%d", localtime);
-     $yesterday = strftime("%Y%m%d", localtime(time - 86400));
-     $tmpl = "$C->{Base}/$C->{Tag}/$C->{Tag}" . '.%s_large.gif';
-     # Try the three dates, to see which one is active
-     foreach $d ($today, $tomorrow, $yesterday) {
-       $url=sprintf($tmpl, $d);
-       if (fetch_url($url, undef, 1)) {
-	 return(qq(<a href="$C->{Page}"><img src="$url"/></a>), $C->{Title}, undef)
-       }
-     }
-     return(undef, $C->{Title}, "Could not find image for $C->{Title} ($C->{Tag})");
-   },
+   'Base' => 'https://www.comicskingdom.com',
+   'Page' => '{Base}{Tag}',
+   'Regex' => '<meta property="og:image" content="([^"]*)"',
+   #   'Function' => sub {
+   #  my $C = shift;
+   #  use POSIX qw(strftime);
+   #  $tomorrow  = strftime("%Y%m%d", localtime(time + 86400));
+   #  $today     = strftime("%Y%m%d", localtime);
+   #  $yesterday = strftime("%Y%m%d", localtime(time - 86400));
+   #  $tmpl = "$C->{Base}/$C->{Tag}/$C->{Tag}" . '.%s_large.gif';
+   #  # Try the three dates, to see which one is active
+   #  foreach $d ($today, $tomorrow, $yesterday) {
+   #    $url=sprintf($tmpl, $d);
+   #    if (fetch_url($url, undef, 1)) {
+   #	 return(qq(<a href="$C->{Page}"><img src="$url"/></a>), $C->{Title}, undef)
+   #    }
+   #  }
+   #  return(undef, $C->{Title}, "Could not find image for $C->{Title} ($C->{Tag})");
+   #},
    '_Init_Code' => sub {
      my $H=shift; my $C=shift;
      vmsg("  [tmpl:$H->{_Template_Name}] Initializing.\n");
      # Get the list of comics from the website
-     $listurl='http://v3.comicskingdom.net/service.php/portal?clientId=14&size=0';
+     $listurl='https://www.comicskingdom.com/';
      return ($H->{_Template_Name}, "Error fetching $listurl to get list of comics") unless fetch_url($listurl, 1);
      $page = get_fullpage();
      # The page is HTML encoded in Javascript. We must decode it to more easily get the list of comics.
@@ -174,10 +177,10 @@ $TEMPLATE{'comicskingdom.com'} =
      $found = undef;
      $inregion = undef;
      while (get_line()) {
-       $inregion = 1 if m!modal for nav!i;
-       $inregion = 0 if m!build up modules!i;
+       $inregion = 1 if m!comic-lists!i;
+       $inregion = 0 if m!copyright-footer!i;
        if ($inregion) {
-	 if (m!href=".*\?feature_id=(.+?)" *\>(.+)\</a\>!) {
+	 if (m!href=.*(/.+?) data-ref.*\>(.+)\</a\>!) {
 	   $tag = $1; $title = $2;
 	   $H->{_Comics}->{$tag} = $title;
 	   vmsg("  [tmpl:$H->{_Template_Name}] Found comic $title ($tag)\n");
