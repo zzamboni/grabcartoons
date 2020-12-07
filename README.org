@@ -1,0 +1,267 @@
+#+title: Grabcartoons
+#+author: Diego Zamboni, Ben Kuperman
+
+GrabCartoons is a comic-summarizing utility. It is modular, and it is easy to write modules for new comics.
+
+[[file:ChangeLog][(ChangeLog)]]
+
+You can see a sample of grabcartoons output [[file:sample-output.html][here]].
+
+* Installation
+   :PROPERTIES:
+   :CUSTOM_ID: installation
+   :END:
+
+You can download the latest source code for this project in either [[http://github.com/zzamboni/grabcartoons/zipball/master][zip]] or [[http://github.com/zzamboni/grabcartoons/tarball/master][tar]] formats. It should run as-is on most modern Perl installations.
+
+You can also clone this git repository:
+
+#+begin_src console
+git clone https://github.com/zzamboni/grabcartoons.git
+#+end_src
+
+You can run =./grabcartoons.pl= directly from within the source directory, or run =make install= to install it under =/usr/local=. You can specify the =PREFIX= variable if you want to install somewhere else (e.g. =make install PREFIX=/some/path=).
+
+* Available comics
+   :PROPERTIES:
+   :CUSTOM_ID: available-comics
+   :END:
+Here's the list of comics for which we currently have modules:
+
+#+begin_src shell :wrap html :exports results :results output :wrap export html
+./grabcartoons.pl --htmllist
+#+end_src
+
+#+RESULTS:
+#+begin_export html
+<ul>
+  <li> <a href="http://abstrusegoose.com">Abstruse Goose</a> (abstrusegoose)
+  <li> <a href="http://www.achewood.com">Achewood</a> (achewood)
+  <li> <a href="http://www.gocomics.com/adamathome/2020/12/07">Adam@Home</a> (adam_at_home)
+  <li> <a href="http://agirlandherfed.com/">A Girl And Her Fed</a> (agirlandherfed)
+  <li> <a href="http://alienlovespredator.com/">Alien Loves Predator</a> (alien_loves_predator)
+  <li> <a href="http://www.applegeeks.com">Applegeeks</a> (applegeeks)
+  <li> <a href="http://www.asofterworld.com/">A Softer World</a> (asofterworld)
+  <li> <a href="http://www.realmofatland.com">Atland</a> (atland)
+  <li> <a href="https://betterbooktitles.tumblr.com">Better Book Titles</a> (betterbooktitles)
+  <li> <a href="http://www.gocomics.com/bloom-county/2020/06/08">Bloom County 2019</a> (bloom-county)
+  <li> <a href="http://www.gocomics.com/bloomcounty/2020/12/07">Bloom County</a> (bloom-county-old)
+  <li> <a href="http://buttersafe.com/">Buttersafe</a> (buttersafe)
+  <li> <a href="http://www.gocomics.com/calvinandhobbes/2020/12/07">Calvin and Hobbes</a> (calvin_and_hobbes)
+  <li> <a href="http://campcomic.com/comic">Camp Weedonwantcha</a> (campcomic)
+  <li> <a href="http://www.gocomics.com/cathy/2020/12/07">Cathy Classics</a> (cathy)
+  <li> <a href="http://choppingblock.keenspot.com/">Chopping Block</a> (choppingblock)
+  <li> <a href="http://www.cowandboy.com/">Cow and Boy</a> (cowandboy)
+  <li> <a href="https://www.cad-comic.com/">Ctrl+Alt+Del</a> (ctrlaltdel)
+  <li> <a href="https://danscartoons.com/services/daily-cartoon/">Dan's Daily Cartoon</a> (danscartoons)
+  <li> <a href="http://www.gocomics.com/dicktracy/2020/12/07">Dick Tracy</a> (dick_tracy)
+  <li> <a href="http://www.dieselsweeties.com/">Diesel Sweeties</a> (diesel_sweeties)
+  <li> <a href="http://www.dilbert.com/fast">Dilbert</a> (dilbert)
+  <li> <a href="https://www.qwantz.com/index.php">Dinosaur Comics</a> (dinosaur_comics)
+  <li> <a href="http://www.gocomics.com/doonesbury/2020/12/07">Doonesbury</a> (doonesbury)
+  <li> <a href="http://www.errantstory.com/">Errant Story</a> (errantstory)
+  <li> <a href="http://www.exocomics.com/">Extra Ordinary</a> (extraordinary)
+  <li> <a href="http://ffn.nodwick.com">Full Frontal Nerdity</a> (ffn)
+  <li> <a href="http://formalsweatpants.com/">Formal Sweatpants</a> (formalsweatpants)
+  <li> <a href="http://www.gocomics.com/foxtrot/2020/12/06">FoxTrot</a> (foxtrot)
+  <li> <a href="http://www.gocomics.com/garfield/2020/12/07">Garfield</a> (garfield)
+  <li> <a href="http://www.gocomics.com/getfuzzy/2020/12/07">Get Fuzzy</a> (getfuzzy)
+  <li> <a href="http://www.glasbergen.com">Glasbergen</a> (glasbergen)
+  <li> <a href="http://goats.com">Goats</a> (goats)
+  <li> <a href="https://www.goblinscomic.org">Goblins</a> (goblins)
+  <li> <a href="http://www.girlswithslingshots.com/">Girls with Slingshots</a> (gws)
+  <li> <a href="http://www.gocomics.com/herman/2020/12/07">Herman</a> (herman)
+  <li> <a href="https://www.irregularwebcomic.net/">Irregular Webcomic</a> (irregular)
+  <li> <a href="http://www.joyoftech.com/joyoftech/">The Joy of Tech</a> (joy_of_tech)
+  <li> <a href="https://www.jspowerhour.com/">Junior Scientist Power Hour</a> (jspowerhour)
+  <li> <a href="http://www.kevinandkell.com">Kevin and Kell</a> (kevin_and_kell)
+  <li> <a href="http://www.last-halloween.com/posts/latest">The Last Halloween</a> (lasthalloween)
+  <li> <a href="https://www.creators.com/read/liberty-meadows">Liberty Meadows</a> (liberty_meadows)
+  <li> <a href="http://lighterthanheir.com">Lighter than Heir</a> (lighter_than_heir)
+  <li> <a href="https://www.little-gamers.com/">Little Gamers</a> (little_gamers)
+  <li> <a href="http://www.machall.com/">MacHall</a> (machall)
+  <li> <a href="http://www.megatokyo.com/">MegaTokyo</a> (megatokyo)
+  <li> <a href="http://www.gocomics.com/monty/2020/12/07">Monty</a> (monty)
+  <li> <a href="http://www.grimmy.com/comics.php">Mother Goose &amp; Grimm</a> (mother_goose)
+  <li> <a href="http://amultiverse.com/">Scenes From A Multiverse</a> (multiverse)
+  <li> <a href="http://www.nedroid.com/">Nedroid</a> (nedroid)
+  <li> <a href="http://www.gocomics.com/9to5/2020/12/07">9 to 5</a> (nine_to_five)
+  <li> <a href="http://comic.nodwick.com/">Nodwick</a> (nodwick)
+  <li> <a href="http://www.gocomics.com/nonsequitur/2020/12/07">Non Sequitur</a> (non_sequitur)
+  <li> <a href="http://theoatmeal.com/comics/">The Oatmeal</a> (oatmeal)
+  <li> <a href="http://www.gocomics.com/offthemark/2020/12/07">Off the Mark</a> (offthemark)
+  <li> <a href="https://www.giantitp.com">Order of the Stick</a> (oots)
+  <li> <a href="http://www.gocomics.com/pearlsbeforeswine/2020/12/07">Pearls Before Swine</a> (pearls)
+  <li> <a href="https://www.penny-arcade.com/comic">Penny Arcade</a> (penny_arcade)
+  <li> <a href="http://www.phdcomics.com/comics.php">Piled Higher and Deeper</a> (phd)
+  <li> <a href="http://www.powernapcomic.com/">Power Nap</a> (powernap)
+  <li> <a href="http://www.pvponline.com/comic">pVp</a> (pvp)
+  <li> <a href="http://questionablecontent.net/">Questionable Content</a> (questionable_content)
+  <li> <a href="http://www.gocomics.com/reallifeadventures/2020/12/07">Real Life Adventures</a> (real_life_adventures)
+  <li> <a href="http://www.redmeat.com/max-cannon/FreshMeat">Red Meat</a> (redmeat)
+  <li> <a href="http://www.robot-hugs.com/">Robot Hugs</a> (robot_hugs)
+  <li> <a href="http://www.gocomics.com/roseisrose/2020/12/07">Rose is Rose</a> (rose_is_rose)
+  <li> <a href="http://www.gocomics.com/savage-chickens/2020/12/07">Savage Chickens</a> (savage_chickens)
+  <li> <a href="https://www.schlockmercenary.com/">Schlock Mercenary</a> (schlock_mercenary)
+  <li> <a href="http://shermanslagoon.com">Sherman&#x27;s Lagoon</a> (sherman)
+  <li> <a href="https://www.ruthe.de/">Shit Happens</a> (shithappens)
+  <li> <a href="http://sinfest.net/">Sinfest</a> (sinfest)
+  <li> <a href="http://skadicomic.com/">Skadi</a> (skadi)
+  <li> <a href="http://www.sluggy.com/">Sluggy Freelance</a> (sluggy_freelance)
+  <li> <a href="http://www.smbc-comics.com/">Saturday Morning Breakfast Cereal</a> (smbc)
+  <li> <a href="http://sufficientlyremarkable.com/">Sufficiently Remarkable</a> (sufficiently_remarkable)
+  <li> <a href="http://trenchescomic.com">The Trenches</a> (the_trenches)
+  <li> <a href="http://www.thezombiehunters.com/">The Zombie Hunters</a> (the_zombie_hunters)
+  <li> <a href="http://threepanelsoul.com/">Three Panel Soul</a> (three_panel_soul)
+  <li> <a href="http://www.toothpastefordinner.com/">Toothpaste for Dinner</a> (toothpastefordinner)
+  <li> <a href="http://www.unshelved.com">Unshelved</a> (unshelved)
+  <li> <a href="http://www.userfriendly.org/static/">User Friendly</a> (user_friendly)
+  <li> <a href="http://whatsnormalanyway.net/">What's Normal Anyway?</a> (whatsnormalanyway)
+  <li> <a href="http://wondermark.com/">Wondermark</a> (wondermark)
+  <li> <a href="https://xkcd.com/">xkcd</a> (xkcd)
+  <li> <a href="http://zenpencils.com/">Zen Pencils</a> (zenpencils)
+  <li> <a href="http://www.gocomics.com/ziggy/2020/12/07">Ziggy</a> (ziggy)
+</ul>
+#+end_export
+
+Grabcartoons also includes /templates/ that allow you to fetch any comic from a given site or using a common mechanism. At the moment we have the following templates:
+
+#+begin_src shell :exports results :results output :wrap example
+./grabcartoons.pl --templates
+#+end_src
+
+Templates define a common way of fetching all the comics from certain sites (such as [[https://comics.com/][comics.com]] or [[https://comicskingdom.com/][comicskingdom.com]]) that host multiple comic strips, or by using a common mechanism (e.g. sites that publish their latest comic using the =og:image= property). If a template exists, you can easily define new modules for comics from that site, or even request them on the fly without having to write a module, by specifying the comic_id as =template:title=.
+
+#+RESULTS:
+#+begin_example
+Templates defined:
+	arcamax.com	Comics hosted at arcamax.com
+	comics.com	Comics hosted at gocomics.com
+	comicskingdom.com	Comics hosted at comicskingdom.com
+	gocomics.com	Comics hosted at gocomics.com
+	og-image	Comics that can be extracted from the og:image property on their page
+#+end_example
+
+* Usage
+   :PROPERTIES:
+   :CUSTOM_ID: usage
+   :END:
+Basic usage example:
+
+#+begin_src shell
+./grabcartoons.pl sinfest xkcd savage_chickens gocomics.com:gasoline > sample-output.html
+#+end_src
+
+#+RESULTS:
+
+And then open [[file:sample-output.html][sample-output.html]] in your web browser.
+
+Full set of options:
+
+#+begin_src shell :exports both :results output
+./grabcartoons.pl --help
+#+end_src
+
+#+RESULTS:
+#+begin_example
+GrabCartoons version 2.8.4
+Usage: ./grabcartoons.pl [ options ] [ comic_id ...]
+    --all       or -a  generate a page with all the known comics on stdout.
+    --list [t:] or -l  produce a list of the known comic_id's on stdout. If
+                       t: is given, the list of comics from the given template
+                       is produced.
+    --htmllist [t:]    produce HTML list of known comic_id's on stdout. If
+                       t: is given, the list of comics from the given template
+                       is produced.
+    --file     or -f   read list of comics from specified file.
+    --random n         select n comics at random (they will be output after
+                       any other comics requested)
+    --write    or -w   write output to specified file instead of stdout.
+    --version  or -V   print version number
+    --verbose  or -v   be verbose
+    --help     or -h   print this message.
+    --notitles or -t   do not show comic titles (for those that have them)
+    --templates        produce a list of defined templates
+    --genmodules       for any template specifications (template:comictag),
+                       write a snippet to comictag.pl in the directory
+                       specified by --genout.
+    --genout dir       output directory for generated comics.
+                       (default: /Users/taazadi1/.grabcartoons/modules)
+
+By default, it will produce a page with the given comics on stdout.
+
+comic_id can be:
+  - Any of the predefined modules (e.g. sinfest, adam_at_home)
+  - Of the form 'template:comic title', including quotes if the title has
+    spaces (e.g. 'gocomis.com:Citizen Dog', comics.com:Frazz). This will
+    generate on the fly a module for the given comic.
+  - Of the form 'template:*' or 'template:', which means "all the comics
+    from the named template". This can also be passed as argument to
+    the --list and --htmllist options to produce the listing from the
+    given template instead of from the built-in modules.
+#+end_example
+
+* How to define your own comics:
+
+Modules are defined in files with =.pl= extension which specify where and how to fetch the comic.
+
+Each comic definition is a set of pair/value keys assigned as a Perl hashref to an element of the =%COMIC= hash. For example:
+
+#+include: modules/xkcd.pl src perl
+
+If the comic is from a site for which a template exists, the definition is even easier, you just have to specify the comic name and the template. For example:
+
+#+include: modules/calvin_and_hobbes.pl src perl
+
+Each template defines how to automatically convert the comic title into a "tag" (which normally becomes part of the URL for the comic). If the automatic conversion does not work appropriately, you can manually specify the tag. For example:
+
+#+include: modules/adam_at_home.pl src perl
+
+The key used for the =%COMIC= hash is the "short name" of the comic. The valid fields in the hash are:
+
+- Title :: title of the comic
+- Page :: URL where to get it
+- Regex :: regex to obtain image, must put the image in =$1= (the first parenthesized group)
+- LinkRelImageSrc :: if true, the image URL will be automatically obtained from the first =<link rel = "image_src">= element in the page. This is increasingly being used by web comics to ease sharing on Facebook and other sites. If this flag is specified no =Regex= or other method needs to be specified.
+- MultipleMatches :: if true, then all matches of =Regex= will be returned, concatenated, after doing any changes specified by =SubstOnRegexResult= or =Prepend= / =Append= on each element. If =MultipleMatches= is in effect, then the result of =$1= + =SubstOnRegexResult= + =Prepend= / =Append= is expected to be an HTML snippet, not just an image URL.
+- ExtraImgAttrsRegex :: regular expression to obtain additional attributes of the comic's =<img>= tag. It has to match on the same line that =Regex= matches. If not specified, a generic text is used for the "alt" image attribute.
+- TitleRegex :: regular expression to capture the title of the comic. It can match on any line _before_ Regex matches. If it does not match, no title is displayed (just the comic name). Only works for comics for which =Regex= is also defined.
+- SubstOnRegexResult :: an array of two- or three-element array references containing =[ regex, string, [global] ]=. If specified, the substitution specified by each element will be applied to the string captured by =Regex= or by =StartRegex= / =EndRegex=, before applying any =Prepend= / =Append= strings. Each tuple will be applied in the order they are specified. If "global" is given and true, a global replace will be done, otherwise only the first ocurrence will be replaced. The replacement string may include other fields, referenced as ={FieldName}=.
+- Prepend/Append :: strings to prepend or append to =$1= (or to the string captured by =StartRegex= / =EndRegex=) before returning it. May make use of other fields, referenced as ={FieldName}=.
+- StartRegex/EndRegex :: regular expressions that specify the first and last lines to capture. The matching lines are included in the output if =InclusiveCapture= is true, and not included if =InclusiveCapture= is false (the default). If =EndRegex= is not specified, everything from =StartRegex= to the end of the page is captured. If =Regex= is also specified, it is only matched for inside the region defined by =StartRegex= / =EndRegex=.
+- InclusiveCapture :: true/false value that specifies whether the lines that match =StartRegex= / =EndRegex= should be returned in the output. False by default.
+- RedirectMatch / RedirectURLCapture / RedirectURLAppend / RedirectURLPrepend / MultipleRedirects :: These parameters control generalized redirection support. By default, these parameters are set so that standard redirection using the =META REFRESH= tag is followed, but can be set to redirect on arbitrary patterns. This is how it works: if the =RedirectMatch= regex matches on any line of the page, then the =RedirectURLCapture= pattern is applied to the same line, and should contain one capture group which returns the new URL to fetch and use. If =RedirectURLAppend= / =RedirectURLPrepend= are specified, these strings are concatenated with the result of the capture group before using it as the new URL. By default the =Redirect*= patterns are passed NOT along when fetching the new page, to prevent infinite redirection. This behavior can be modified by setting =MultipleRedirects= to a true value, so that multiple redirects using the same parameters are supported.
+- StaticURL :: static image URL to return
+- StaticHTML :: static HTML snippet to return
+- Function :: a function to call. It receives the comic snippet as argument, and must return =($html, $title, $error)=.
+- NoShowTitle :: if true, do not display the title of the comic (for those that always have it in the drawing).
+- Template :: if present, specified a template that will be used for this comic (e.g. for comics coming from a single syndicated site, so the mechanism is the same for all of them) Essentially the fields from the template and the =$COMIC= snippet are merged and then processed in the usual way. If the template contains a =_Template_Code= atribute, it is executed on the merged snippet before processing it. Templates are defined in the file [[file:modules/20templates.pl][modules/20templates.pl]].
+
+Precedence (from higher to lower) is =Function=, =StaticURL=, =StaticHTML=, =StartRegex= / =EndRegex= and =Regex=.
+
+Both =Regex= and =StartRegex= / =EndRegex= use =Page=, and optionally =Prepend=, =Append=, =ExtraImgAttrsRegex=, =TitleRegex= and =SubstOnRegexResult=.
+
+=StartRegex= / =EndRegex= optionally uses =InclusiveCapture=.
+
+Comic definitions are loaded from the =modules= directory, from your =$HOME/.grabcartoons= modules directory, and from any directories (separated by colons) contained in the =GRABCARTOONS_DIRS= environment variable.
+
+The easiest way is probably to take one of the existing modules and base yours on that.
+
+
+* Contributions
+   :PROPERTIES:
+   :CUSTOM_ID: contributions
+   :END:
+
+If you develop any new modules, please share them! You can either:
+
+a) Post them to the project's [[http://github.com/zzamboni/grabcartoons/issues][issue tracker]];
+b) Fork the project, add your modules, and submit a pull request.
+
+* Authors
+   :PROPERTIES:
+   :CUSTOM_ID: authors
+   :END:
+
+- [[http://github.com/zzamboni/][Diego Zamboni]]
+- [[http://github.com/kuperman/][Benjamin Kuperman]]

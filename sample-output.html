@@ -1,0 +1,356 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+  
+<html>
+  <head>
+    <title>Daily Comics</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- /Users/taazadi1/Dropbox/Personal/devel/Projects/grabcartoons/modules/03includes.head -->
+<link rel="apple-touch-icon" href="http://www.cs.oberlin.edu/~kuperman/images/grabcartoons-114.png" />
+
+    <style type="text/css">
+    <!--
+/* /Users/taazadi1/Dropbox/Personal/devel/Projects/grabcartoons/modules/01style.css */
+
+        body { color: black; background-color: white; }
+        a img { border-width: 0; }
+        address { font-size: small; font-style: normal; }
+
+        div#footer,
+        div.comicdiv { border-top: thin solid black; }
+        div.comicdiv p { margin: 0; }
+        div.comicdiv p.comic,
+        div.comicdiv div.annotation p { margin: 1em 0; }
+
+        div.comicdiv p.comic img { max-width: 100%; }
+
+        /* rules for skiplink comics */
+        h3.divtoggle { margin: 0; }
+        .skipstart { display: none; }
+        .skipstart { padding: 1em 0; }
+        div.skiplink .skipstart {display: block;}
+        .skiptarget { }
+
+
+/* /Users/taazadi1/Dropbox/Personal/devel/Projects/grabcartoons/modules/90title.css */
+
+        /* rules for no title comics */
+        h2.comictitle { margin-bottom: 0; }
+        .divtoggle { display: none; }
+        div.notitle .comictitle { display: none; }
+        div.notitle .divtoggle { display: block; }
+
+        /* Styling for captions on mobile devices */
+        .caption { display: none; font-size:x-large; padding: 3px; }
+        @media screen and (max-device-width: 480px) { img{width:100%;} p.caption { display:inline; } }
+        @media screen and (min-device-width: 768px) and (max-device-width: 1024px) { img{ width:100%;} p.caption { display:inline; } }
+
+/* /Users/taazadi1/Dropbox/Personal/devel/Projects/grabcartoons/modules/91squash.css */
+
+        div.squished { max-height: 300px; overflow: hidden; }
+        div.squished .comic .skipstart { display: none; }
+
+
+    -->
+    </style>
+
+    <!-- script to display title tag fields on mobile devices -->
+    <script type="text/javascript">
+/* /Users/taazadi1/Dropbox/Personal/devel/Projects/grabcartoons/modules/91squash.js */
+/* set up the triggers */
+addOnLoad(squashBigComicsSetup);
+
+function squashBigComicsSetup() {
+    imgDivs = document.getElementsByClassName("comicdiv");
+    for (var i = 0 ; i< imgDivs.length; i++) {
+        var oDiv = imgDivs[i];
+        oDiv.squishCookie=oDiv.id + "_squish";
+        // save the old texts and get click targets
+        var titleTag = oDiv.getElementsByClassName("comictitle")[0];
+        var squashTag = oDiv.getElementsByClassName("divtoggle")[0];
+        oDiv.titleTag = titleTag;
+        oDiv.squashTag = squashTag;
+        titleTag.origText = titleTag.innerHTML;
+        squashTag.origText = squashTag.innerHTML;
+        // set up event handler
+        titleTag.parentDiv = oDiv;
+        squashTag.parentDiv = oDiv;
+        titleTag.onclick = handleSquashClick;
+        squashTag.onclick = handleSquashClick;
+        // Check for existing cookie
+        var cookieState = getCookie(oDiv.squishCookie);
+        if ( null == cookieState ) {
+            // never was set, use skiplink as hint
+            if ( hasClass(oDiv, 'skiplink') ) {
+                squashDiv( oDiv );
+            } else {
+                unsquashDiv( oDiv );
+            }
+        } else {
+            // use the old value
+            if ( 'true' == cookieState ) {
+                squashDiv( oDiv );
+            } else {
+                unsquashDiv( oDiv );
+            }
+        }
+//      clearCookie(oDiv.squishCookie);
+        
+    }
+}
+
+/*
+   functions for squishing comics
+ */
+function squashDiv ( target ) {
+    if ( ! hasClass(target, 'squished') ) {
+        // add the class
+        classToggle( target, 'squished' );
+        target.titleTag.innerHTML += ' (click to expand)';
+        target.squashTag.innerHTML = target.squashTag.innerHTML.replace( 'squash', 'expand');
+    }
+    setCookie(target.squishCookie, true);   // always set the cookie
+}
+
+function unsquashDiv ( target ) {
+    if ( hasClass(target, 'squished') ) {
+        // remove the class
+        classToggle( target, 'squished' );
+        target.titleTag.innerHTML = target.titleTag.origText;
+        target.squashTag.innerHTML = target.squashTag.origText;
+    }
+    setCookie(target.squishCookie, false);   // always set the cookie
+}
+
+function squashToggle(mydiv) {
+    if ( hasClass(mydiv, 'squished') ) {
+        unsquashDiv(mydiv);
+    } else {
+        squashDiv(mydiv);
+    }
+}
+
+function handleSquashClick(e) {
+    var targ;
+    if (!e) var e = window.event;
+    if (e.target) targ = e.target;
+    else if (e.srcElement) targ = e.srcElement;
+    if (targ.nodeType == 3) // defeat Safari bug
+        targ = targ.parentNode;
+    squashToggle(targ.parentDiv);
+}
+
+
+/* /Users/taazadi1/Dropbox/Personal/devel/Projects/grabcartoons/modules/02script.js */
+/* Based on script from "JS & AJAX Visual QuickStart Guide" p.221   */
+function addOnLoad( newFunction ) {
+    var oldOnload = window.onload;
+    if ( typeof oldOnload == "function" ) {
+        window.onload = function() {
+            if (oldOnload) {
+                oldOnload();
+            }
+            newFunction();
+        }
+    } else {
+        window.onload = newFunction;
+    }
+}
+
+/*
+   Routines to handle classes
+ */
+
+/* check to see if the target has the specified class */
+function hasClass( target, className ) {
+    var re = new RegExp("(?:^|\\s)" + className + "(?!\\S)", "g");
+    if ( target.className.match ( re ) ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/* returns true if the target's class actually changed */
+function setClass( target, className ) {
+    if ( ! hasClass( target, className ) ) {
+        target.className += " " + className;
+        return true;
+    }
+    return false;
+}
+
+/* adds/removes className from target each time it is called */
+function classToggle( target, className ) {
+    var re = new RegExp("(?:^|\\s)" + className + "(?!\\S)", "g");
+    if ( target.className.match ( re ) ) {
+        /* already set, remove */
+        target.className = target.className.replace( re, '' );
+    } else {
+        /* not here yet, add to end */
+        target.className += " " + className;
+    }
+}
+
+/*                                                                              *
+ * functions to handle cookies from http://www.w3schools.com/js/js_cookies.asp  *
+ *                                                                              */
+
+/* set a cookie */
+function setCookie(c_name,value) {
+    var exdate=new Date("Dec 31, 2037 23:59:59 GMT");
+    var c_value=escape(value) + "; expires="+exdate.toUTCString();
+    document.cookie=c_name + "=" + c_value;
+}
+
+/* delete a cookie by making it expire */
+function clearCookie(c_name) {
+    var c_value=escape("cleared") + "; expires="+new Date(0).toUTCString();
+    document.cookie=c_name + "=" + c_value;
+}
+
+/* returns old value or null if unset */
+function getCookie(c_name)
+{
+    var i,x,y,ARRcookies=document.cookie.split(";");
+    for (i=0;i<ARRcookies.length;i++)
+    {
+        x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+        y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+        x=x.replace(/^\s+|\s+$/g,"");
+        if (x==c_name)
+        {
+            return unescape(y);
+        }
+    }
+}
+
+/* /Users/taazadi1/Dropbox/Personal/devel/Projects/grabcartoons/modules/90title.js */
+/* set up the triggers */
+addOnLoad(setupTitleText);
+
+/* 
+   Goes through and will display the alt text if present.
+   Useful for tablets and devices where you cannot hover
+ */
+function setupTitleText() {
+    var imgTags;
+    imgTags = document.getElementsByTagName("img");
+    for(var i = 0; i < imgTags.length; i++) {
+        if (imgTags[i].title != "")  {
+            var parent =  imgTags[i].parentNode.parentNode;
+            var newText = document.createElement('p');
+            newText.innerHTML = "<br>"+imgTags[i].title;
+            newText.style.backgroundColor="#ffffaa";
+            newText.style.color="#000000";
+            newText.className="caption";
+            parent.appendChild(newText);
+        }  
+    }
+    // add a menu item to the top
+    var menu = document.getElementById("header");
+    var menuItem = document.createElement('p');
+    menuItem.id = "caption_display";
+    menuItem.textDisplayedMessage = "Click here to hide captions";
+    menuItem.textHiddenMessage = "Click here to display captions";
+    menuItem.onclick = titleTextToggle;
+    menu.appendChild(menuItem);
+    // check the cookie for display rules
+    var cookieState = getCookie("show_title_text");
+    if (null == cookieState) cookieState = 'false'; // default true, change to false
+    if ('true' == cookieState)
+        showTitleText();
+    else
+        hideTitleText();
+}
+
+function titleTextToggle() {
+    //alert("3: " + getCookie("show_title_text"));
+    var cookieState = getCookie("show_title_text");
+    if (null == cookieState) cookieState = 'false'; // default true, change to false
+    if ( "false" == cookieState ) { // was false, change to true
+        showTitleText();
+    } else {
+        hideTitleText();
+    }
+    //alert("4: " + getCookie("show_title_text"));
+}
+
+function showTitleText() {
+    var titleText;
+    titleText = document.getElementsByClassName("caption");
+    for ( var i=0; i< titleText.length; i++ ) {
+        titleText[i].style.display="inline";
+    }
+    setCookie("show_title_text", true);   // always set the cookie
+    var menuItem=document.getElementById("caption_display");
+    menuItem.innerHTML=menuItem.textDisplayedMessage;
+}
+
+function hideTitleText() {
+    var titleText;
+    titleText = document.getElementsByClassName("caption");
+    for ( var i=0; i< titleText.length; i++ ) {
+        titleText[i].style.display="none";
+    }
+    setCookie("show_title_text", false);   // always set the cookie
+    var menuItem=document.getElementById("caption_display");
+    menuItem.innerHTML=menuItem.textHiddenMessage;
+}
+
+
+    </script>
+
+
+  </head>
+
+  <body>
+  <div id="header">
+    <h1>Daily Comics - Mon Dec  7 23:17:51 2020</h1>
+  </div><!-- header -->
+
+<div class="comicdiv" id="div_Sinfest___Donate_with_PayPal_button___Reckoning_44">
+<h2 class="comictitle">Sinfest - Donate with PayPal button - Reckoning 44</h2>
+
+<h3 class="divtoggle">Click to squash Sinfest - Donate with PayPal button - Reckoning 44</h3>
+<p class="comic">
+<a href="#skip_Sinfest___Donate_with_PayPal_button___Reckoning_44" class="skipstart">Skip this comic.</a>
+<a href="http://sinfest.net/"><img src="http://sinfest.net/btphp/comics/2020-12-07.gif" alt="Today's Sinfest comic"></a>
+<span id="skip_Sinfest___Donate_with_PayPal_button___Reckoning_44" class="skiptarget"></span></p>
+</div><!-- div_Sinfest___Donate_with_PayPal_button___Reckoning_44 -->
+
+<div class="comicdiv" id="div_xkcd___Contiguous_41_States">
+<h2 class="comictitle">xkcd - Contiguous 41 States</h2>
+
+<h3 class="divtoggle">Click to squash xkcd - Contiguous 41 States</h3>
+<p class="comic">
+<a href="#skip_xkcd___Contiguous_41_States" class="skipstart">Skip this comic.</a>
+<a href="https://xkcd.com/"><img src="https://imgs.xkcd.com/comics/contiguous_41_states.png" alt="Today's xkcd comic" title="Linguists, settling some inscrutable grudge, have been steadily sneaking more backdated synonyms for &#39;sharing borders&#39; into the dictionary. They&#39;ve added &#39;contiguous,&#39; &#39;coterminous,&#39; &#39;conterminous,&#39; and next year they&#39;re adding &#39;conterguous.&#39;"></a>
+<span id="skip_xkcd___Contiguous_41_States" class="skiptarget"></span></p>
+</div><!-- div_xkcd___Contiguous_41_States -->
+
+<div class="comicdiv" id="div_Savage_Chickens">
+<h2 class="comictitle">Savage Chickens</h2>
+
+<h3 class="divtoggle">Click to squash Savage Chickens</h3>
+<p class="comic">
+<a href="#skip_Savage_Chickens" class="skipstart">Skip this comic.</a>
+<a href="http://www.gocomics.com/savage-chickens/2020/12/07"><img src="https://assets.amuniversal.com/9ff284c0ee3a01382a68005056a9545d" alt="Today's Savage Chickens comic"></a>
+<span id="skip_Savage_Chickens" class="skiptarget"></span></p>
+</div><!-- div_Savage_Chickens -->
+
+<div class="comicdiv" id="div_Gasoline_Alley">
+<h2 class="comictitle">Gasoline Alley</h2>
+
+<h3 class="divtoggle">Click to squash Gasoline Alley</h3>
+<p class="comic">
+<a href="#skip_Gasoline_Alley" class="skipstart">Skip this comic.</a>
+<a href="http://www.gocomics.com/gasolinealley/2020/12/07"><img src="https://assets.amuniversal.com/d84b2760157601393780005056a9545d" alt="Today's Gasoline Alley comic"></a>
+<span id="skip_Gasoline_Alley" class="skiptarget"></span></p>
+</div><!-- div_Gasoline_Alley -->
+
+
+<div id="footer">
+<address>This page was created by <a href="http://zzamboni.org/grabcartoons/">grabcartoons 2.8.4</a>.</address>
+</div><!-- footer -->
+  </body>
+</html>
