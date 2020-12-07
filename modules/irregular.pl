@@ -1,13 +1,13 @@
 $COMIC{irregular} = {
 		     Title => 'Irregular Webcomic',
-		     Page => 'http://www.irregularwebcomic.net/',
+		     Page => 'https://www.irregularwebcomic.net/',
 		     Function => \&get_url_irregular,
 		    };
 
 # Contributed by Ben Kuperman
 
 sub get_url_irregular {
-  my $irregbase="http://www.irregularwebcomic.net";
+  my $irregbase="https://www.irregularwebcomic.net";
   my $irregpage=$irregbase."/";
   my $title="Irregular Webcomic";
   fetch_url($irregpage)
@@ -17,6 +17,7 @@ sub get_url_irregular {
     if (/(<img src="(\/comics\/\w+\.(jpg|gif|png))" WIDTH="?\d+"? HEIGHT="?\d+"?[^>]*>)/i) {
       my $line=$1;
       $line =~ s/"\/comics/"$irregbase\/comics/i;
+      $line =~ s/srcset=".*?"//;
       $block .= $line;
       $block .= "<br></a>";
       # Find the annotation

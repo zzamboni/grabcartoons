@@ -1,13 +1,13 @@
 
 $COMIC{jspowerhour} = {
     Title => 'Junior Scientist Power Hour',
-    Page => 'http://www.jspowerhour.com/',
+    Page => 'https://www.jspowerhour.com/',
     Function => \&get_url_jspowerhour,
 };
 
 
 sub get_url_jspowerhour {
-    my $jsp_base="http://www.jspowerhour.com/";
+    my $jsp_base="https://www.jspowerhour.com/";
     my $jsp_title="Junior Scientist Power Hour";
     my $jsp_comic = undef;
 
@@ -18,6 +18,7 @@ sub get_url_jspowerhour {
     while (get_line()) {
         if (/id="comic-img".*src="([^\"]*\.(?:gif|png|jpg|jpeg)[^\"]*)"/i) {
             $jsp_comic="$1";
+            $jsp_comic =~ s!^//!https://!;
             last;
         }
     }
