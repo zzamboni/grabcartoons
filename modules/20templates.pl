@@ -192,3 +192,13 @@ $TEMPLATE{'comicskingdom.com'} =
      return $found ? ($H->{_Template_Name}, undef) : ($H->{_Template_Name}, "Could not find the list of comics for template '$H->{_Template_Name}' in $listurl");
    },
   };
+
+# Template for comics that include their image in the default og:image property
+# Looks for lines of this form:
+# <meta property="og:image" content="(comic_image_url)">
+$TEMPLATE{"og-image"} = {
+    _Template_Name => 'og-image',
+    _Template_Description => 'Comics that can be extracted from the og:image property on their page',
+    Regex => qr!property="og:image" content="(.*?)"!,
+    Tag => '',
+};
