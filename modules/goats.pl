@@ -1,6 +1,6 @@
 $COMIC{goats} = {
-		 Title => 'Goats',
-		 Page => 'http://goats.com',
-		 Regex => qr/IMG SRC="(.*?\/xgoats\d+.*?\.(?:gif|png|jpg))"/i,
-                 #Prepend => '{Page}'
-		};
+    Title => 'Goats',
+    Page => 'http://goats.com',
+    StartRegex => qr(\<div id="comic"),
+    Regex => qr/img src="(.*?)"/i,
+};

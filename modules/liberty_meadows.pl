@@ -1,7 +1,6 @@
 $COMIC{liberty_meadows} = {
-			   Title => 'Liberty Meadows',
-			   Base => 'http://www.creators.com',
-			   Page => '{Base}/comics/liberty-meadows.html',
-			   Regex => qr!img src="(/comics/.*?)"!,
-			   Prepend => '{Base}',
-			  };
+	Title => 'Liberty Meadows',
+	Base => 'https://www.creators.com',
+	Page => '{Base}/read/liberty-meadows',
+	Template => 'og-image',
+};

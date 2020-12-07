@@ -1,7 +1,6 @@
 $COMIC{ctrlaltdel} = {
-                      Title => 'Ctrl+Alt+Del',
-                      Base => 'http://www.cad-comic.com/cad/',
-                      Page => '{Base}',
-                      Regex => qr!src="(http://.*cdn\d*.cad-comic.com/comics.*?)"!i,
-                      #Prepend => '{Base}',
-                     };
+  Title => 'Ctrl+Alt+Del',
+  Base => 'https://www.cad-comic.com/',
+  Page => '{Base}',
+  Regex => qr!src="(https://.*/Strip.*?)"!i,
+};
