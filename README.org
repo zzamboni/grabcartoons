@@ -28,101 +28,126 @@ You can run =./grabcartoons.pl= directly from within the source directory, or ru
    :END:
 Here's the list of comics for which we currently have modules:
 
-#+begin_src shell :wrap html :exports results :results output :wrap export html
-./grabcartoons.pl --htmllist
+#+begin_src shell :exports results :results drawer
+./grabcartoons.pl --htmllist | pandoc -f html -t org
 #+end_src
 
 #+RESULTS:
-#+begin_export html
-<ul>
-  <li> <a href="http://abstrusegoose.com">Abstruse Goose</a> (abstrusegoose)
-  <li> <a href="http://www.achewood.com">Achewood</a> (achewood)
-  <li> <a href="http://www.gocomics.com/adamathome/2020/12/07">Adam@Home</a> (adam_at_home)
-  <li> <a href="http://agirlandherfed.com/">A Girl And Her Fed</a> (agirlandherfed)
-  <li> <a href="http://alienlovespredator.com/">Alien Loves Predator</a> (alien_loves_predator)
-  <li> <a href="http://www.applegeeks.com">Applegeeks</a> (applegeeks)
-  <li> <a href="http://www.asofterworld.com/">A Softer World</a> (asofterworld)
-  <li> <a href="http://www.realmofatland.com">Atland</a> (atland)
-  <li> <a href="https://betterbooktitles.tumblr.com">Better Book Titles</a> (betterbooktitles)
-  <li> <a href="http://www.gocomics.com/bloom-county/2020/06/08">Bloom County 2019</a> (bloom-county)
-  <li> <a href="http://www.gocomics.com/bloomcounty/2020/12/07">Bloom County</a> (bloom-county-old)
-  <li> <a href="http://buttersafe.com/">Buttersafe</a> (buttersafe)
-  <li> <a href="http://www.gocomics.com/calvinandhobbes/2020/12/07">Calvin and Hobbes</a> (calvin_and_hobbes)
-  <li> <a href="http://campcomic.com/comic">Camp Weedonwantcha</a> (campcomic)
-  <li> <a href="http://www.gocomics.com/cathy/2020/12/07">Cathy Classics</a> (cathy)
-  <li> <a href="http://choppingblock.keenspot.com/">Chopping Block</a> (choppingblock)
-  <li> <a href="http://www.cowandboy.com/">Cow and Boy</a> (cowandboy)
-  <li> <a href="https://www.cad-comic.com/">Ctrl+Alt+Del</a> (ctrlaltdel)
-  <li> <a href="https://danscartoons.com/services/daily-cartoon/">Dan's Daily Cartoon</a> (danscartoons)
-  <li> <a href="http://www.gocomics.com/dicktracy/2020/12/07">Dick Tracy</a> (dick_tracy)
-  <li> <a href="http://www.dieselsweeties.com/">Diesel Sweeties</a> (diesel_sweeties)
-  <li> <a href="http://www.dilbert.com/fast">Dilbert</a> (dilbert)
-  <li> <a href="https://www.qwantz.com/index.php">Dinosaur Comics</a> (dinosaur_comics)
-  <li> <a href="http://www.gocomics.com/doonesbury/2020/12/07">Doonesbury</a> (doonesbury)
-  <li> <a href="http://www.errantstory.com/">Errant Story</a> (errantstory)
-  <li> <a href="http://www.exocomics.com/">Extra Ordinary</a> (extraordinary)
-  <li> <a href="http://ffn.nodwick.com">Full Frontal Nerdity</a> (ffn)
-  <li> <a href="http://formalsweatpants.com/">Formal Sweatpants</a> (formalsweatpants)
-  <li> <a href="http://www.gocomics.com/foxtrot/2020/12/06">FoxTrot</a> (foxtrot)
-  <li> <a href="http://www.gocomics.com/garfield/2020/12/07">Garfield</a> (garfield)
-  <li> <a href="http://www.gocomics.com/getfuzzy/2020/12/07">Get Fuzzy</a> (getfuzzy)
-  <li> <a href="http://www.glasbergen.com">Glasbergen</a> (glasbergen)
-  <li> <a href="http://goats.com">Goats</a> (goats)
-  <li> <a href="https://www.goblinscomic.org">Goblins</a> (goblins)
-  <li> <a href="http://www.girlswithslingshots.com/">Girls with Slingshots</a> (gws)
-  <li> <a href="http://www.gocomics.com/herman/2020/12/07">Herman</a> (herman)
-  <li> <a href="https://www.irregularwebcomic.net/">Irregular Webcomic</a> (irregular)
-  <li> <a href="http://www.joyoftech.com/joyoftech/">The Joy of Tech</a> (joy_of_tech)
-  <li> <a href="https://www.jspowerhour.com/">Junior Scientist Power Hour</a> (jspowerhour)
-  <li> <a href="http://www.kevinandkell.com">Kevin and Kell</a> (kevin_and_kell)
-  <li> <a href="http://www.last-halloween.com/posts/latest">The Last Halloween</a> (lasthalloween)
-  <li> <a href="https://www.creators.com/read/liberty-meadows">Liberty Meadows</a> (liberty_meadows)
-  <li> <a href="http://lighterthanheir.com">Lighter than Heir</a> (lighter_than_heir)
-  <li> <a href="https://www.little-gamers.com/">Little Gamers</a> (little_gamers)
-  <li> <a href="http://www.machall.com/">MacHall</a> (machall)
-  <li> <a href="http://www.megatokyo.com/">MegaTokyo</a> (megatokyo)
-  <li> <a href="http://www.gocomics.com/monty/2020/12/07">Monty</a> (monty)
-  <li> <a href="http://www.grimmy.com/comics.php">Mother Goose &amp; Grimm</a> (mother_goose)
-  <li> <a href="http://amultiverse.com/">Scenes From A Multiverse</a> (multiverse)
-  <li> <a href="http://www.nedroid.com/">Nedroid</a> (nedroid)
-  <li> <a href="http://www.gocomics.com/9to5/2020/12/07">9 to 5</a> (nine_to_five)
-  <li> <a href="http://comic.nodwick.com/">Nodwick</a> (nodwick)
-  <li> <a href="http://www.gocomics.com/nonsequitur/2020/12/07">Non Sequitur</a> (non_sequitur)
-  <li> <a href="http://theoatmeal.com/comics/">The Oatmeal</a> (oatmeal)
-  <li> <a href="http://www.gocomics.com/offthemark/2020/12/07">Off the Mark</a> (offthemark)
-  <li> <a href="https://www.giantitp.com">Order of the Stick</a> (oots)
-  <li> <a href="http://www.gocomics.com/pearlsbeforeswine/2020/12/07">Pearls Before Swine</a> (pearls)
-  <li> <a href="https://www.penny-arcade.com/comic">Penny Arcade</a> (penny_arcade)
-  <li> <a href="http://www.phdcomics.com/comics.php">Piled Higher and Deeper</a> (phd)
-  <li> <a href="http://www.powernapcomic.com/">Power Nap</a> (powernap)
-  <li> <a href="http://www.pvponline.com/comic">pVp</a> (pvp)
-  <li> <a href="http://questionablecontent.net/">Questionable Content</a> (questionable_content)
-  <li> <a href="http://www.gocomics.com/reallifeadventures/2020/12/07">Real Life Adventures</a> (real_life_adventures)
-  <li> <a href="http://www.redmeat.com/max-cannon/FreshMeat">Red Meat</a> (redmeat)
-  <li> <a href="http://www.robot-hugs.com/">Robot Hugs</a> (robot_hugs)
-  <li> <a href="http://www.gocomics.com/roseisrose/2020/12/07">Rose is Rose</a> (rose_is_rose)
-  <li> <a href="http://www.gocomics.com/savage-chickens/2020/12/07">Savage Chickens</a> (savage_chickens)
-  <li> <a href="https://www.schlockmercenary.com/">Schlock Mercenary</a> (schlock_mercenary)
-  <li> <a href="http://shermanslagoon.com">Sherman&#x27;s Lagoon</a> (sherman)
-  <li> <a href="https://www.ruthe.de/">Shit Happens</a> (shithappens)
-  <li> <a href="http://sinfest.net/">Sinfest</a> (sinfest)
-  <li> <a href="http://skadicomic.com/">Skadi</a> (skadi)
-  <li> <a href="http://www.sluggy.com/">Sluggy Freelance</a> (sluggy_freelance)
-  <li> <a href="http://www.smbc-comics.com/">Saturday Morning Breakfast Cereal</a> (smbc)
-  <li> <a href="http://sufficientlyremarkable.com/">Sufficiently Remarkable</a> (sufficiently_remarkable)
-  <li> <a href="http://trenchescomic.com">The Trenches</a> (the_trenches)
-  <li> <a href="http://www.thezombiehunters.com/">The Zombie Hunters</a> (the_zombie_hunters)
-  <li> <a href="http://threepanelsoul.com/">Three Panel Soul</a> (three_panel_soul)
-  <li> <a href="http://www.toothpastefordinner.com/">Toothpaste for Dinner</a> (toothpastefordinner)
-  <li> <a href="http://www.unshelved.com">Unshelved</a> (unshelved)
-  <li> <a href="http://www.userfriendly.org/static/">User Friendly</a> (user_friendly)
-  <li> <a href="http://whatsnormalanyway.net/">What's Normal Anyway?</a> (whatsnormalanyway)
-  <li> <a href="http://wondermark.com/">Wondermark</a> (wondermark)
-  <li> <a href="https://xkcd.com/">xkcd</a> (xkcd)
-  <li> <a href="http://zenpencils.com/">Zen Pencils</a> (zenpencils)
-  <li> <a href="http://www.gocomics.com/ziggy/2020/12/07">Ziggy</a> (ziggy)
-</ul>
-#+end_export
+:results:
+- [[http://abstrusegoose.com][Abstruse Goose]] (abstrusegoose)
+- [[http://www.achewood.com][Achewood]] (achewood)
+- [[http://www.gocomics.com/adamathome/2020/12/07][Adam@Home]]
+  (adam_at_home)
+- [[http://agirlandherfed.com/][A Girl And Her Fed]] (agirlandherfed)
+- [[http://alienlovespredator.com/][Alien Loves Predator]]
+  (alien_loves_predator)
+- [[http://www.applegeeks.com][Applegeeks]] (applegeeks)
+- [[http://www.asofterworld.com/][A Softer World]] (asofterworld)
+- [[http://www.realmofatland.com][Atland]] (atland)
+- [[https://betterbooktitles.tumblr.com][Better Book Titles]]
+  (betterbooktitles)
+- [[http://www.gocomics.com/bloom-county/2020/06/08][Bloom County 2019]]
+  (bloom-county)
+- [[http://www.gocomics.com/bloomcounty/2020/12/07][Bloom County]]
+  (bloom-county-old)
+- [[http://buttersafe.com/][Buttersafe]] (buttersafe)
+- [[http://www.gocomics.com/calvinandhobbes/2020/12/07][Calvin and
+  Hobbes]] (calvin_and_hobbes)
+- [[http://campcomic.com/comic][Camp Weedonwantcha]] (campcomic)
+- [[http://www.gocomics.com/cathy/2020/12/07][Cathy Classics]] (cathy)
+- [[http://choppingblock.keenspot.com/][Chopping Block]] (choppingblock)
+- [[http://www.cowandboy.com/][Cow and Boy]] (cowandboy)
+- [[https://www.cad-comic.com/][Ctrl+Alt+Del]] (ctrlaltdel)
+- [[https://danscartoons.com/services/daily-cartoon/][Dan's Daily
+  Cartoon]] (danscartoons)
+- [[http://www.gocomics.com/dicktracy/2020/12/07][Dick Tracy]]
+  (dick_tracy)
+- [[http://www.dieselsweeties.com/][Diesel Sweeties]] (diesel_sweeties)
+- [[http://www.dilbert.com/fast][Dilbert]] (dilbert)
+- [[https://www.qwantz.com/index.php][Dinosaur Comics]]
+  (dinosaur_comics)
+- [[http://www.gocomics.com/doonesbury/2020/12/07][Doonesbury]]
+  (doonesbury)
+- [[http://www.errantstory.com/][Errant Story]] (errantstory)
+- [[http://www.exocomics.com/][Extra Ordinary]] (extraordinary)
+- [[http://ffn.nodwick.com][Full Frontal Nerdity]] (ffn)
+- [[http://formalsweatpants.com/][Formal Sweatpants]] (formalsweatpants)
+- [[http://www.gocomics.com/foxtrot/2020/12/06][FoxTrot]] (foxtrot)
+- [[http://www.gocomics.com/garfield/2020/12/07][Garfield]] (garfield)
+- [[http://www.gocomics.com/getfuzzy/2020/12/07][Get Fuzzy]] (getfuzzy)
+- [[http://www.glasbergen.com][Glasbergen]] (glasbergen)
+- [[http://goats.com][Goats]] (goats)
+- [[https://www.goblinscomic.org][Goblins]] (goblins)
+- [[http://www.girlswithslingshots.com/][Girls with Slingshots]] (gws)
+- [[http://www.gocomics.com/herman/2020/12/07][Herman]] (herman)
+- [[https://www.irregularwebcomic.net/][Irregular Webcomic]] (irregular)
+- [[http://www.joyoftech.com/joyoftech/][The Joy of Tech]] (joy_of_tech)
+- [[https://www.jspowerhour.com/][Junior Scientist Power Hour]]
+  (jspowerhour)
+- [[http://www.kevinandkell.com][Kevin and Kell]] (kevin_and_kell)
+- [[http://www.last-halloween.com/posts/latest][The Last Halloween]]
+  (lasthalloween)
+- [[https://www.creators.com/read/liberty-meadows][Liberty Meadows]]
+  (liberty_meadows)
+- [[http://lighterthanheir.com][Lighter than Heir]] (lighter_than_heir)
+- [[https://www.little-gamers.com/][Little Gamers]] (little_gamers)
+- [[http://www.machall.com/][MacHall]] (machall)
+- [[http://www.megatokyo.com/][MegaTokyo]] (megatokyo)
+- [[http://www.gocomics.com/monty/2020/12/07][Monty]] (monty)
+- [[http://www.grimmy.com/comics.php][Mother Goose & Grimm]]
+  (mother_goose)
+- [[http://amultiverse.com/][Scenes From A Multiverse]] (multiverse)
+- [[http://www.nedroid.com/][Nedroid]] (nedroid)
+- [[http://www.gocomics.com/9to5/2020/12/07][9 to 5]] (nine_to_five)
+- [[http://comic.nodwick.com/][Nodwick]] (nodwick)
+- [[http://www.gocomics.com/nonsequitur/2020/12/07][Non Sequitur]]
+  (non_sequitur)
+- [[http://theoatmeal.com/comics/][The Oatmeal]] (oatmeal)
+- [[http://www.gocomics.com/offthemark/2020/12/07][Off the Mark]]
+  (offthemark)
+- [[https://www.giantitp.com][Order of the Stick]] (oots)
+- [[http://www.gocomics.com/pearlsbeforeswine/2020/12/07][Pearls Before
+  Swine]] (pearls)
+- [[https://www.penny-arcade.com/comic][Penny Arcade]] (penny_arcade)
+- [[http://www.phdcomics.com/comics.php][Piled Higher and Deeper]] (phd)
+- [[http://www.powernapcomic.com/][Power Nap]] (powernap)
+- [[http://www.pvponline.com/comic][pVp]] (pvp)
+- [[http://questionablecontent.net/][Questionable Content]]
+  (questionable_content)
+- [[http://www.gocomics.com/reallifeadventures/2020/12/07][Real Life
+  Adventures]] (real_life_adventures)
+- [[http://www.redmeat.com/max-cannon/FreshMeat][Red Meat]] (redmeat)
+- [[http://www.robot-hugs.com/][Robot Hugs]] (robot_hugs)
+- [[http://www.gocomics.com/roseisrose/2020/12/07][Rose is Rose]]
+  (rose_is_rose)
+- [[http://www.gocomics.com/savage-chickens/2020/12/07][Savage
+  Chickens]] (savage_chickens)
+- [[https://www.schlockmercenary.com/][Schlock Mercenary]]
+  (schlock_mercenary)
+- [[http://shermanslagoon.com][Sherman's Lagoon]] (sherman)
+- [[https://www.ruthe.de/][Shit Happens]] (shithappens)
+- [[http://sinfest.net/][Sinfest]] (sinfest)
+- [[http://skadicomic.com/][Skadi]] (skadi)
+- [[http://www.sluggy.com/][Sluggy Freelance]] (sluggy_freelance)
+- [[http://www.smbc-comics.com/][Saturday Morning Breakfast Cereal]]
+  (smbc)
+- [[http://sufficientlyremarkable.com/][Sufficiently Remarkable]]
+  (sufficiently_remarkable)
+- [[http://trenchescomic.com][The Trenches]] (the_trenches)
+- [[http://www.thezombiehunters.com/][The Zombie Hunters]]
+  (the_zombie_hunters)
+- [[http://threepanelsoul.com/][Three Panel Soul]] (three_panel_soul)
+- [[http://www.toothpastefordinner.com/][Toothpaste for Dinner]]
+  (toothpastefordinner)
+- [[http://www.unshelved.com][Unshelved]] (unshelved)
+- [[http://www.userfriendly.org/static/][User Friendly]] (user_friendly)
+- [[http://whatsnormalanyway.net/][What's Normal Anyway?]]
+  (whatsnormalanyway)
+- [[http://wondermark.com/][Wondermark]] (wondermark)
+- [[https://xkcd.com/][xkcd]] (xkcd)
+- [[http://zenpencils.com/][Zen Pencils]] (zenpencils)
+- [[http://www.gocomics.com/ziggy/2020/12/07][Ziggy]] (ziggy)
+:end:
 
 Grabcartoons also includes /templates/ that allow you to fetch any comic from a given site or using a common mechanism. At the moment we have the following templates:
 
