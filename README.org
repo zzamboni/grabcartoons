@@ -155,8 +155,6 @@ Grabcartoons also includes /templates/ that allow you to fetch any comic from a 
 ./grabcartoons.pl --templates
 #+end_src
 
-Templates define a common way of fetching all the comics from certain sites (such as [[https://comics.com/][comics.com]] or [[https://comicskingdom.com/][comicskingdom.com]]) that host multiple comic strips, or by using a common mechanism (e.g. sites that publish their latest comic using the =og:image= property). If a template exists, you can easily define new modules for comics from that site, or even request them on the fly without having to write a module, by specifying the comic_id as =template:title=.
-
 #+RESULTS:
 #+begin_example
 Templates defined:
@@ -166,6 +164,9 @@ Templates defined:
 	gocomics.com	Comics hosted at gocomics.com
 	og-image	Comics that can be extracted from the og:image property on their page
 #+end_example
+
+Templates define a common way of fetching all the comics from certain sites (such as [[https://comics.com/][comics.com]] or [[https://comicskingdom.com/][comicskingdom.com]]) that host multiple comic strips, or by using a common mechanism (e.g. sites that publish their latest comic using the =og:image= property). If a template exists, you can easily define new modules for comics from that site, or even request them on the fly without having to write a module, by specifying the comic_id as =template:title=.
+
 
 * Usage
    :PROPERTIES:
