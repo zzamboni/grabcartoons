@@ -1,3 +1,41 @@
+2020-12-07  Diego Zamboni  <diego@zzamboni.org>
+
+	Fixed a number of additional broken comics.
+
+2020-12-07  Diego Zamboni  <diego@zzamboni.org>
+
+	New template "og-image"
+	Many comics these days include their image as part of the og:image
+	property on their webpage. This template makes it possible to easily
+	extract those. All you need is to specify the URL and the template name.
+
+	For example:
+
+	$COMIC{little_gamers} = {
+	    Title => 'Little Gamers',
+	    Page => 'https://www.little-gamers.com/',
+	    Template => "og-image",
+	};
+
+2020-12-07  Diego Zamboni  <diego@zzamboni.org>
+
+	Hijinks Ensue has not been updated in 5 years, module removed.
+
+	Erfworld comic is no more. Module remove.
+
+2020-12-06  Diego Zamboni  <diego@zzamboni.org>
+
+	Fixed a few broken modules.
+
+	Avoid CA errors in some versions of LWP.
+	See https://fastapi.metacpan.org/source/GAAS/libwww-perl-6.00/Changes
+
+	sci-ence.org website is gone, module removed.
+
+	pictures_for_sad_children website is gone, module removed.
+
+	partiallyclips website is gone, module removed.
+
 2020-12-05  Benjamin Kuperman <kuperman@acm.org>
 
 	* modules/robot_hugs.pl: Fix for Robot Hugs
