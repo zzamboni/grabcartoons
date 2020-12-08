@@ -145,7 +145,7 @@ $TEMPLATE{'comicskingdom.com'} =
    '_Template_Name' => 'comicskingdom.com',
    '_Template_Description' => "Comics hosted at comicskingdom.com",
    'Base' => 'https://www.comicskingdom.com',
-   'Page' => '{Base}{Tag}',
+   'Page' => '{Base}/{Tag}',
    'Regex' => '<meta property="og:image" content="([^"]*)"',
    #   'Function' => sub {
    #  my $C = shift;
@@ -180,7 +180,7 @@ $TEMPLATE{'comicskingdom.com'} =
        $inregion = 1 if m!comic-lists!i;
        $inregion = 0 if m!copyright-footer!i;
        if ($inregion) {
-	 if (m!href=.*(/.+?) data-ref.*\>(.+)\</a\>!) {
+	 if (m!href=.*/(.+?) data-ref.*\>(.+)\</a\>!) {
 	   $tag = $1; $title = $2;
 	   $H->{_Comics}->{$tag} = $title;
 	   vmsg("  [tmpl:$H->{_Template_Name}] Found comic $title ($tag)\n");
