@@ -290,10 +290,7 @@ The easiest way is probably to take one of the existing modules and base yours o
    :CUSTOM_ID: contributions
    :END:
 
-If you develop any new modules, please share them! You can either:
-
-a) Post them to the project's [[http://github.com/zzamboni/grabcartoons/issues][issue tracker]];
-b) Fork the project, add your modules, and submit a pull request.
+If you develop any new modules, please share them! You can either post them to the project's [[http://github.com/zzamboni/grabcartoons/issues][issue tracker]], or fork the project, add your modules, and submit a [[https://github.com/zzamboni/grabcartoons/pulls][pull request]].
 
 * Authors
    :PROPERTIES:
