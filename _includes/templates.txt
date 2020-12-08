@@ -1,6 +1,0 @@
-Templates defined:
-	<a href="http://arcamax.com/">arcamax.com</a>	Comics hosted at arcamax.com
-	<a href="http://comics.com/">comics.com</a>	Comics hosted at gocomics.com
-	<a href="http://comicskingdom.com/">comicskingdom.com</a>	Comics hosted at comicskingdom.com
-	<a href="http://gocomics.com/">gocomics.com</a>	Comics hosted at gocomics.com
-	og-image	Comics that can be extracted from the og:image property on their page

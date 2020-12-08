@@ -1,84 +1,12 @@
----
-layout: paramaibo
-accent: '#0D4E0A'
-title: grabcartoons
-navsection: code
-pageurl: http://zzamboni.org/grabcartoons/
-subtitle: zzamboni.org &raquo; code
-subtitleurl: http://zzamboni.org/code.html
-posttitle: Grab your fix of the funnies
-forkme: true
-forkmeurl: http://github.com/zzamboni/grabcartoons
-sidebar: false
----
-{% capture version %}{% include version.txt %}{% endcapture %}
-
-
-    <div class="download">
-      <p align="center"><b>Download version {{ version}}</b></p>
-      <a href="http://github.com/zzamboni/grabcartoons/zipball/v{{ version }}">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/zzamboni/grabcartoons/tarball/v{{ version }}">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-      <br/><div align="center"><a href="http://github.com/zzamboni/grabcartoons/raw/master/ChangeLog">(ChangeLog)</a></div>
-    </div>
-
-<p>GrabCartoons is a comic-summarizing utility. It is modular, and it
-is very easy to write modules for new comics.</p>
-
-<p>You can see a sample of grabcartoons output <a
-href="cartoons-sample.html">here</a>.</p>
-
-<h2>Available comics</h2>
-
-<p>Here's the list of comics for which we currently have modules:</p>
-
-<div class='colwrapper'>
-{% include lom.html %}
-</div>
-<p>&nbsp;</p>
-<p>Grabcartoons also includes <i>templates</i> that allow you to fetch
-any comic from a given site. At the moment we have the following
-templates:</p>
-<pre>$ grabcartoons.pl --templates
-{% include templates.txt %}</pre>
-<p>To fetch a comic using a module, simply use <i>template:comic</i> as
-the specification in the command line. <i>name</i> can be any unique
-part of the title of the comic you want.</p>
-
-<h2>Usage</h2>
-
-<p>Basic usage example:</p>
-<pre>$ grabcartoons.pl sinfest xkcd savage_chickens gocomics.com:gasoline > output.html</pre>
-And then open <tt>output.html</tt> in your web browser.
-
-<p>Full set of options:</p>
-<pre>$ grabcartoons.pl -h
-{% include usage.txt %}</pre>
-<br/>
-<h2>Contributions</h2>
-
-<p>If you write any new modules, or have any suggestions, please share
-them with us! You can post them at
-the <a href="http://github.com/zzamboni/grabcartoons/issues">issue
-tracker</a>, and we will add them to a future release. Or just fork
-the code
-in <a href="http://github.com/zzamboni/grabcartoons/">github</a> and
-then send a pull request.</p>
-
-<h2>Authors</h2>
-<p><a href="http://github.com/zzamboni/">Diego Zamboni</a><br/>
-<a href="http://github.com/kuperman/">Benjamin Kuperman</a><br/>
-</p>
-
-    <h2>Download</h2>
-    <p>For the latest released version, use the download links at the top of this page.</p>
-    <p>
-      You can download the latest source code for this project in either
-      <a href="http://github.com/zzamboni/grabcartoons/zipball/master">zip</a> or
-      <a href="http://github.com/zzamboni/grabcartoons/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/zzamboni/grabcartoons</pre>
-    </p>
+<html>
+<head>
+  <meta http-equiv="refresh" content="0; URL=https://github.com/zzamboni/grabcartoons/" />
+  <title>GrabCartoons</title>
+</head>
+<body>
+  <h1>GrabCartoons</h2>
+  <p>All the information about GrabCartoons is now in
+  its <a href="https://github.com/zzamboni/grabcartoons/">main GitHub
+  page</a>.</p>
+</body>
+</html>
