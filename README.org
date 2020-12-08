@@ -1,4 +1,4 @@
-#+title: Grabcartoons
+#+title: GrabCartoons
 #+author: Diego Zamboni, Ben Kuperman
 
 GrabCartoons is a comic-summarizing utility. It is modular, and it is easy to write modules for new comics.
@@ -219,7 +219,7 @@ Here's the list of comics for which we currently have modules:
 :end:
 
 ** Templates
-Grabcartoons also includes /templates/ that allow you to fetch any comic from a given site or using a common mechanism. At the moment we have the following templates:
+GrabCartoons also includes /templates/ that allow you to fetch any comic from a given site or using a common mechanism. At the moment we have the following templates:
 
 #+begin_src shell :exports results :results output :wrap example
 ./grabcartoons.pl --templates
