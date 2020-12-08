@@ -1,3 +1,16 @@
+2020-12-08  Diego Zamboni  <diego@zzamboni.org>
+
+	* grabcartoons.pl: Updated version to 2.8.5
+
+	* modules/20templates.pl, modules/shermans-lagoon.pl: Remove
+	slashes from comicskingdom.com tags. The tags now just include the
+	comic name, without the initial slash.
+
+	* README.org: migrated README from plain text to Org mode, which
+	among other things allows dynamically updating the list of comics,
+	help text, etc. in the document itself instead of having to
+	construct them separately.
+
 2020-12-07  Diego Zamboni  <diego@zzamboni.org>
 
 	Fixed a number of additional broken comics.
