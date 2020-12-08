@@ -127,7 +127,7 @@ $TEMPLATE{'arcamax.com'} =
      $H->{_Comics} = {};
      $found = undef;
      while (get_line()) {
-       if (m!<li><b><a href="/(.+?)/".*\>(.+?)\</a\>!) {
+       if (m!<li><a href="/thefunnies/(.+?)/".*\>(.+?)\</a\>!) {
 	 $tag = $1; $title = $2;
 	 $H->{_Comics}->{$tag} = $title;
 	 vmsg("  [tmpl:$H->{_Template_Name}] Found comic $title ($tag)\n");
