@@ -5,7 +5,16 @@ GrabCartoons is a comic-summarizing utility. It is modular, and it is easy to wr
 
 [[file:ChangeLog][(ChangeLog)]]
 
-You can see a sample of grabcartoons output [[file:sample-output.html][here]].
+You can see a sample of grabcartoons output [[https://htmlpreview.github.io/?https://github.com/zzamboni/grabcartoons/blob/master/sample-output.html][here]].
+
+* Table of Contents :TOC_3:noexport:
+- [[#installation][Installation]]
+- [[#usage][Usage]]
+- [[#available-comics][Available comics]]
+  - [[#templates][Templates]]
+- [[#how-to-define-your-own-comics][How to define your own comics:]]
+- [[#contributions][Contributions]]
+- [[#authors][Authors]]
 
 * Installation
    :PROPERTIES:
@@ -22,10 +31,70 @@ git clone https://github.com/zzamboni/grabcartoons.git
 
 You can run =./grabcartoons.pl= directly from within the source directory, or run =make install= to install it under =/usr/local=. You can specify the =PREFIX= variable if you want to install somewhere else (e.g. =make install PREFIX=/some/path=).
 
+* Usage
+   :PROPERTIES:
+   :CUSTOM_ID: usage
+   :END:
+Basic usage example:
+
+#+begin_src shell :results none
+./grabcartoons.pl sinfest xkcd savage_chickens gocomics.com:gasoline > sample-output.html
+#+end_src
+
+And then open [[https://htmlpreview.github.io/?https://github.com/zzamboni/grabcartoons/blob/master/sample-output.html][sample-output.html]] in your web browser.
+
+Full set of options:
+
+#+begin_src shell :exports both :results output
+./grabcartoons.pl --help
+#+end_src
+
+#+RESULTS:
+#+begin_example
+GrabCartoons version 2.8.4
+Usage: ./grabcartoons.pl [ options ] [ comic_id ...]
+    --all       or -a  generate a page with all the known comics on stdout.
+    --list [t:] or -l  produce a list of the known comic_id's on stdout. If
+                       t: is given, the list of comics from the given template
+                       is produced.
+    --htmllist [t:]    produce HTML list of known comic_id's on stdout. If
+                       t: is given, the list of comics from the given template
+                       is produced.
+    --file     or -f   read list of comics from specified file.
+    --random n         select n comics at random (they will be output after
+                       any other comics requested)
+    --write    or -w   write output to specified file instead of stdout.
+    --version  or -V   print version number
+    --verbose  or -v   be verbose
+    --help     or -h   print this message.
+    --notitles or -t   do not show comic titles (for those that have them)
+    --templates        produce a list of defined templates
+    --genmodules       for any template specifications (template:comictag),
+                       write a snippet to comictag.pl in the directory
+                       specified by --genout.
+    --genout dir       output directory for generated comics.
+                       (default: /Users/taazadi1/.grabcartoons/modules)
+
+By default, it will produce a page with the given comics on stdout.
+
+comic_id can be:
+  - Any of the predefined modules (e.g. sinfest, adam_at_home)
+  - Of the form 'template:comic title', including quotes if the title has
+    spaces (e.g. 'gocomis.com:Citizen Dog', comics.com:Frazz). This will
+    generate on the fly a module for the given comic.
+  - Of the form 'template:*' or 'template:', which means "all the comics
+    from the named template". This can also be passed as argument to
+    the --list and --htmllist options to produce the listing from the
+    given template instead of from the built-in modules.
+#+end_example
+
 * Available comics
    :PROPERTIES:
    :CUSTOM_ID: available-comics
    :END:
+
+You can see the list of available comics with using the =--list= or =--htmllist= options.
+
 Here's the list of comics for which we currently have modules:
 
 #+begin_src shell :exports results :results drawer
@@ -149,6 +218,7 @@ Here's the list of comics for which we currently have modules:
 - [[http://www.gocomics.com/ziggy/2020/12/07][Ziggy]] (ziggy)
 :end:
 
+** Templates
 Grabcartoons also includes /templates/ that allow you to fetch any comic from a given site or using a common mechanism. At the moment we have the following templates:
 
 #+begin_src shell :exports results :results output :wrap example
@@ -167,65 +237,6 @@ Templates defined:
 
 Templates define a common way of fetching all the comics from certain sites (such as [[https://comics.com/][comics.com]] or [[https://comicskingdom.com/][comicskingdom.com]]) that host multiple comic strips, or by using a common mechanism (e.g. sites that publish their latest comic using the =og:image= property). If a template exists, you can easily define new modules for comics from that site, or even request them on the fly without having to write a module, by specifying the comic_id as =template:title=.
 
-
-* Usage
-   :PROPERTIES:
-   :CUSTOM_ID: usage
-   :END:
-Basic usage example:
-
-#+begin_src shell
-./grabcartoons.pl sinfest xkcd savage_chickens gocomics.com:gasoline > sample-output.html
-#+end_src
-
-#+RESULTS:
-
-And then open [[file:sample-output.html][sample-output.html]] in your web browser.
-
-Full set of options:
-
-#+begin_src shell :exports both :results output
-./grabcartoons.pl --help
-#+end_src
-
-#+RESULTS:
-#+begin_example
-GrabCartoons version 2.8.4
-Usage: ./grabcartoons.pl [ options ] [ comic_id ...]
-    --all       or -a  generate a page with all the known comics on stdout.
-    --list [t:] or -l  produce a list of the known comic_id's on stdout. If
-                       t: is given, the list of comics from the given template
-                       is produced.
-    --htmllist [t:]    produce HTML list of known comic_id's on stdout. If
-                       t: is given, the list of comics from the given template
-                       is produced.
-    --file     or -f   read list of comics from specified file.
-    --random n         select n comics at random (they will be output after
-                       any other comics requested)
-    --write    or -w   write output to specified file instead of stdout.
-    --version  or -V   print version number
-    --verbose  or -v   be verbose
-    --help     or -h   print this message.
-    --notitles or -t   do not show comic titles (for those that have them)
-    --templates        produce a list of defined templates
-    --genmodules       for any template specifications (template:comictag),
-                       write a snippet to comictag.pl in the directory
-                       specified by --genout.
-    --genout dir       output directory for generated comics.
-                       (default: /Users/taazadi1/.grabcartoons/modules)
-
-By default, it will produce a page with the given comics on stdout.
-
-comic_id can be:
-  - Any of the predefined modules (e.g. sinfest, adam_at_home)
-  - Of the form 'template:comic title', including quotes if the title has
-    spaces (e.g. 'gocomis.com:Citizen Dog', comics.com:Frazz). This will
-    generate on the fly a module for the given comic.
-  - Of the form 'template:*' or 'template:', which means "all the comics
-    from the named template". This can also be passed as argument to
-    the --list and --htmllist options to produce the listing from the
-    given template instead of from the built-in modules.
-#+end_example
 
 * How to define your own comics:
 
