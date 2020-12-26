@@ -31,6 +31,8 @@ git clone https://github.com/zzamboni/grabcartoons.git
 
 You can run =./grabcartoons.pl= directly from within the source directory, or run =make install= to install it under =/usr/local=. You can specify the =PREFIX= variable if you want to install somewhere else (e.g. =make install PREFIX=/some/path=).
 
+Grabcartoons works out of the box on Linux/Unix/macOS. Windows is not explicitly supported, but it can be made to work with some changes. See https://github.com/zzamboni/grabcartoons/issues/11 for details.
+
 * Usage
    :PROPERTIES:
    :CUSTOM_ID: usage
