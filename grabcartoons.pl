@@ -10,6 +10,7 @@ eval 'exec perl -x $0 ${1+"$@"}' # -*-perl-*-
 use FindBin;
 use Getopt::Long;
 use File::Path;
+use open IN => ':encoding(UTF-8)';
 
 use Env qw(HOME GRABCARTOONS_DIRS);
 
@@ -805,7 +806,7 @@ sub get_comic {
       return (undef, $C{Title}, "Internal Error: The comic definition can have only one of Regex/Start/EndRegex or LinkRelImageSrc attributes.\n");
     }
     if ($C{LinkRelImageSrc}) {
-      $C{Regex} = qr(link rel=\"image_src\".* href=\"(http://.+?)\")i;
+      $C{Regex} = qr(link rel=['"]image_src['"].* href=['"](http://.+?)['"])i;
     }
 
     # Finally, we get to fetching the page
