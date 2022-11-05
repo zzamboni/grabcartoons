@@ -1,3 +1,14 @@
+2022-11-05  Benjamin Kuperman  <kuperman@acm.org>
+
+	* modules/penny_arcade.pl: Fix for Penny Arcade 3-panel layout
+
+	* modules/unshelved.pl: Fix regex to exclude header image
+
+	* modules/phd.pl: Converted to LinkRelImageSrc and fix for Title
+
+	* grabcartoons.pl: Changed LinkRelImageSrc to support both single and
+	double quotes (needed for phd.pl). Added UTF-8 to input streams.
+
 2020-12-08  Diego Zamboni  <diego@zzamboni.org>
 
 	* grabcartoons.pl: Updated version to 2.8.5
